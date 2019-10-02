@@ -48,18 +48,20 @@ public class MultiGrille implements Parametres{
     public String toString() {
         int nb = 0;
         int[][] tableau = new int[TAILLE][TAILLE*3];
+        //System.out.println("SIZE : " + tableau.length);
         for (int k = 0; k < 3; k++) {
+            //System.out.println(this.troisGrille[k]);
             for (Case c : this.troisGrille[k].getGrille()) {
                 tableau[c.getY()][c.getX()+nb] = c.getValeur();
             }
-            nb +=4;
+            nb += TAILLE;
         }
         
         String result = "";
-        for (int i = 0 ; i < 4 ; i++) {
+        for (int i = 0 ; i < TAILLE ; i++) {
             result += "[ ";
-            for (int j = 0; j < 12; j++) {
-                if (j == 4 || j == 8)
+            for (int j = 0; j < TAILLE*3; j++) {
+                if (j == TAILLE || j == TAILLE*2)
                     result += "]  [ ";
                 result += tableau[i][j] + " ";
             }

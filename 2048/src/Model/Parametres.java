@@ -14,7 +14,7 @@ public interface Parametres {
     static final int DROITE = 2;
     static final int BAS = -1;
     static final int GAUCHE = -2;
-    static final int TAILLE = 4;
+    static final int TAILLE = 3;
     static final int OBJECTIF = 2048;
     static final int FULLRIGHT = 5;
     static final int FULLLEFT = -5;

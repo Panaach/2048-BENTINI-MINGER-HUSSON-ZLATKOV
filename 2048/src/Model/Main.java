@@ -21,6 +21,7 @@ public class Main implements Parametres {
         Grille left = new Grille();
         boolean bl = left.nouvelleCase();
         bl = left.nouvelleCase();
+        //System.out.println(left);
         //System.out.print(left + "\n\n\n\n");
         
         Grille middle = new Grille();
