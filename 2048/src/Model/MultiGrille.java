@@ -29,7 +29,7 @@ public class MultiGrille implements Parametres{
         int[][] tableau = new int[TAILLE][TAILLE*3];
         //System.out.println("SIZE : " + tableau.length);
         for (int k = 0; k < 3; k++) {
-            //System.out.println(this.multiGrille[k]);
+            //System.out.println(this.troisGrille[k]);
             for (Case c : this.multiGrille[k].getGrille()) {
                 tableau[c.getY()][c.getX()+nb] = c.getValeur();
             }
@@ -50,6 +50,12 @@ public class MultiGrille implements Parametres{
     }
     
     // présice quelle méthode choisir
+
+    /**
+     *
+     * @param direction
+     * @return
+     */
     public boolean choixDirection(int direction) {
         boolean b;
         switch (direction) {

@@ -18,18 +18,11 @@ public class Main implements Parametres {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         Grille left = new Grille();
-        /*boolean bl = left.nouvelleCase();
-        bl = left.nouvelleCase();*/
         
         Grille middle = new Grille();
-        /*boolean bm = middle.nouvelleCase();
-        bm = middle.nouvelleCase();*/
         
         Grille right = new Grille();
-        /*boolean br = right.nouvelleCase();
-        br = right.nouvelleCase();*/
         
         // Tableau des 3 grilles
         Grille[] multiGrille = new Grille[3];
@@ -41,25 +34,11 @@ public class Main implements Parametres {
             int random = (int) (Math.random() * 3);
             b = multiGrille[random].nouvelleCase();
         }
-        /*for (int i =0;i<4;i++) {
-            for (int j=0;j<4;j++) {                
-                multiGrille[0].getGrille().add(new Case(i, j, i+j));
-            }
-        }*/
         
         MultiGrille mGrille = new MultiGrille(left, middle, right);
         System.out.println(mGrille);
                 
         Scanner sc = new Scanner(System.in);
-        /*System.out.println("X:");
-        int x= sc.nextInt();
-        System.out.println("Y:");
-        int y= sc.nextInt();
-        System.out.println("Valeur:");
-        int valeur= sc.nextInt();
-        Case c = new Case(x,y,valeur);
-        g.getGrille().remove(c);
-        System.out.println(g);*/
         
         while (!left.partieFinie()) {
             System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), Bas (b), Tout à Droite (p), ou Tout à Gauche (u) ?");
