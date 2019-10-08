@@ -13,53 +13,34 @@ import java.util.HashSet;
  */
 public class MultiGrille implements Parametres{
     
-    private Grille[] troisGrille;   
+    private Grille[] multiGrille;   
     private boolean gLeft, gMiddle, gRight;
     
     public MultiGrille(Grille g, Grille m, Grille r) {
-        this.troisGrille = new Grille[3];
-        this.troisGrille[0] = g;
-        this.troisGrille[1] = m;
-        this.troisGrille[2] = r;
-    }    
-
-    /**
-     * @return the gLeft
-     */
-    public boolean isgLeft() {
-        return gLeft;
-    }
-
-    /**
-     * @return the gMiddle
-     */
-    public boolean isgMiddle() {
-        return gMiddle;
-    }
-
-    /**
-     * @return the gRight
-     */
-    public boolean isgRight() {
-        return gRight;
-    }   
+        this.multiGrille = new Grille[3];
+        this.multiGrille[0] = g;
+        this.multiGrille[1] = m;
+        this.multiGrille[2] = r;
+    }      
     
     @Override
     public String toString() {
         int nb = 0;
         int[][] tableau = new int[TAILLE][TAILLE*3];
+        //System.out.println("SIZE : " + tableau.length);
         for (int k = 0; k < 3; k++) {
-            for (Case c : this.troisGrille[k].getGrille()) {
+            //System.out.println(this.multiGrille[k]);
+            for (Case c : this.multiGrille[k].getGrille()) {
                 tableau[c.getY()][c.getX()+nb] = c.getValeur();
             }
-            nb +=4;
+            nb += TAILLE;
         }
         
         String result = "";
-        for (int i = 0 ; i < 4 ; i++) {
+        for (int i = 0 ; i < TAILLE ; i++) {
             result += "[ ";
-            for (int j = 0; j < 12; j++) {
-                if (j == 4 || j == 8)
+            for (int j = 0; j < TAILLE*3; j++) {
+                if (j == TAILLE || j == TAILLE*2)
                     result += "]  [ ";
                 result += tableau[i][j] + " ";
             }
@@ -69,35 +50,39 @@ public class MultiGrille implements Parametres{
     }
     
     // présice quelle méthode choisir
-    public void choixDirection(int direction) {
+    public boolean choixDirection(int direction) {
+        boolean b;
         switch (direction) {
             case FULLLEFT:
-                this.fusionCaseGauche(troisGrille);
-            case FULLRIGHT:
-                this.fusionCaseDroite(troisGrille);
+                b = this.fusionGauche();
+                break;
+            default:
+                b = this.fusionDroite();
                 break;                        
         }
+        return b;
     }
     
-    public static boolean[] fusionCaseGauche(Grille[] g) {
+    public boolean fusionGauche() {
         //PAS OUBLIER LE TB DE BOOL
-        int k = 0, l = 0;
-        boolean[] tabBool = new boolean[3];
+        int k = 0;
+        boolean fusionSuccess = false;
         
-        for (int i = 0; i < 1; i++) {
-            HashSet<Case> gauche = g[k].getGrille();
-            HashSet<Case> droite = g[k+1].getGrille();
+        for (int i = 0; i < 2; i++) {
+            /*HashSet<Case> gauche = g[k].getGrille();
+            HashSet<Case> droite = g[k+1].getGrille();*/
 
-            for (Case caseDroite : droite) {
-                // if second set has the current element
-                if (droite.contains(caseDroite)) {
+            for (Case caseDroite : this.multiGrille[k].getGrille()) {
+                System.out.println("case droite " + caseDroite);
+                // si le second set à la même élément
+                if (this.multiGrille[k+1].getGrille().contains(caseDroite)) {
                     caseDroite.setValeur(caseDroite.getValeur()*2);
-                    droite.remove(caseDroite);
-                    tabBool[k+1] = true;
+                    this.multiGrille[k+1].getGrille().remove(caseDroite);
+                    fusionSuccess = true;
                 } else {
                     // Regarde si les deux éléments ont la même position dans les grilles
                     boolean isInsideBoth = false;
-                    for (Case caseGauche : droite) {
+                    for (Case caseGauche : this.multiGrille[k+1].getGrille()) {
                         if (caseDroite.getX() == caseGauche.getX() && caseDroite.getY() == caseGauche.getY()) {
                             isInsideBoth = true; 
                             break;
@@ -105,18 +90,19 @@ public class MultiGrille implements Parametres{
                     }                
                     //si non alors la je peux fusionner la case puisqu'elle est vide
                     if(!isInsideBoth) {
-                        gauche.add(caseDroite);
-                        droite.remove(caseDroite);
-                        tabBool[k+1] = true;
+                        this.multiGrille[k].getGrille().add(caseDroite);
+                        this.multiGrille[k+1].getGrille().remove(caseDroite);
+                        fusionSuccess = true;
                     }
                 }
+                // fin if
             }
             k++;
         }
-        return tabBool;
+        return fusionSuccess;
     }
     
-    public boolean[] fusionCaseDroite(Grille[] g) {
-        return null;
+    public boolean fusionDroite() {
+        return false;
     }
 }

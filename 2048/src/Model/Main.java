@@ -5,6 +5,7 @@
  */
 package Model;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -19,22 +20,36 @@ public class Main implements Parametres {
     public static void main(String[] args) {
         // TODO code application logic here
         Grille left = new Grille();
-        boolean bl = left.nouvelleCase();
-        bl = left.nouvelleCase();
-        //System.out.print(left + "\n\n\n\n");
+        /*boolean bl = left.nouvelleCase();
+        bl = left.nouvelleCase();*/
         
         Grille middle = new Grille();
-        boolean bm = middle.nouvelleCase();
-        bm = middle.nouvelleCase();
-        //System.out.print(middle);
+        /*boolean bm = middle.nouvelleCase();
+        bm = middle.nouvelleCase();*/
         
         Grille right = new Grille();
-        boolean br = right.nouvelleCase();
-        br = right.nouvelleCase();
+        /*boolean br = right.nouvelleCase();
+        br = right.nouvelleCase();*/
+        
+        // Tableau des 3 grilles
+        Grille[] multiGrille = new Grille[3];
+        multiGrille[0] = left; multiGrille[1] = middle; multiGrille[2] = right;
+        
+        // ajoute deux tuiles dans les tableaux de façon aléatoire
+        boolean b = false;
+        for (int i = 0; i < 2; i++) {
+            int random = (int) (Math.random() * 3);
+            b = multiGrille[random].nouvelleCase();
+        }
+        /*for (int i =0;i<4;i++) {
+            for (int j=0;j<4;j++) {                
+                multiGrille[0].getGrille().add(new Case(i, j, i+j));
+            }
+        }*/
         
         MultiGrille mGrille = new MultiGrille(left, middle, right);
         System.out.println(mGrille);
-        
+                
         Scanner sc = new Scanner(System.in);
         /*System.out.println("X:");
         int x= sc.nextInt();
@@ -73,25 +88,33 @@ public class Main implements Parametres {
                     direction = BAS;
                 }
                 
-                boolean bleft = false, bmiddle = false, bright = false;
-                
                 if (direction == FULLRIGHT || direction == FULLLEFT) {
-                    //boolean[] tabBool = MultiGrille.choixDirection(direction);                    
+                    // TODO : a faire
+                    boolean fusionSuccess = mGrille.choixDirection(direction); 
+                    System.out.println("Prions svp : " + fusionSuccess);
                 } else {
-                    bleft = left.lanceurDeplacerCases(direction);
-                    bmiddle = middle.lanceurDeplacerCases(direction);
-                    bright = right.lanceurDeplacerCases(direction);
-                }
-                
-                if (bleft)
-                    bl = left.nouvelleCase();
-                else if (bmiddle) 
-                    bm = middle.nouvelleCase();
-                else if (bright)
-                    br = right.nouvelleCase();   
-                
-                if (!bl && !bm && !br) left.gameOver();
-                        
+                    // test si on peut déplacer une tuile sur les 3 grilles
+                    boolean b0 = multiGrille[0].lanceurDeplacerCases(direction);
+                    boolean b1 = multiGrille[1].lanceurDeplacerCases(direction);
+                    boolean b2 = multiGrille[2].lanceurDeplacerCases(direction);
+                    // si une tuile des 3 grilles à bouger alors on ajoute une tuile sur une des 3 grilles
+                    if (b0 || b1 || b2) {
+                        // Tableau d'entiers comportant l'index des grilles
+                        ArrayList<Integer> grillePossible = new ArrayList<>();
+                        grillePossible.add(0); grillePossible.add(1); grillePossible.add(2);
+                        // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
+                        while (!grillePossible.isEmpty()) {
+                            int random = (int) (Math.random() * grillePossible.size());
+                            boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
+                            if (!newCase)
+                                grillePossible.remove(random);
+                            else
+                                break;
+                        }
+                        if (grillePossible.isEmpty())
+                            multiGrille[0].gameOver(); // peu importe la grille sélectionner                    
+                    }
+                }                        
                     
                 System.out.println(mGrille);
                 if (left.getValeurMax()>=OBJECTIF) left.victory();

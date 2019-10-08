@@ -110,7 +110,7 @@ public class Case implements Parametres {
 
     @Override
     public String toString() {
-        return "Case(" + this.x + "," + this.y + "," + this.valeur + ")";
+        return "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ")";
     }
 
 }

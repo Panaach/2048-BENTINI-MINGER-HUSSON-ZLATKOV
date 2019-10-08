@@ -108,6 +108,7 @@ public class Grille implements Parametres {
 
     private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
         if (extremites[rangee] != null) {
+            //System.out.println(extremites[0] + " "+ extremites[1] +" " + extremites[2]+ " " + extremites[3] + " taille : " + extremites.length);
             if ((direction == HAUT && extremites[rangee].getY() != compteur)
                     || (direction == BAS && extremites[rangee].getY() != TAILLE - 1 - compteur)
                     || (direction == GAUCHE && extremites[rangee].getX() != compteur)
@@ -143,6 +144,7 @@ public class Grille implements Parametres {
                 }
             }
         }
+        //System.out.println(deplacement);
     }
 
     /*
@@ -158,6 +160,7 @@ public class Grille implements Parametres {
             switch (direction) {
                 case HAUT:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
+                        //System.out.println("resul[c.getx()] : " +result[c.getX()] );
                         result[c.getX()] = c;
                     }
                     break;
@@ -218,3 +221,4 @@ public class Grille implements Parametres {
         }
     }
 }
+
