@@ -1,0 +1,36 @@
+
+.pane {
+    -fx-background-color: #99FF33;
+    -fx-border-color: black;
+}
+
+
+.pane4 {
+    -fx-background-color: #99FF33;
+    -fx-border-color: black;
+}
+.gridpane {
+    -fx-border-color: black;
+    -fx-grid-lines-visible: true;
+    -fx-border: 2px solid;
+    -fx-halignment: center;
+    -fx-alignment: CENTER;  
+}
+
+.tuile2 {
+    -fx-text-alignment: center;
+    -fx-halignment: center; 
+    -fx-text-fill: #0000FF;
+    /*-fx-font: "Cambria";*/
+    -fx-font-size: 40;
+    -fx-padding: 26 40 46 68;  /*58 74*/
+}
+
+.tuile4 {
+    -fx-text-alignment: center;
+    -fx-halignment: center; 
+    -fx-text-fill: #0000FF;
+    /*-fx-font: "Cambria";*/
+    -fx-font-size: 40;
+    -fx-padding: 26 40 46 68;  /*58 74*/
+}
