@@ -76,22 +76,24 @@ public class FXMLDocumentController implements Initializable {
         grille1.getStyleClass().add("gridpane");
         grille2.getStyleClass().add("gridpane");
         grille3.getStyleClass().add("gridpane");
-        
-        grilleModel1.nouvelleCase();
 
-        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
+        multiGrille[0].nouvelleCase();
+        System.out.println(multiGrille[2]);
+      //  for(int i=0;i<27;i++){
         coloriageTuile(p, c);
 
+        /*grilleModel2.nouvelleCase();
+        coloriageTuile(p, c);*/
+        // on place la tuile en précisant les coordonnées (x,y) du coin supérieur gauche
     }
 
     private void coloriageTuile(Pane p, Label l) {
         for (int i = 0; i < 3; i++) {
-
             for (Case c : multiGrille[i].getGrille()) {
                 System.out.println(c);
                 GridPane.setHalignment(l, HPos.CENTER);
-                p.setLayoutX(24 + (c.getX() * tailleX));
-                p.setLayoutY(191 + (c.getY() * tailleY));
+                p.setLayoutX(24 + (c.getX() * tailleX) + i * 133);
+                p.setLayoutY(191 + (c.getY() * tailleY) + i * 133);
                 l.setText(Integer.toString(c.getValeur()));
 
                 fond.getChildren().add(p);
@@ -99,6 +101,7 @@ public class FXMLDocumentController implements Initializable {
 
             }
         }
+        System.out.println("truc");
         l.setVisible(true);
         p.setVisible(true);
     }
@@ -153,12 +156,12 @@ public class FXMLDocumentController implements Initializable {
         String touche = ke.getText();
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
             if (objectifx > 24) { // possible uniquement si on est pas dans la colonne la plus à gauche
-                objectifx -= (int) 397 / 4; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
+                objectifx -= (int) 397 / 3; // on définit la position que devra atteindre la tuile en abscisse (modèle). Le thread se chargera de mettre la vue à jour
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
             }
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            if (objectifx < (int) 445 - 2 * 397 / 4 - 24) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 2*taille d'une case - taille entre la grille et le bord de la fenêtre)
-                objectifx += (int) 397 / 4;
+            if (objectifx < (int) 445 - 2 * 397 / 3 - 24) { // possible uniquement si on est pas dans la colonne la plus à droite (taille de la fenêtre - 2*taille d'une case - taille entre la grille et le bord de la fenêtre)
+                objectifx += (int) 397 / 3;
                 score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
             }
         }
