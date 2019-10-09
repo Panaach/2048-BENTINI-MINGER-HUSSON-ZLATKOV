@@ -18,17 +18,17 @@ public class Main implements Parametres {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Grille left = new Grille();
+        Grille left = new Grille(0);
         
-        Grille middle = new Grille();
+        Grille middle = new Grille(1);
         
-        Grille right = new Grille();
+        Grille right = new Grille(2);
         
         // Tableau des 3 grilles
         Grille[] multiGrille = new Grille[3];
         multiGrille[0] = left; multiGrille[1] = middle; multiGrille[2] = right;
         
-        // ajoute deux tuiles dans les tableaux de façon aléatoire
+        // ajoute deux cases dans les tableaux de façon aléatoire
         boolean b = false;
         for (int i = 0; i < 2; i++) {
             int random = (int) (Math.random() * 3);
@@ -59,9 +59,9 @@ public class Main implements Parametres {
                     direction = GAUCHE;
                 } else if (s.equals("h") || s.equals("haut")) {
                     direction = HAUT;
-                } else if (s.equals("u")) {
-                    direction = FULLRIGHT;
                 } else if (s.equals("p")) {
+                    direction = FULLRIGHT;
+                } else if (s.equals("u")) {
                     direction = FULLLEFT;
                 } else {
                     direction = BAS;
@@ -71,12 +71,29 @@ public class Main implements Parametres {
                     // TODO : a faire
                     boolean fusionSuccess = mGrille.choixDirection(direction); 
                     System.out.println("Prions svp : " + fusionSuccess);
+                    
+                    if (fusionSuccess) {
+                        // Tableau d'entiers comportant l'index des grilles
+                        ArrayList<Integer> grillePossible = new ArrayList<>();
+                        grillePossible.add(0); grillePossible.add(1); grillePossible.add(2);
+                        // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
+                        while (!grillePossible.isEmpty()) {
+                            int random = (int) (Math.random() * grillePossible.size());
+                            boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
+                            if (!newCase)
+                                grillePossible.remove(random);
+                            else
+                                break;
+                        }
+                        if (grillePossible.isEmpty())
+                            multiGrille[0].gameOver(); // peu importe la grille sélectionner                    
+                    }
                 } else {
-                    // test si on peut déplacer une tuile sur les 3 grilles
+                    // test si on peut déplacer une case sur les 3 grilles
                     boolean b0 = multiGrille[0].lanceurDeplacerCases(direction);
                     boolean b1 = multiGrille[1].lanceurDeplacerCases(direction);
                     boolean b2 = multiGrille[2].lanceurDeplacerCases(direction);
-                    // si une tuile des 3 grilles à bouger alors on ajoute une tuile sur une des 3 grilles
+                    // si une case des 3 grilles à bouger alors on ajoute une case sur une des 3 grilles
                     if (b0 || b1 || b2) {
                         // Tableau d'entiers comportant l'index des grilles
                         ArrayList<Integer> grillePossible = new ArrayList<>();

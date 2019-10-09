@@ -20,9 +20,15 @@ public class Grille implements Parametres {
     private final HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
+    private int numGrille;
 
     public Grille() {
         this.grille = new HashSet<>();
+    }
+    
+    public Grille(int numGrille) {
+        this.grille = new HashSet<>();
+        this.numGrille = numGrille;
     }
 
     @Override
@@ -202,7 +208,7 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur);
+                    Case c = new Case(x, y, valeur, this.numGrille);
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case
                         casesLibres.add(c);
                     }

@@ -11,13 +11,14 @@ package Model;
  */
 public class Case implements Parametres {
 
-    private int x, y, valeur;
+    private int x, y, valeur, numGrille;
     private Grille grille;
 
-    public Case(int abs, int ord, int v) {
+    public Case(int abs, int ord, int v, int numGrille) {
         this.x = abs;
         this.y = ord;
         this.valeur = v;
+        this.numGrille = numGrille;
     }
 
     public void setGrille(Grille g) {
@@ -46,6 +47,20 @@ public class Case implements Parametres {
 
     public int getValeur() {
         return this.valeur;
+    }
+
+    /**
+     * @return the numGrille
+     */
+    public int getNumGrille() {
+        return numGrille;
+    }
+
+    /**
+     * @param numGrille the numGrille to set
+     */
+    public void setNumGrille(int numGrille) {
+        this.numGrille = numGrille;
     }
 
     @Override
@@ -110,7 +125,7 @@ public class Case implements Parametres {
 
     @Override
     public String toString() {
-        return "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ")";
+        return "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ", num Grille " + this.numGrille + ")";
     }
 
 }
