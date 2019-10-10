@@ -40,7 +40,7 @@ public class Main implements Parametres {
                 
         Scanner sc = new Scanner(System.in);
         
-        while (!left.partieFinie()) {
+        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie() || !mGrille.partieFinie(mGrille)) {
             System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), Bas (b), Tout à Droite (p), ou Tout à Gauche (u) ?");
             String s = sc.nextLine();
             s.toLowerCase();
@@ -70,7 +70,7 @@ public class Main implements Parametres {
                 if (direction == FULLRIGHT || direction == FULLLEFT) {
                     // TODO : a faire
                     boolean fusionSuccess = mGrille.choixDirection(direction); 
-                    System.out.println("Prions svp : " + fusionSuccess);
+                    //System.out.println("Prions svp : " + fusionSuccess);
                     
                     if (fusionSuccess) {
                         // Tableau d'entiers comportant l'index des grilles
