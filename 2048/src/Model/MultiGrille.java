@@ -5,7 +5,6 @@
  */
 package Model;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -16,11 +15,11 @@ public class MultiGrille implements Parametres{
     
     private Grille[] multiGrille;
     
-    public MultiGrille(Grille g, Grille m, Grille r) {
+    public MultiGrille(Grille[] multiGrille) {
         this.multiGrille = new Grille[3];
-        this.multiGrille[0] = g;
-        this.multiGrille[1] = m;
-        this.multiGrille[2] = r;
+        this.multiGrille[0] = multiGrille[0];
+        this.multiGrille[1] = multiGrille[1];
+        this.multiGrille[2] = multiGrille[2];
     }      
     
     @Override
@@ -116,51 +115,74 @@ public class MultiGrille implements Parametres{
         });
     }
     
-    public boolean fusionGauche() {
-        final Grille[] multiGrilleClone = this.multiGrille.clone();
+    public boolean testFusionSameCase(Grille left, Grille right) {
+        HashSet<Case> sameCase = new HashSet<>();
+        // parcours la grille de gauche, prends une case au hasard et regarde si cette case appartient à la grille de droite
+        left.getGrille().stream().filter((caseGauche) -> (right.getGrille().contains(caseGauche))).map((caseGauche) -> 
+            caseGauche).forEach((Case caseGauche) -> {
+                
+                // parcours la grille de droite, prends une case au hasard et regarde si cette case appartient à la grille de gauche
+                right.getGrille().stream().filter((caseDroite) -> (left.getGrille().contains(caseDroite))).map((caseDroite) -> 
+                    caseDroite).forEach((Case caseDroite) -> {
+                        // ajoute les cases identiques dans un hash pour les supprimer apres
+                        if (caseGauche.equals(caseDroite) && caseGauche.valeurEgale(caseDroite)) { 
+                            sameCase.add(caseDroite);
+                        }
+                    });
+                
+            });
         
+        System.out.println("[" + left.getNumGrille() + "," + right.getNumGrille() + "] clone" + sameCase);
+        if (!sameCase.isEmpty())
+            return false;
+        else 
+            return true;
+    }
+    
+    public boolean fusionGauche() {
+        final Grille[] multiGrilleClone = this.multiGrille.clone(); 
+             
         this.fusionSameCase(this.multiGrille[0], this.multiGrille[1]);
+        this.fusionSameCase(this.multiGrille[1], this.multiGrille[2]);
+        
         this.fusionEmptyCase(this.multiGrille[0], this.multiGrille[1]); 
-            
-        this.fusionEmptyCase(this.multiGrille[1], this.multiGrille[2]);  
-        this.fusionSameCase(this.multiGrille[1], this.multiGrille[2]); 
+        this.fusionEmptyCase(this.multiGrille[1], this.multiGrille[2]); 
         
         return !multiGrilleClone.equals(this.multiGrille);
     }
     
     public boolean fusionDroite() {
         final Grille[] multiGrilleClone = this.multiGrille.clone();
-        
-        this.fusionEmptyCase(this.multiGrille[1], this.multiGrille[0]);
-        this.fusionSameCase(this.multiGrille[1], this.multiGrille[0]);  
             
-        this.fusionEmptyCase(this.multiGrille[2], this.multiGrille[1]); 
         this.fusionSameCase(this.multiGrille[2], this.multiGrille[1]); 
+        this.fusionSameCase(this.multiGrille[1], this.multiGrille[0]);  
+        
+        this.fusionEmptyCase(this.multiGrille[2], this.multiGrille[1]); 
+        this.fusionEmptyCase(this.multiGrille[1], this.multiGrille[0]);
         
         return !multiGrilleClone.equals(this.multiGrille);
     }
     
-    public boolean partieFinie(MultiGrille m) {
+    public boolean partieFinie() {
         if (this.multiGrille[0].getGrille().size() < TAILLE * TAILLE || 
                 this.multiGrille[1].getGrille().size() < TAILLE * TAILLE || 
                 this.multiGrille[2].getGrille().size() < TAILLE * TAILLE) {
             return false;
         } else {
-            MultiGrille multiGrilleClone = m;
-            // test une première fusion
-            multiGrilleClone.fusionDroite();
-            if (multiGrilleClone.equals(m)) {
-                //test la deuxième fusion
-                multiGrilleClone.fusionGauche();
-                System.out.println("Clone " + multiGrilleClone + "\n" + "m " +m + "\n" + "this " +this);
-                System.out.println(multiGrilleClone.equals(m)); 
-                return multiGrilleClone.equals(m);
-            } else {                
-                System.out.println("Clone " + multiGrilleClone + "\n" + "m " +m + "\n" + "this " +this);
-                System.out.println(multiGrilleClone.equals(m)); 
-                return multiGrilleClone.equals(m); 
-            }
-                                  
+            return this.testFusionSameCase(this.multiGrille[0], this.multiGrille[1]) &&
+                    this.testFusionSameCase(this.multiGrille[1], this.multiGrille[2]) &&
+                    this.testFusionSameCase(this.multiGrille[1], this.multiGrille[0]) &&
+                    this.testFusionSameCase(this.multiGrille[2], this.multiGrille[1]);                                 
         }
+    }
+    
+    public int valeurMax() {
+        return Math.max(this.multiGrille[0].getValeurMax(), 
+                Math.max(this.multiGrille[1].getValeurMax(), this.multiGrille[2].getValeurMax()));
+    }
+    
+    public void gameOver() {
+        System.out.println("La partie est finie. Votre score est " + this.valeurMax());
+        System.exit(1);
     }
 }

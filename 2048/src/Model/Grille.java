@@ -25,6 +25,20 @@ public class Grille implements Parametres {
     public Grille() {
         this.grille = new HashSet<>();
     }
+
+    /**
+     * @return the numGrille
+     */
+    public int getNumGrille() {
+        return numGrille;
+    }
+
+    /**
+     * @param numGrille the numGrille to set
+     */
+    public void setNumGrille(int numGrille) {
+        this.numGrille = numGrille;
+    }
     
     public Grille(int numGrille) {
         this.grille = new HashSet<>();
@@ -208,12 +222,14 @@ public class Grille implements Parametres {
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {
-                    Case c = new Case(x, y, valeur, this.numGrille);
+                    Case c = new Case(x, y, valeur, this.getNumGrille());
                     if (!this.grille.contains(c)) { // contains utilise la méthode equals dans Case
                         casesLibres.add(c);
                     }
                 }
             }
+            System.out.println("nombre de case libre : " + casesLibres.size() + " grille: " + this.getNumGrille());
+            System.out.println(casesLibres);
             // on en choisit une au hasard et on l'ajoute à la grille
             Case ajout = casesLibres.get(ra.nextInt(casesLibres.size()));
             ajout.setGrille(this);

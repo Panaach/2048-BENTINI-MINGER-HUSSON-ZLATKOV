@@ -35,12 +35,12 @@ public class Main implements Parametres {
             b = multiGrille[random].nouvelleCase();
         }
         
-        MultiGrille mGrille = new MultiGrille(left, middle, right);
+        MultiGrille mGrille = new MultiGrille(multiGrille);
         System.out.println(mGrille);
                 
         Scanner sc = new Scanner(System.in);
         
-        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie() || !mGrille.partieFinie(mGrille)) {
+        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie() || !mGrille.partieFinie()) {
             System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), Bas (b), Tout à Droite (p), ou Tout à Gauche (u) ?");
             String s = sc.nextLine();
             s.toLowerCase();
@@ -68,7 +68,6 @@ public class Main implements Parametres {
                 }
                 
                 if (direction == FULLRIGHT || direction == FULLLEFT) {
-                    // TODO : a faire
                     boolean fusionSuccess = mGrille.choixDirection(direction); 
                     //System.out.println("Prions svp : " + fusionSuccess);
                     
@@ -79,6 +78,8 @@ public class Main implements Parametres {
                         // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
                         while (!grillePossible.isEmpty()) {
                             int random = (int) (Math.random() * grillePossible.size());
+                            System.out.println("index grille possible pour nouvelle case: " + grillePossible);
+                            System.out.println(multiGrille[grillePossible.get(random)]);
                             boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
                             if (!newCase)
                                 grillePossible.remove(random);
@@ -101,6 +102,8 @@ public class Main implements Parametres {
                         // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
                         while (!grillePossible.isEmpty()) {
                             int random = (int) (Math.random() * grillePossible.size());
+                            System.out.println("index grille possible pour nouvelle case: " + grillePossible + " random: " +random);
+                            System.out.println(multiGrille[grillePossible.get(random)]);
                             boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
                             if (!newCase)
                                 grillePossible.remove(random);
@@ -108,7 +111,7 @@ public class Main implements Parametres {
                                 break;
                         }
                         if (grillePossible.isEmpty())
-                            multiGrille[0].gameOver(); // peu importe la grille sélectionner                    
+                            mGrille.gameOver(); // peu importe la grille sélectionner                    
                     }
                 }                        
                     
@@ -116,7 +119,7 @@ public class Main implements Parametres {
                 if (left.getValeurMax()>=OBJECTIF) left.victory();
             }
         }
-        left.gameOver();
+        mGrille.gameOver();
         /*
         // Bout de code pour tester manuellement si une grille contient une case ou pas
         Scanner sc = new Scanner(System.in);
