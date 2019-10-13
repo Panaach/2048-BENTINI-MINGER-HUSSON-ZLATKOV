@@ -79,15 +79,15 @@ public class Main implements Parametres {
                         while (!grillePossible.isEmpty()) {
                             int random = (int) (Math.random() * grillePossible.size());
                             System.out.println("index grille possible pour nouvelle case: " + grillePossible);
-                            System.out.println(multiGrille[grillePossible.get(random)]);
+                            //System.out.println(multiGrille[grillePossible.get(random)]);
                             boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
                             if (!newCase)
                                 grillePossible.remove(random);
                             else
                                 break;
                         }
-                        if (grillePossible.isEmpty())
-                            multiGrille[0].gameOver(); // peu importe la grille sélectionner                    
+                        /*if (grillePossible.isEmpty())
+                            multiGrille[0].gameOver(); // peu importe la grille sélectionner */                   
                     }
                 } else {
                     // test si on peut déplacer une case sur les 3 grilles
@@ -102,22 +102,26 @@ public class Main implements Parametres {
                         // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
                         while (!grillePossible.isEmpty()) {
                             int random = (int) (Math.random() * grillePossible.size());
-                            System.out.println("index grille possible pour nouvelle case: " + grillePossible + " random: " +random);
-                            System.out.println(multiGrille[grillePossible.get(random)]);
+                            System.out.println("\u001B[34m Main\nindex grille possible pour nouvelle case: " + grillePossible + " random: " +random);
+                            //System.out.println(multiGrille[grillePossible.get(random)]);
                             boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
+                            System.out.println("New case: " + newCase);
                             if (!newCase)
                                 grillePossible.remove(random);
                             else
                                 break;
                         }
-                        if (grillePossible.isEmpty())
-                            mGrille.gameOver(); // peu importe la grille sélectionner                    
+                        /*if (grillePossible.isEmpty())
+                            mGrille.gameOver();  */                
                     }
-                }                        
+                }   
+                System.out.println(mGrille.nbCaseDansGrille());  
+                System.out.println("!!! BUG " + mGrille.yo() + "\u001B[0m");                   
                     
                 System.out.println(mGrille);
-                if (left.getValeurMax()>=OBJECTIF) left.victory();
+                if (left.getValeurMax()>=OBJECTIF) mGrille.victory();
             }
+            //ICI : si je ne peux plus me déplacer avec les 6 mouvements possibles je sors du while
         }
         mGrille.gameOver();
         /*

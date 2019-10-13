@@ -17,13 +17,18 @@ import java.util.Random;
  */
 public class Grille implements Parametres {
 
-    private final HashSet<Case> grille;
+    private HashSet<Case> grille;
     private int valeurMax = 0;
     private boolean deplacement;
     private int numGrille;
 
     public Grille() {
         this.grille = new HashSet<>();
+    }
+    
+    public Grille(int numGrille) {
+        this.grille = new HashSet<>();
+        this.numGrille = numGrille;
     }
 
     /**
@@ -39,10 +44,20 @@ public class Grille implements Parametres {
     public void setNumGrille(int numGrille) {
         this.numGrille = numGrille;
     }
-    
-    public Grille(int numGrille) {
-        this.grille = new HashSet<>();
-        this.numGrille = numGrille;
+
+    public HashSet<Case> getGrille() {
+        return grille;
+    }
+
+    /**
+     * @param grille the grille to set
+     */
+    public void setGrille(HashSet<Case> grille) {
+        this.grille = grille;
+    }
+
+    public int getValeurMax() {
+        return valeurMax;
     }
 
     @Override
@@ -69,14 +84,6 @@ public class Grille implements Parametres {
         }
         result += "</html>";
         return result;
-    }
-
-    public HashSet<Case> getGrille() {
-        return grille;
-    }
-
-    public int getValeurMax() {
-        return valeurMax;
     }
 
     public boolean partieFinie() {
@@ -204,7 +211,7 @@ public class Grille implements Parametres {
         return result;
     }
 
-    public void victory() {
+    /*public void victory() {
         System.out.println("Bravo ! Vous avez atteint " + this.valeurMax);
         System.exit(0);
     }
@@ -212,9 +219,30 @@ public class Grille implements Parametres {
     public void gameOver() {
         System.out.println("La partie est finie. Votre score est " + this.valeurMax);
         System.exit(1);
+    }*/
+    
+    public String yo() {
+        ArrayList<Case> test = new ArrayList<>();
+        Iterator value = this.grille.iterator(); 
+        String res = "";
+        
+        while (value.hasNext()) { 
+            test.add((Case) value.next()); 
+        } 
+        for(int i =0; i < test.size();i++) {
+            Case c = test.get(i);
+            test.remove(i);
+            if (test.contains(c))
+                res += "\u001B[36m" + c + "\u001B[0m";
+            test.add(c);
+        }
+        return res;
     }
 
     public boolean nouvelleCase() {
+        System.out.println("\u001B[32mGrille : " + this.numGrille +  " \u001B[0m");
+        //System.out.println(this);
+        System.out.println("Taille: " + this.grille.size());
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
@@ -229,7 +257,7 @@ public class Grille implements Parametres {
                 }
             }
             System.out.println("nombre de case libre : " + casesLibres.size() + " grille: " + this.getNumGrille());
-            System.out.println(casesLibres);
+            System.out.println("----");
             // on en choisit une au hasard et on l'ajoute à la grille
             Case ajout = casesLibres.get(ra.nextInt(casesLibres.size()));
             ajout.setGrille(this);
