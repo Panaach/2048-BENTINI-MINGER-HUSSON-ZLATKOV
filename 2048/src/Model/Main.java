@@ -6,6 +6,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -17,10 +18,14 @@ public class Main implements Parametres {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
+        Case c1 = new Case(0,0,4,0);
+        Case c2 = new Case(1,0,4,1);
         Grille left = new Grille(0);
+        left.getGrille().add(c1);
         
         Grille middle = new Grille(1);
+        middle.getGrille().add(c2);
         
         Grille right = new Grille(2);
         
@@ -40,7 +45,7 @@ public class Main implements Parametres {
                 
         Scanner sc = new Scanner(System.in);
         
-        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie() || !mGrille.partieFinie()) {
+        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie()/* || !mGrille.partieFinie()*/) {
             System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), Bas (b), Tout à Droite (p), ou Tout à Gauche (u) ?");
             String s = sc.nextLine();
             s.toLowerCase();

@@ -74,7 +74,7 @@ public class MultiGrille implements Parametres{
     }*/
     
     // présice quelle méthode choisir
-    public boolean choixDirection(int direction) {
+    public boolean choixDirection(int direction) throws CloneNotSupportedException {
         boolean b;
         switch (direction) {
             case FULLLEFT:
@@ -89,114 +89,85 @@ public class MultiGrille implements Parametres{
         return b;
     }
     
-    public void fusionSameCase(Grille left, Grille right) {
-        HashSet<Case> rightClone = new HashSet<>();
-        // parcours la grille de gauche, prends une case au hasard et regarde si cette case appartient à la grille de droite
-        left.getGrille().stream().filter((caseGauche) -> (right.getGrille().contains(caseGauche))).map((caseGauche) -> 
-            caseGauche).forEach((Case caseGauche) -> {
-                
-                // parcours la grille de droite, prends une case au hasard et regarde si cette case appartient à la grille de gauche
-                right.getGrille().stream().filter((caseDroite) -> (left.getGrille().contains(caseDroite))).map((caseDroite) -> 
-                    caseDroite).forEach((caseDroite) -> {
-                        // ajoute les cases identiques dans un hash pour les supprimer apres
-                        if (caseGauche.equals(caseDroite) && caseGauche.valeurEgale(caseDroite)) {  
-                            System.out.println("\u001B[31m" + caseGauche + "\u001B[0m"); 
-                            rightClone.add(caseDroite);
-                            // fusionne une case de la grille gauche
-                            caseGauche.setValeur(caseGauche.getValeur()*2);
-                        }
-                    });
-                System.out.println("Taille clone " + rightClone.size());
-                /*Iterator value = rightClone.iterator(); 
-                while (value.hasNext()) { 
-                    Case c = (Case) value.next();
-                    right.getGrille().remove((Case) c);
-                } */
-                right.getGrille().removeAll(rightClone);
-                rightClone.clear();
-            });
+    /*public void fusionSameCase(Grille left, Grille right) {        
+        HashSet<Case> rightClone = new HashSet<>(); 
+        
+        // Parcours la grille de DROITE        
+        for (Case cRight : right.getGrille()) { 
+            // si cette case appartient à l'autre grille alors je cherche la case correspondante
+            if (left.getGrille().contains(cRight)) {
+                // parcours la grille de GAUCHE                
+                for (Case cLeft : left.getGrille()) {
+                    // une fois trouvé je regarde si elle sont identiques
+                    if (cLeft.equals(cRight) && cLeft.getValeur() == cRight.getValeur()) {
+                        rightClone.add(cRight);
+                        cLeft.setValeur(cLeft.getValeur() * 2);
+                    }
+                } 
+            }
+        } 
+        if (!rightClone.isEmpty()) {
+            right.getGrille().removeAll(rightClone);
+            rightClone.clear();
+        }
     }
     
     public void fusionEmptyCase(Grille left, Grille right) {   
         HashSet<Case> rightClone = new HashSet<>(); 
-        Iterator value = right.getGrille().iterator(); 
-        while (value.hasNext()) { 
-            Case c = (Case) value.next();
+        for (Case c : right.getGrille()) {
             if (!left.getGrille().contains(c)) {
                 rightClone.add(c);
                 left.getGrille().add(c);
-                System.out.println("\u001B[35m" + c + "\u001B[0m");
             }
         } 
         right.getGrille().removeAll(rightClone);
         rightClone.clear();
-        /*HashSet<Case> rightClone = new HashSet<>();          
-        right.getGrille().stream().filter((caseDroite) -> (!left.getGrille().contains(caseDroite))).map((caseDroite) -> 
-            caseDroite).forEach((caseDroite) -> {
-                rightClone.add(caseDroite);
-                            System.out.println("\u001B[35m" + caseDroite + "\u001B[0m"); 
-                left.getGrille().add(caseDroite);
-            }); 
-                System.out.println("Taille clone " + rightClone.size());
-        
-        right.getGrille().removeAll(rightClone);
-        rightClone.clear();
-        /*rightClone.forEach((c) -> {
-            right.getGrille().remove(c);
-        });*/
-    }
+    }*/
     
     public boolean testFusionSameCase(Grille left, Grille right) {
-        HashSet<Case> sameCase = new HashSet<>();
-        // parcours la grille de gauche, prends une case au hasard et regarde si cette case appartient à la grille de droite
-        left.getGrille().stream().filter((caseGauche) -> (right.getGrille().contains(caseGauche))).map((caseGauche) -> 
-            caseGauche).forEach((Case caseGauche) -> {
-                
-                // parcours la grille de droite, prends une case au hasard et regarde si cette case appartient à la grille de gauche
-                right.getGrille().stream().filter((caseDroite) -> (left.getGrille().contains(caseDroite))).map((caseDroite) -> 
-                    caseDroite).forEach((Case caseDroite) -> {
-                        // ajoute les cases identiques dans un hash pour les supprimer apres
-                        if (caseGauche.equals(caseDroite) && caseGauche.valeurEgale(caseDroite)) { 
-                            sameCase.add(caseDroite);
-                        }
-                    });
-                
-            });
+        HashSet<Case> sameCase = new HashSet<>(); 
         
-        //System.out.println("[" + left.getNumGrille() + "," + right.getNumGrille() + "] clone" + sameCase);
+        // Parcours la grille de DROITE        
+        for (Case cRight : right.getGrille()) { 
+            // si cette case appartient à l'autre grille alors je cherche la case correspondante
+            if (left.getGrille().contains(cRight)) {
+                // parcours la grille de GAUCHE                
+                for (Case cLeft : left.getGrille()) {
+                    // une fois trouvé je regarde si elle sont identiques
+                    if (cLeft.equals(cRight) && cLeft.getValeur() == cRight.getValeur()) {
+                        sameCase.add(cRight);
+                    }
+                } 
+            }
+        } 
+        System.out.println("Test partie fini fusion " + sameCase);
         if (!sameCase.isEmpty())
             return false;
         else 
             return true;
     }
     
-    public String nbCaseDansGrille() {
-        return "\u001B[33mGrille 0 : " + String.valueOf(this.multiGrille[0].getGrille().size()) +
-                ", Grille 1 : " + String.valueOf(this.multiGrille[1].getGrille().size()) +
-                ", Grille 2 : " + String.valueOf(this.multiGrille[2].getGrille().size()) + "\u001B[0m";
+    public boolean fusionGauche() throws CloneNotSupportedException {
+        
+        /*boolean b1 = this.multiGrille[0].fusionSameCase(this.multiGrille[1]);
+        boolean b2 = this.multiGrille[1].fusionSameCase(this.multiGrille[2]);*/
+        
+        boolean b3 = this.multiGrille[1].fusionEmptyCase(this.multiGrille[2]);
+        if (b3) this.multiGrille[2].setGrille(this.multiGrille[2].getGrille());
+        boolean b4 = this.multiGrille[0].fusionEmptyCase(this.multiGrille[1]);
+        if (b3) this.multiGrille[1].setGrille(this.multiGrille[1].getGrille());
+        
+        return b3 || b4;
     }
     
-    public boolean fusionGauche() {
-        final Grille[] multiGrilleClone = this.multiGrille.clone(); 
-        // ordre la sur
-        this.fusionSameCase(this.multiGrille[0], this.multiGrille[1]);
-        this.fusionSameCase(this.multiGrille[1], this.multiGrille[2]);
-        
-        this.fusionEmptyCase(this.multiGrille[1], this.multiGrille[2]);
-        this.fusionEmptyCase(this.multiGrille[0], this.multiGrille[1]);  
-        
-        return !multiGrilleClone.equals(this.multiGrille);
-    }
-    
-    public boolean fusionDroite() {
+    public boolean fusionDroite() throws CloneNotSupportedException {
         final Grille[] multiGrilleClone = this.multiGrille.clone();
-        // ordre la sur
-        this.fusionSameCase(this.multiGrille[2], this.multiGrille[1]); 
-        this.fusionSameCase(this.multiGrille[1], this.multiGrille[0]);  
         
-        this.fusionEmptyCase(this.multiGrille[1], this.multiGrille[0]);
-        this.fusionEmptyCase(this.multiGrille[2], this.multiGrille[1]); 
+        /*this.fusionSameCase(this.multiGrille[2], this.multiGrille[1]); 
+        this.fusionSameCase(this.multiGrille[1], this.multiGrille[0]); */ 
         
+        this.multiGrille[1].fusionEmptyCase(this.multiGrille[0]);
+        this.multiGrille[2].fusionEmptyCase(this.multiGrille[1]);
         return !multiGrilleClone.equals(this.multiGrille);
     }
     
@@ -211,6 +182,12 @@ public class MultiGrille implements Parametres{
                     this.testFusionSameCase(this.multiGrille[1], this.multiGrille[0]) &&
                     this.testFusionSameCase(this.multiGrille[2], this.multiGrille[1]);                                 
         }
+    }
+    
+    public String nbCaseDansGrille() {
+        return "\u001B[33mGrille 0 : " + String.valueOf(this.multiGrille[0].getGrille().size()) +
+                ", Grille 1 : " + String.valueOf(this.multiGrille[1].getGrille().size()) +
+                ", Grille 2 : " + String.valueOf(this.multiGrille[2].getGrille().size()) + "\u001B[0m";
     }
     
     public int valeurMax() {

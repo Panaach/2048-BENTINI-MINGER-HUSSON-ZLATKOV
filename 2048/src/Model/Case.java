@@ -9,7 +9,7 @@ package Model;
  *
  * @author Sylvain
  */
-public class Case implements Parametres {
+public class Case implements Parametres, Cloneable {
 
     private int x, y, valeur, numGrille;
     private Grille grille;
@@ -77,7 +77,17 @@ public class Case implements Parametres {
     public int hashCode() { // détermine le hashcode
         return this.x * 7 + this.y * 13;
     }
-
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException { 
+        Case caseClone = (Case) super.clone(); 
+        /*caseClone.setX(this.x);
+        caseClone.setY(this.y);   
+        caseClone.setValeur(2000);  
+        caseClone.setGrille((Grille) caseClone.grille.clone());*/
+        return caseClone;
+    }
+    
     public boolean valeurEgale(Case c) {
         if (c != null) {
             return this.valeur == c.valeur;
