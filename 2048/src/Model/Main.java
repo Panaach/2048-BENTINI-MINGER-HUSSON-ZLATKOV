@@ -19,13 +19,13 @@ public class Main implements Parametres {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws CloneNotSupportedException {
-        Case c1 = new Case(0,0,4,0);
-        Case c2 = new Case(1,0,4,1);
+        //Case c1 = new Case(0,0,4,0);
+        //Case c2 = new Case(1,0,4,1);
         Grille left = new Grille(0);
-        left.getGrille().add(c1);
+        //left.getGrille().add(c1);
         
         Grille middle = new Grille(1);
-        middle.getGrille().add(c2);
+        //middle.getGrille().add(c2);
         
         Grille right = new Grille(2);
         
@@ -34,10 +34,9 @@ public class Main implements Parametres {
         multiGrille[0] = left; multiGrille[1] = middle; multiGrille[2] = right;
         
         // ajoute deux cases dans les tableaux de façon aléatoire
-        boolean b = false;
         for (int i = 0; i < 2; i++) {
             int random = (int) (Math.random() * 3);
-            b = multiGrille[random].nouvelleCase();
+            multiGrille[random].nouvelleCase();
         }
         
         MultiGrille mGrille = new MultiGrille(multiGrille);

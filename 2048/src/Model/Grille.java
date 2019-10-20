@@ -292,9 +292,9 @@ public class Grille implements Parametres, Cloneable {
     }
     
     public boolean nouvelleCase() {
-        System.out.println("\u001B[32mGrille : " + this.numGrille +  " \u001B[0m");
+        //System.out.println("\u001B[32mGrille : " + this.numGrille +  " \u001B[0m");
         //System.out.println(this);
-        System.out.println("Taille: " + this.grille.size());
+        //System.out.println("Taille: " + this.grille.size());
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
@@ -312,7 +312,7 @@ public class Grille implements Parametres, Cloneable {
             System.out.println("----");*/
             // on en choisit une au hasard et on l'ajoute à la grille
             Case ajout = casesLibres.get(ra.nextInt(casesLibres.size()));
-            System.out.println("JE SUIS LA NOUVELLE CASE " + ajout);
+            //System.out.println("JE SUIS LA NOUVELLE CASE " + ajout);
             ajout.setGrille(this);
             this.grille.add(ajout);
             if ((this.grille.size() == 1) || (this.valeurMax == 2 && ajout.getValeur() == 4)) { // Mise à jour de la valeur maximale présente dans la grille si c'est la première case ajoutée ou si on ajoute un 4 et que l'ancien max était 2
