@@ -22,7 +22,7 @@
     -fx-halignment: center; 
     -fx-text-fill: #0000FF;
     /*-fx-font: "Cambria";*/
-    -fx-font-style:bold;
+    /*-fx-font-style:bold;*/
     -fx-font-size: 38;
-    -fx-padding: 26 40 46 68;  /*58 74*/
+    -fx-padding: 26 40 50 68;  /*58 74*/
 }
