@@ -11,7 +11,7 @@ package Model;
  */
 public class Case implements Parametres, Cloneable {
 
-    private int x, y, valeur, numGrille;
+    private int x, y, valeur, numGrille, lastX, lastY;
     private Grille grille;
 
     public Case(int abs, int ord, int v, int numGrille) {
@@ -19,6 +19,8 @@ public class Case implements Parametres, Cloneable {
         this.y = ord;
         this.valeur = v;
         this.numGrille = numGrille;
+        this.lastX = -1;
+        this.lastY = -1;
     }
 
     public void setGrille(Grille g) {
@@ -61,6 +63,34 @@ public class Case implements Parametres, Cloneable {
      */
     public void setNumGrille(int numGrille) {
         this.numGrille = numGrille;
+    }
+
+    /**
+     * @return the lastX
+     */
+    public int getLastX() {
+        return lastX;
+    }
+
+    /**
+     * @param lastX the lastX to set
+     */
+    public void setLastX(int lastX) {
+        this.lastX = lastX;
+    }
+
+    /**
+     * @return the lastY
+     */
+    public int getLastY() {
+        return lastY;
+    }
+
+    /**
+     * @param lastY the lastY to set
+     */
+    public void setLastY(int lastY) {
+        this.lastY = lastY;
     }
 
     @Override
@@ -135,7 +165,14 @@ public class Case implements Parametres, Cloneable {
 
     @Override
     public String toString() {
-        return "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ", num Grille " + this.numGrille + ")";
+        String s = "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ", num Grille " + this.numGrille + ")";
+        s = s + "last x " + this.getLastX() + ", last y " + this.lastY + ".";
+        return s;
     }
+    
+    /*@Override
+    public String toString() {
+        return "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ", num Grille " + this.numGrille + ")";
+    }*/
 
 }

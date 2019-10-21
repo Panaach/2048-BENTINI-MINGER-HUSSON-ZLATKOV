@@ -222,6 +222,9 @@ public class Grille implements Parametres, Cloneable {
             System.out.println("Valeur x2 :" + extremites[rangee]);
             System.out.println("Case suppimé" + voisin);*/
             if (voisin != null) {
+                // position avant changement
+                extremites[rangee].setLastX(voisin.getX());
+                extremites[rangee].setLastY(voisin.getY());
                 if (extremites[rangee].valeurEgale(voisin)) {
                     this.fusion(extremites[rangee]);
                     extremites[rangee] = voisin.getVoisinDirect(-direction);
