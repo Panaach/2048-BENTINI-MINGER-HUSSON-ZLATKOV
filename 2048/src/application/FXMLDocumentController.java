@@ -62,7 +62,7 @@ public class FXMLDocumentController implements Initializable {
     private int tailleY = 397/3;
 
     // variables globales non définies dans la vue (fichier .fxml)
-    private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
+    //private final Pane p = new Pane(); // panneau utilisé pour dessiner une tuile "2"
     //private final Label c = new Label("2");
     //private int x = 24, y = 191;
     //private int objectifx = 24, objectify = 191;
@@ -75,8 +75,8 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("le contrôleur initialise la vue");
         //grille1.getStyleClass().add("gridpane");
         // je créé toutes mes tuiles au départ
-        this.creationTuile();
-        
+        fond.getStyleClass().add("fond");
+        this.creationTuile();       
         
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         /*p.getStyleClass().add("pane");
@@ -171,6 +171,7 @@ public class FXMLDocumentController implements Initializable {
         }
         //System.out.println(multiGrille[0] + "\n" + multiGrille[1] + "\n" + multiGrille[2]);
         this.coloriageTuile();
+        System.out.println(mGrille);
     }
 
     @FXML
@@ -179,88 +180,66 @@ public class FXMLDocumentController implements Initializable {
         String touche = ke.getText();
         if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
             score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
-            Grille cloned = (Grille) this.multiGrille[0].clone();
-            System.out.println("allo\n"+cloned);
-            System.out.println("allo\n"+cloned.getGrille());
             boolean b1 = this.multiGrille[0].lanceurDeplacerCases(Parametres.GAUCHE);
             boolean b2 = this.multiGrille[1].lanceurDeplacerCases(Parametres.GAUCHE);
             boolean b3 = this.multiGrille[2].lanceurDeplacerCases(Parametres.GAUCHE);
-            System.out.println("allo2\n"+cloned);
-            System.out.println("allo2\n"+cloned.getGrille());
+            System.out.println(b1 || b2 || b3);
             if (b1 || b2 || b3) {
-                //thread
+                this.threadMouvement();
             }
             
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
             score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            this.multiGrille[0].lanceurDeplacerCases(Parametres.DROITE);
-            this.multiGrille[1].lanceurDeplacerCases(Parametres.DROITE);
-            this.multiGrille[2].lanceurDeplacerCases(Parametres.DROITE);
+            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(Parametres.DROITE);
+            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(Parametres.DROITE);
+            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(Parametres.DROITE);
+            System.out.println(b1 || b2 || b3);
+            if (b1 || b2 || b3) {
+                this.threadMouvement();
+            }
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
             score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            this.multiGrille[0].lanceurDeplacerCases(Parametres.HAUT);
-            this.multiGrille[1].lanceurDeplacerCases(Parametres.HAUT);
-            this.multiGrille[2].lanceurDeplacerCases(Parametres.HAUT);
+            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(Parametres.HAUT);
+            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(Parametres.HAUT);
+            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(Parametres.HAUT);
+            if (b1 || b2 || b3) {
+                this.threadMouvement();
+            }
             
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
-            this.multiGrille[0].lanceurDeplacerCases(Parametres.BAS);
-            this.multiGrille[1].lanceurDeplacerCases(Parametres.BAS);
-            this.multiGrille[2].lanceurDeplacerCases(Parametres.BAS);
-            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));                
+            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));  
+            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(Parametres.BAS);
+            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(Parametres.BAS);
+            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(Parametres.BAS);
+            if (b1 || b2 || b3) {
+                this.threadMouvement();
+            }              
             
         }
         System.out.println(mGrille);
-        // mise a jour des tuiles
-        /*System.out.println("objectifx=" + objectifx);
-        System.out.println("objectify=" + objectify);
-        Task task = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
-            @Override
-            public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
-                while (x != objectifx || y != objectify) { // si la tuile n'est pas à la place qu'on souhaite attendre en abscisse
-                    if (x < objectifx) {
-                        x += 1; // si on va vers la droite, on modifie la position de la tuile pixel par pixel vers la droite
-                    } else {
-                        x -= 1; // si on va vers la gauche, idem en décrémentant la valeur de x
-                    }
-                    if (y < objectify) {
-                        y += 1; // si on va vers le , on modifie la position de la tuile pixel par pixel vers la droite
-                    } else {
-                        y -= 1; // si on va vers le , idem en décrémentant la valeur de x
-                    }
-                    // Platform.runLater est nécessaire en JavaFX car la GUI ne peut être modifiée que par le Thread courant, contrairement à Swing où on peut utiliser un autre Thread pour ça
-                    Platform.runLater(new Runnable() { // classe anonyme
-                        @Override
-                        public void run() {
-                            mouvementVisuel(x, y);
-                            //javaFX operations should go here
-                            //p.relocate(x, y); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                            //p.setVisible(true);    
-                        }
-                    }
-                    );
-                    Thread.sleep(1);
-                } // end while
-                return null; // la méthode call doit obligatoirement retourner un objet. Ici on n'a rien de particulier à retourner. Du coup, on utilise le type Void (avec un V majuscule) : c'est un type spécial en Java auquel on ne peut assigner que la valeur null
-            } // end call
-
-        };
-        Thread th = new Thread(task); // on crée un contrôleur de Thread
-        th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
-        th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
     }    
     
-    public void thread(Grille[] cloned) {
-        for (int i = 0; i < 3; i++) {      
+    public final ArrayList<Pane[][]> getListTableauPane() {
+        return this.listTableauPane;
+    }
+    // listTableauPane
+    public void threadMouvement() {
+        for (int i = 0; i < 3; i++) {     
+            final int varI = i; 
             for (Case c  : this.multiGrille[i].getGrille()) {
-                // Après mouvement
-                int objectifx = 24 + 24 * c.getX();
-                int objectify = 191 + 191 * c.getY();
+                System.out.println(c);
                 Task task = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
+                    final int varII = varI;
                     @Override
                     public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
+                        //System.out.println("X:"+c.getX()+"Y:"+c.getY()+"\nLast X:"+c.getLastX()+"Last Y:"+c.getLastY());
+                        // Après mouvement
+                        int objectifx = 24 + tailleX * c.getX();
+                        int objectify = 191 + tailleY * c.getY();
+                        //int test = 191 + 191 * c.getY();
                         // Avant mouvement
-                        int x = 24;
-                        int y = 191;
+                        int x = 24 + tailleX * c.getLastX();
+                        int y = 191 + tailleY * c.getLastY();
                         while (x != objectifx || y != objectify) { // si la tuile n'est pas à la place qu'on souhaite attendre en abscisse
                             if (x < objectifx) {
                                 x += 1; // si on va vers la droite, on modifie la position de la tuile pixel par pixel vers la droite
@@ -273,15 +252,20 @@ public class FXMLDocumentController implements Initializable {
                                 y -= 1; // si on va vers le , idem en décrémentant la valeur de x
                             }
                             // Platform.runLater est nécessaire en JavaFX car la GUI ne peut être modifiée que par le Thread courant, contrairement à Swing où on peut utiliser un autre Thread pour ça
-
+                            final int varX = x;
+                            final int varY = y;
+                            final int varIII = varII;
                             Platform.runLater(new Runnable() { // classe anonyme
                                 @Override
                                 public void run() {
-                                    //listTableauPane.get(i)[c.getX()][c.getY()].relocate(x, y);
-                                    //listTableauPane.get(i)[j][k].setVisible(true);
-                                    //javaFX operations should go here
-                                    //p.relocate(x, y); // on déplace la tuile d'un pixel sur la vue, on attend 5ms et on recommence jusqu'à atteindre l'objectif
-                                    //p.setVisible(true);    
+                                    System.out.println("Case de traitement : " + c);
+                                    System.out.println("OBJECTIF:");
+                                    System.out.println("objectifx:"+objectifx);
+                                    System.out.println("X:        "+varX);
+                                    System.out.println("objectify:"+objectify);
+                                    System.out.println("Y        :"+varY);
+                                    listTableauPane.get(varIII)[c.getLastX()][c.getLastY()].relocate(varX, varY);
+                                    listTableauPane.get(varIII)[c.getLastX()][c.getLastY()].setVisible(true); 
                                 }
                             }
                             );
@@ -292,30 +276,9 @@ public class FXMLDocumentController implements Initializable {
 
                 };
                 Thread th = new Thread(task); // on crée un contrôleur de Thread
+                System.out.println(th);
                 th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
                 th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
-            }
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    
-                }
-            }
-        }
-    }
-    
-    public void mouvementVisuel(int x, int y) {
-        for (int k = 0; k < 3; k++) {
-            Pane[][] tbPane = listTableauPane.get(k);
-            Label[][] tbLabel = listTableauLabel.get(k);
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    if (!tbLabel[i][j].getText().isEmpty()) { // dès qu'il y a un text je peux bouger la tuile
-                        System.out.println(tbPane[i][j].getLayoutX());
-                        System.out.println(tbPane[i][j].getLayoutY());
-                        tbPane[i][j].relocate(x, y);
-                        tbPane[i][j].setVisible(true);
-                    }
-                }
             }
         }
     }

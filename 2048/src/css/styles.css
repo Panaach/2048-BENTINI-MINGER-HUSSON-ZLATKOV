@@ -1,12 +1,12 @@
 
 .pane {
-    -fx-background-color: #99FF33;
+    -fx-background-color: #F4AE9F;
     -fx-border-color: black;
 }
 
 
 .pane4 {
-    -fx-background-color: #99FF33;
+    -fx-background-color: #F4AE9F;
     -fx-border-color: black;
 }
 .gridpane {
@@ -20,9 +20,13 @@
 .tuile2 {
     -fx-text-alignment: center;
     -fx-halignment: center; 
-    -fx-text-fill: #8B0000;
+    -fx-text-fill: #9E5116;
     /*-fx-font: "Cambria";*/
     /*-fx-font-style:bold;*/
     -fx-font-size: 38;
     -fx-padding: 38 55 38 55;  /*58 74 h b d g*/
+}
+
+.fond{
+    -fx-background-color: #E6E6E6;
 }

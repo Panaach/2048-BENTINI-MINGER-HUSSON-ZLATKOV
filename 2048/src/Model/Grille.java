@@ -162,7 +162,7 @@ public class Grille implements Parametres, Cloneable {
     /******************************************************************************************************************************/
 
     public boolean lanceurDeplacerCases(int direction) {
-        System.out.println(this);
+        //System.out.println(this);
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
         for (int i = 0; i < TAILLE; i++) {
@@ -194,6 +194,9 @@ public class Grille implements Parametres, Cloneable {
 
     private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
         if (extremites[rangee] != null) {
+            // position avant changement
+            extremites[rangee].setLastX(extremites[rangee].getX());
+            extremites[rangee].setLastY(extremites[rangee].getY());
             //System.out.println(extremites[0] + " "+ extremites[1] +" " + extremites[2]+ " " + extremites[3] + " taille : " + extremites.length);
             if ((direction == HAUT && extremites[rangee].getY() != compteur)
                     || (direction == BAS && extremites[rangee].getY() != TAILLE - 1 - compteur)
@@ -222,9 +225,6 @@ public class Grille implements Parametres, Cloneable {
             System.out.println("Valeur x2 :" + extremites[rangee]);
             System.out.println("Case suppimé" + voisin);*/
             if (voisin != null) {
-                // position avant changement
-                extremites[rangee].setLastX(voisin.getX());
-                extremites[rangee].setLastY(voisin.getY());
                 if (extremites[rangee].valeurEgale(voisin)) {
                     this.fusion(extremites[rangee]);
                     extremites[rangee] = voisin.getVoisinDirect(-direction);
