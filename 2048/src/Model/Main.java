@@ -6,7 +6,6 @@
 package Model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -18,14 +17,10 @@ public class Main implements Parametres {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws CloneNotSupportedException {
-        //Case c1 = new Case(0,0,4,0);
-        //Case c2 = new Case(1,0,4,1);
+    public static void main(String[] args) {
         Grille left = new Grille(0);
-        //left.getGrille().add(c1);
         
         Grille middle = new Grille(1);
-        //middle.getGrille().add(c2);
         
         Grille right = new Grille(2);
         
@@ -44,7 +39,7 @@ public class Main implements Parametres {
                 
         Scanner sc = new Scanner(System.in);
         
-        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie()/* || !mGrille.partieFinie()*/) {
+        while (!left.partieFinie() || !middle.partieFinie() || !right.partieFinie() || !mGrille.partieFinie()) {
             System.out.println("Déplacer vers la Droite (d), Gauche (g), Haut (h), Bas (b), Tout à Droite (p), ou Tout à Gauche (u) ?");
             String s = sc.nextLine();
             s.toLowerCase();
@@ -73,7 +68,6 @@ public class Main implements Parametres {
                 
                 if (direction == FULLRIGHT || direction == FULLLEFT) {
                     boolean fusionSuccess = mGrille.choixDirection(direction); 
-                    //System.out.println("Prions svp : " + fusionSuccess);
                     
                     if (fusionSuccess) {
                         // Tableau d'entiers comportant l'index des grilles
@@ -82,8 +76,6 @@ public class Main implements Parametres {
                         // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
                         while (!grillePossible.isEmpty()) {
                             int random = (int) (Math.random() * grillePossible.size());
-                            System.out.println("index grille possible pour nouvelle case: " + grillePossible);
-                            //System.out.println(multiGrille[grillePossible.get(random)]);
                             boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
                             if (!newCase)
                                 grillePossible.remove(random);
@@ -106,10 +98,7 @@ public class Main implements Parametres {
                         // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
                         while (!grillePossible.isEmpty()) {
                             int random = (int) (Math.random() * grillePossible.size());
-                            System.out.println("\u001B[34m Main\nindex grille possible pour nouvelle case: " + grillePossible + " random: " +random);
-                            //System.out.println(multiGrille[grillePossible.get(random)]);
                             boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
-                            System.out.println("New case: " + newCase);
                             if (!newCase)
                                 grillePossible.remove(random);
                             else
@@ -118,28 +107,13 @@ public class Main implements Parametres {
                         /*if (grillePossible.isEmpty())
                             mGrille.gameOver();  */                
                     }
-                }   
-                System.out.println(mGrille.nbCaseDansGrille());  
-                System.out.println("!!! BUG " + mGrille.yo() + "\u001B[0m");                   
+                }                     
                     
                 System.out.println(mGrille);
                 if (left.getValeurMax()>=OBJECTIF) mGrille.victory();
             }
-            //ICI : si je ne peux plus me déplacer avec les 6 mouvements possibles je sors du while
         }
         mGrille.gameOver();
-        /*
-        // Bout de code pour tester manuellement si une grille contient une case ou pas
-        Scanner sc = new Scanner(System.in);
-        System.out.println("x :");
-        int x = sc.nextInt();
-        System.out.println("y :");
-        int y = sc.nextInt();
-        Case c = new Case(x, y, 2);
-        Case c2 = new Case(x, y, 4);
-        System.out.println("test1=" + g.getGrille().contains(c));
-        System.out.println("test2=" + g.getGrille().contains(c2));
-         */
     }
 
 }

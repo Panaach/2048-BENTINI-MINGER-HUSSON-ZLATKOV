@@ -5,13 +5,23 @@
  */
 package Model;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+
 /**
  *
  * @author Sylvain
  */
 public class Case implements Parametres, Cloneable {
 
-    private int x, y, valeur, numGrille, lastX, lastY;
+    /* Elements FXML utilisé seulement pour le FX (créé un lien entre la tuile
+    et la case) */
+    @FXML
+    private Pane pane;
+    private Label label;
+    
+    private int x, y, valeur, numGrille, lastX, lastY, lastGrille;
     private Grille grille;
 
     public Case(int abs, int ord, int v, int numGrille) {
@@ -21,6 +31,19 @@ public class Case implements Parametres, Cloneable {
         this.numGrille = numGrille;
         this.lastX = -1;
         this.lastY = -1;
+        this.lastGrille = -1;
+    }
+    
+    public Case(int abs, int ord, int v, int numGrille, int lastGrille) {
+        this.x = abs;
+        this.y = ord;
+        this.valeur = v;
+        this.numGrille = numGrille;
+        this.lastGrille = lastGrille;
+        // coloriage ne doit pas traiter cette case
+        this.lastX = abs;
+        this.lastY = ord;
+        this.lastGrille = lastGrille;
     }
 
     public void setGrille(Grille g) {
@@ -93,6 +116,34 @@ public class Case implements Parametres, Cloneable {
         this.lastY = lastY;
     }
 
+    /**
+     * @return the p
+     */
+    public Pane getPane() {
+        return pane;
+    }
+
+    /**
+     * @param p the p to set
+     */
+    public void setPane(Pane p) {
+        this.pane = p;
+    }
+
+    /**
+     * @return the l
+     */
+    public Label getLabel() {
+        return label;
+    }
+
+    /**
+     * @param l the l to set
+     */
+    public void setLabel(Label l) {
+        this.label = l;
+    }
+
     @Override
     public boolean equals(Object obj) { // la méthode equals est utilisée lors de l'ajout d'une case à un ensemble pour vérifier qu'il n'y a pas de doublons (teste parmi tous les candidats qui ont le même hashcode)
         if (obj instanceof Case) {
@@ -111,10 +162,6 @@ public class Case implements Parametres, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException { 
         Case caseClone = (Case) super.clone(); 
-        /*caseClone.setX(this.x);
-        caseClone.setY(this.y);   
-        caseClone.setValeur(2000);  
-        caseClone.setGrille((Grille) caseClone.grille.clone());*/
         return caseClone;
     }
     
@@ -169,10 +216,5 @@ public class Case implements Parametres, Cloneable {
         s = s + "last x " + this.getLastX() + ", last y " + this.lastY + ".";
         return s;
     }
-    
-    /*@Override
-    public String toString() {
-        return "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ", num Grille " + this.numGrille + ")";
-    }*/
 
 }

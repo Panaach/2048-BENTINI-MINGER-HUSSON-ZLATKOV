@@ -49,14 +49,14 @@ public class FXMLDocumentController implements Initializable {
 
     
     // mes changements
-    private Grille grilleModel1 = new Grille();
-    private Grille grilleModel2 = new Grille();
-    private Grille grilleModel3 = new Grille();
+    private Grille grilleModel1 = new Grille(0);
+    private Grille grilleModel2 = new Grille(1);
+    private Grille grilleModel3 = new Grille(2);
     private Grille[] multiGrille = new Grille[]{grilleModel1, grilleModel2, grilleModel3};
     private MultiGrille mGrille = new MultiGrille(multiGrille);
     
-    private ArrayList<Pane[][]> listTableauPane = new ArrayList<>();
-    private ArrayList<Label[][]> listTableauLabel = new ArrayList<>();
+    //private ArrayList<Pane[][]> listTableauPane = new ArrayList<>();
+    //private ArrayList<Label[][]> listTableauLabel = new ArrayList<>();
     
     private int tailleX = 397/3;
     private int tailleY = 397/3;
@@ -75,8 +75,7 @@ public class FXMLDocumentController implements Initializable {
         System.out.println("le contrôleur initialise la vue");
         //grille1.getStyleClass().add("gridpane");
         // je créé toutes mes tuiles au départ
-        fond.getStyleClass().add("fond");
-        this.creationTuile();       
+        fond.getStyleClass().add("fond");   
         
         // utilisation de styles pour la grille et la tuile (voir styles.css)
         /*p.getStyleClass().add("pane");
@@ -96,48 +95,49 @@ public class FXMLDocumentController implements Initializable {
 
     private void creationTuile() {
         // créer toutes les cases d'un case d'un coup peu causé un problème
+        System.out.println("CREATION DES TUILES");
         for (int k = 0; k < 3; k++) {
-            Pane[][] listP = new Pane[3][3];
-            Label[][] listL = new Label[3][3];
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    listP[i][j] = new Pane();
-                    listL[i][j] = new Label();
-                    listP[i][j].getStyleClass().add("pane");
-                    listL[i][j].getStyleClass().add("tuile2");
+            for (Case c : this.multiGrille[k].getGrille()) {
+                if (c.getPane() == null) {
+                    System.out.println("DEDANS");
+                    c.setPane(new Pane());
+                    c.setLabel(new Label());
+                    c.getPane().getStyleClass().add("pane");
+                    c.getLabel().getStyleClass().add("tuile2");
                 }
             }
-            listTableauPane.add(listP);
-            listTableauLabel.add(listL);
         }
     }  
 
     private void coloriageTuile() {
         Grille[] cloned = this.multiGrille.clone();
-        for (int i = 0; i < 3; i++) {
-        // Première grille pour l'instant
-        //int i = 0;
-            for (Case c : cloned[i].getGrille()) {
-                Pane[][] tempP = this.listTableauPane.get(i);
-                Label[][] tempL = this.listTableauLabel.get(i);
+        synchronized(cloned) {
+            for (int i = 0; i < 3; i++) {
+                for (Case c : cloned[i].getGrille()) {
+                    System.out.println(c);
+                    if (c.getLastX() == -1) {
+                        System.out.println("JE SUIS ENTRE");
+                        GridPane.setHalignment(c.getLabel(), HPos.CENTER);
 
-                GridPane.setHalignment(tempL[c.getX()][c.getY()], HPos.CENTER);
+                        System.out.println("1");
 
-                tempP[c.getX()][c.getY()].setLayoutX(24 + 18 * i + i * 397 + (c.getX() * tailleX)); // 18*i == la bordure entre chaque grille ,   i*133 c'est pour se metre sur chaque grille
-                tempP[c.getX()][c.getY()].setLayoutY(191 + (c.getY() * tailleY));
-                tempL[c.getX()][c.getY()].setText(Integer.toString(c.getValeur()));
+                        c.getPane().setLayoutX(24 + 18 * i + i * 397 + (c.getX() * tailleX)); // 18*i == la bordure entre chaque grille ,   i*133 c'est pour se metre sur chaque grille
+                        c.getPane().setLayoutY(191 + (c.getY() * tailleY));
 
-                fond.getChildren().add(tempP[c.getX()][c.getY()]);
-                tempP[c.getX()][c.getY()].getChildren().add(tempL[c.getX()][c.getY()]);
-                tempP[c.getX()][c.getY()].setVisible(true);
-                tempL[c.getX()][c.getY()].setVisible(true);
+                        fond.getChildren().add(c.getPane());
+                        c.getPane().getChildren().add(c.getLabel());
+                        c.getPane().setVisible(true);
+                        c.getLabel().setVisible(true);
+                    }
+                    c.getLabel().setText(Integer.toString(c.getValeur()));
+                }
             }
         }
     }
 
     @FXML
     private void handleDragAction(MouseEvent event) { 
-        System.out.println("Glisser/déposer sur la grille avec la souris");
+        /*System.out.println("Glisser/déposer sur la grille avec la souris");
         double x = event.getX();//translation en abscisse
         double y = event.getY();//translation en ordonnée
         if (x > y) {
@@ -157,7 +157,7 @@ public class FXMLDocumentController implements Initializable {
                     grille1.getStyleClass().add("gridpane");
                 }
             }
-        }
+        }*/
     }
 
     @FXML
@@ -167,9 +167,10 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < 2; i++) {
             int random = (int) (Math.random() * 3);
             //System.out.println(random);
-            this.multiGrille[0].nouvelleCase();
+            this.multiGrille[i].nouvelleCase();
         }
         //System.out.println(multiGrille[0] + "\n" + multiGrille[1] + "\n" + multiGrille[2]);
+        this.creationTuile();
         this.coloriageTuile();
         System.out.println(mGrille);
     }
@@ -186,6 +187,21 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(b1 || b2 || b3);
             if (b1 || b2 || b3) {
                 this.threadMouvement();
+                // function weird
+                ArrayList<Integer> grillePossible = new ArrayList<>();
+                grillePossible.add(0); grillePossible.add(1); grillePossible.add(2);
+                // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
+                while (!grillePossible.isEmpty()) {
+                    int random = (int) (Math.random() * grillePossible.size());                    
+                    boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
+                    
+                    if (!newCase)
+                        grillePossible.remove(random);
+                    else
+                        break;
+                }
+                System.out.println("COLORIAGE");
+                System.out.println(mGrille);
             }
             
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
@@ -216,29 +232,25 @@ public class FXMLDocumentController implements Initializable {
             }              
             
         }
+                this.coloriageTuile();
         System.out.println(mGrille);
-    }    
+    }   
     
-    public final ArrayList<Pane[][]> getListTableauPane() {
-        return this.listTableauPane;
-    }
-    // listTableauPane
     public void threadMouvement() {
-        for (int i = 0; i < 3; i++) {     
-            final int varI = i; 
+        int nb = 0;
+        for (int i = 0; i < 3; i++) {    
             for (Case c  : this.multiGrille[i].getGrille()) {
-                System.out.println(c);
+                final int fi = i;
                 Task task = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
-                    final int varII = varI;
                     @Override
                     public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
                         //System.out.println("X:"+c.getX()+"Y:"+c.getY()+"\nLast X:"+c.getLastX()+"Last Y:"+c.getLastY());
                         // Après mouvement
-                        int objectifx = 24 + tailleX * c.getX();
+                        int objectifx = 24 + 18 * fi + fi * 397 + (c.getX() * tailleX);
                         int objectify = 191 + tailleY * c.getY();
                         //int test = 191 + 191 * c.getY();
                         // Avant mouvement
-                        int x = 24 + tailleX * c.getLastX();
+                        int x = 24 + 18 * fi + fi * 397 + (c.getLastX() * tailleX);
                         int y = 191 + tailleY * c.getLastY();
                         while (x != objectifx || y != objectify) { // si la tuile n'est pas à la place qu'on souhaite attendre en abscisse
                             if (x < objectifx) {
@@ -254,20 +266,19 @@ public class FXMLDocumentController implements Initializable {
                             // Platform.runLater est nécessaire en JavaFX car la GUI ne peut être modifiée que par le Thread courant, contrairement à Swing où on peut utiliser un autre Thread pour ça
                             final int varX = x;
                             final int varY = y;
-                            final int varIII = varII;
                             Platform.runLater(new Runnable() { // classe anonyme
-                                @Override
-                                public void run() {
-                                    System.out.println("Case de traitement : " + c);
-                                    System.out.println("OBJECTIF:");
-                                    System.out.println("objectifx:"+objectifx);
-                                    System.out.println("X:        "+varX);
-                                    System.out.println("objectify:"+objectify);
-                                    System.out.println("Y        :"+varY);
-                                    listTableauPane.get(varIII)[c.getLastX()][c.getLastY()].relocate(varX, varY);
-                                    listTableauPane.get(varIII)[c.getLastX()][c.getLastY()].setVisible(true); 
+                                    @Override
+                                    public void run() {
+                                        /*System.out.println("Case de traitement : " + c);
+                                        System.out.println("OBJECTIF:");
+                                        System.out.println("objectifx:"+objectifx);
+                                        System.out.println("X:        "+varX);
+                                        System.out.println("objectify:"+objectify);
+                                        System.out.println("Y        :"+varY);*/
+                                        c.getPane().relocate(varX, varY);
+                                        c.getPane().setVisible(true); 
+                                    }
                                 }
-                            }
                             );
                             Thread.sleep(1);
                         } // end while
@@ -276,7 +287,7 @@ public class FXMLDocumentController implements Initializable {
 
                 };
                 Thread th = new Thread(task); // on crée un contrôleur de Thread
-                System.out.println(th);
+                System.out.println(th + " " + nb++);
                 th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
                 th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
             }

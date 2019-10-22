@@ -8,7 +8,6 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -108,61 +107,8 @@ public class Grille implements Parametres, Cloneable {
         }
         return true;
     } 
-    /*********************************************************************************************/
-    
-    public boolean fusionSameCase(Grille right) {        
-        HashSet<Case> rightClone = new HashSet<>(); 
-        
-        // Parcours la grille de DROITE        
-        for (Case cRight : right.getGrille()) { 
-            // si cette case appartient à l'autre grille alors je cherche la case correspondante
-            if (this.getGrille().contains(cRight)) {
-                // parcours la grille de GAUCHE                
-                for (Case cLeft : this.getGrille()) {
-                    // une fois trouvé je regarde si elle sont identiques
-                    if (cLeft.equals(cRight) && cLeft.getValeur() == cRight.getValeur()) {
-                        rightClone.add(cRight);
-                        cLeft.setValeur(cLeft.getValeur() * 2);
-                    }
-                } 
-            }
-        } 
-        if (!rightClone.isEmpty()) {
-            right.getGrille().removeAll(rightClone);
-            rightClone.clear();
-        } else {
-            return false;
-        }
-        return true;
-    }
-    
-    public boolean fusionEmptyCase(Grille right) throws CloneNotSupportedException {   
-        // hashSet pour supprimer par la suite les cases de la grille de droite
-        HashSet<Case> rightClone = new HashSet<>();         
-        for (Case c : right.getGrille()) { // parcours la grille situé a droite
-            // this équivaut à la grille de gauche
-            if (!this.getGrille().contains(c)) { // si la case de droite n'est pas dans la grille de gauche en comparant juste le x et le y alors je déplace la case
-                // création du clone
-                Case cloned = (Case) c.clone();
-                // ajoute la case au nouveau hash
-                rightClone.add(c);
-                // ajout du clone
-                this.getGrille().add(cloned);
-            }
-        } 
-        
-        if (!rightClone.isEmpty()) {
-            right.getGrille().removeAll(rightClone);
-            rightClone.clear();
-        } else {
-            return false;
-        }
-        return true;
-    }
-    /******************************************************************************************************************************/
 
     public boolean lanceurDeplacerCases(int direction) {
-        //System.out.println(this);
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
         for (int i = 0; i < TAILLE; i++) {
@@ -197,7 +143,6 @@ public class Grille implements Parametres, Cloneable {
             // position avant changement
             extremites[rangee].setLastX(extremites[rangee].getX());
             extremites[rangee].setLastY(extremites[rangee].getY());
-            //System.out.println(extremites[0] + " "+ extremites[1] +" " + extremites[2]+ " " + extremites[3] + " taille : " + extremites.length);
             if ((direction == HAUT && extremites[rangee].getY() != compteur)
                     || (direction == BAS && extremites[rangee].getY() != TAILLE - 1 - compteur)
                     || (direction == GAUCHE && extremites[rangee].getX() != compteur)
@@ -221,9 +166,6 @@ public class Grille implements Parametres, Cloneable {
                 deplacement = true;
             }
             Case voisin = extremites[rangee].getVoisinDirect(-direction);
-            /*System.out.println("\u001B[32mGrille : " + this.numGrille +  " \u001B[0m");
-            System.out.println("Valeur x2 :" + extremites[rangee]);
-            System.out.println("Case suppimé" + voisin);*/
             if (voisin != null) {
                 if (extremites[rangee].valeurEgale(voisin)) {
                     this.fusion(extremites[rangee]);
@@ -251,7 +193,6 @@ public class Grille implements Parametres, Cloneable {
             switch (direction) {
                 case HAUT:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
-                        //System.out.println("resul[c.getx()] : " +result[c.getX()] );
                         result[c.getX()] = c;
                     }
                     break;
@@ -272,32 +213,10 @@ public class Grille implements Parametres, Cloneable {
                     break;
             }
         }
-        System.out.println(Arrays.toString(result));
         return result;
     }
     
-    public String yo() {
-        ArrayList<Case> test = new ArrayList<>();
-        Iterator value = this.grille.iterator(); 
-        String res = "";
-        
-        while (value.hasNext()) { 
-            test.add((Case) value.next()); 
-        } 
-        for(int i =0; i < test.size();i++) {
-            Case c = test.get(i);
-            test.remove(i);
-            if (test.contains(c))
-                res += "\u001B[36m" + c + "\u001B[0m";
-            test.add(c);
-        }
-        return res;
-    }
-    
     public boolean nouvelleCase() {
-        //System.out.println("\u001B[32mGrille : " + this.numGrille +  " \u001B[0m");
-        //System.out.println(this);
-        //System.out.println("Taille: " + this.grille.size());
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
@@ -311,11 +230,8 @@ public class Grille implements Parametres, Cloneable {
                     }
                 }
             }
-            /*System.out.println("nombre de case libre : " + casesLibres.size() + " grille: " + this.getNumGrille());
-            System.out.println("----");*/
             // on en choisit une au hasard et on l'ajoute à la grille
             Case ajout = casesLibres.get(ra.nextInt(casesLibres.size()));
-            //System.out.println("JE SUIS LA NOUVELLE CASE " + ajout);
             ajout.setGrille(this);
             this.grille.add(ajout);
             if ((this.grille.size() == 1) || (this.valeurMax == 2 && ajout.getValeur() == 4)) { // Mise à jour de la valeur maximale présente dans la grille si c'est la première case ajoutée ou si on ajoute un 4 et que l'ancien max était 2
