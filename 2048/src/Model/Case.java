@@ -19,6 +19,7 @@ public class Case implements Parametres, Cloneable {
     et la case) */
     @FXML
     private Pane pane;
+    @FXML
     private Label label;
     
     private int x, y, valeur, numGrille, lastX, lastY, lastGrille;

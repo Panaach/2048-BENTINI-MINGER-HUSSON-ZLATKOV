@@ -21,11 +21,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.geometry.HPos;
 
 /**
  * FXML Controller class
@@ -39,9 +36,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private GridPane grille1;
     @FXML
-    private GridPane grille3;
-    @FXML
     private GridPane grille2;
+    @FXML
+    private GridPane grille3;
     @FXML
     private Button start;
     @FXML
@@ -110,14 +107,14 @@ public class FXMLDocumentController implements Initializable {
     }  
 
     private void coloriageTuile() {
-        Grille[] cloned = this.multiGrille.clone();
-        synchronized(cloned) {
+        //Grille[] cloned = this.multiGrille.clone();
+        synchronized(this.multiGrille) {
             for (int i = 0; i < 3; i++) {
-                for (Case c : cloned[i].getGrille()) {
+                for (Case c : this.multiGrille[i].getGrille()) {
                     System.out.println(c);
                     if (c.getLastX() == -1) {
                         System.out.println("JE SUIS ENTRE");
-                        GridPane.setHalignment(c.getLabel(), HPos.CENTER);
+                        //GridPane.setHalignment(c.getLabel(), HPos.CENTER);
 
                         System.out.println("1");
 
@@ -167,7 +164,7 @@ public class FXMLDocumentController implements Initializable {
         for (int i = 0; i < 2; i++) {
             int random = (int) (Math.random() * 3);
             //System.out.println(random);
-            this.multiGrille[i].nouvelleCase();
+            this.multiGrille[random].nouvelleCase();
         }
         //System.out.println(multiGrille[0] + "\n" + multiGrille[1] + "\n" + multiGrille[2]);
         this.creationTuile();
@@ -187,21 +184,7 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(b1 || b2 || b3);
             if (b1 || b2 || b3) {
                 this.threadMouvement();
-                // function weird
-                ArrayList<Integer> grillePossible = new ArrayList<>();
-                grillePossible.add(0); grillePossible.add(1); grillePossible.add(2);
-                // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
-                while (!grillePossible.isEmpty()) {
-                    int random = (int) (Math.random() * grillePossible.size());                    
-                    boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
-                    
-                    if (!newCase)
-                        grillePossible.remove(random);
-                    else
-                        break;
-                }
-                System.out.println("COLORIAGE");
-                System.out.println(mGrille);
+                this.nouvelleCase();
             }
             
         } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
@@ -212,6 +195,7 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(b1 || b2 || b3);
             if (b1 || b2 || b3) {
                 this.threadMouvement();
+                this.nouvelleCase();
             }
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
             score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
@@ -220,6 +204,7 @@ public class FXMLDocumentController implements Initializable {
             boolean b3 = this.multiGrille[2].lanceurDeplacerCases(Parametres.HAUT);
             if (b1 || b2 || b3) {
                 this.threadMouvement();
+                this.nouvelleCase();
             }
             
         } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
@@ -229,22 +214,21 @@ public class FXMLDocumentController implements Initializable {
             boolean b3 = this.multiGrille[2].lanceurDeplacerCases(Parametres.BAS);
             if (b1 || b2 || b3) {
                 this.threadMouvement();
+                this.nouvelleCase();
             }              
             
         }
-                this.coloriageTuile();
         System.out.println(mGrille);
     }   
     
     public void threadMouvement() {
-        int nb = 0;
+        Grille[] cloned = this.multiGrille.clone();
         for (int i = 0; i < 3; i++) {    
             for (Case c  : this.multiGrille[i].getGrille()) {
                 final int fi = i;
                 Task task = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
                     @Override
                     public Void call() throws Exception { // implémentation de la méthode protected abstract V call() dans la classe Task
-                        //System.out.println("X:"+c.getX()+"Y:"+c.getY()+"\nLast X:"+c.getLastX()+"Last Y:"+c.getLastY());
                         // Après mouvement
                         int objectifx = 24 + 18 * fi + fi * 397 + (c.getX() * tailleX);
                         int objectify = 191 + tailleY * c.getY();
@@ -287,10 +271,29 @@ public class FXMLDocumentController implements Initializable {
 
                 };
                 Thread th = new Thread(task); // on crée un contrôleur de Thread
-                System.out.println(th + " " + nb++);
                 th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
                 th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
             }
         }
+    }
+    
+    public void nouvelleCase() {
+        // function weird
+        ArrayList<Integer> grillePossible = new ArrayList<>();
+        grillePossible.add(0); grillePossible.add(1); grillePossible.add(2);
+        // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles
+        while (!grillePossible.isEmpty()) {
+            int random = (int) (Math.random() * grillePossible.size()); 
+                boolean newCase = multiGrille[grillePossible.get(random)].nouvelleCase();
+
+                if (!newCase)
+                    grillePossible.remove(random);
+                else
+                    break;
+            
+        }
+        System.out.println("COLORIAGE");
+        this.creationTuile();
+        this.coloriageTuile();
     }
 }
