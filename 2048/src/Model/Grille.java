@@ -20,6 +20,8 @@ public class Grille implements Parametres, Cloneable {
     private int valeurMax = 0;
     private boolean deplacement;
     private int numGrille;
+    // Tableau nécessaire pour destruire et fusionner les tuiles
+    private ArrayList<Case> casesDestroy = new ArrayList<>();
 
     public Grille() {
         this.grille = new HashSet<>();
@@ -53,6 +55,13 @@ public class Grille implements Parametres, Cloneable {
      */
     public void setGrille(HashSet<Case> grille) {
         this.grille = grille;
+    }
+
+    /**
+     * @return the casesDestroy
+     */
+    public ArrayList<Case> getCasesDestroy() {
+        return casesDestroy;
     }
 
     public int getValeurMax() {
@@ -108,7 +117,7 @@ public class Grille implements Parametres, Cloneable {
         return true;
     } 
 
-    public boolean lanceurDeplacerCases(int direction) {
+    public boolean lanceurDeplacerCases(int direction) throws CloneNotSupportedException {
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
         for (int i = 0; i < TAILLE; i++) {
@@ -138,7 +147,7 @@ public class Grille implements Parametres, Cloneable {
         deplacement = true;
     }
 
-    private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
+    private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) throws CloneNotSupportedException {
         if (extremites[rangee] != null) {
             // position avant changement
             extremites[rangee].setLastX(extremites[rangee].getX());
@@ -168,8 +177,20 @@ public class Grille implements Parametres, Cloneable {
             Case voisin = extremites[rangee].getVoisinDirect(-direction);
             if (voisin != null) {
                 if (extremites[rangee].valeurEgale(voisin)) {
+                    // ajoute dans le tableau la case a détruire
+                    getCasesDestroy().add(0, (Case) voisin.clone());
+                    System.out.println(getCasesDestroy());
+                    // modifie les coordonnées pour le traitement qui suit
+                        // d'où il provient
+                    getCasesDestroy().get(0).setLastX(getCasesDestroy().get(0).getX());
+                    getCasesDestroy().get(0).setLastY(getCasesDestroy().get(0).getY());
+                        // où il était censé arriver
+                    getCasesDestroy().get(0).setX(extremites[rangee].getX());
+                    getCasesDestroy().get(0).setY(extremites[rangee].getY());
+                    
                     this.fusion(extremites[rangee]);
                     extremites[rangee] = voisin.getVoisinDirect(-direction);
+                    // suppression de la case dans la grille
                     this.grille.remove(voisin);
                     this.deplacerCasesRecursif(extremites, rangee, direction, compteur + 1);
                 } else {
@@ -179,7 +200,7 @@ public class Grille implements Parametres, Cloneable {
             }
         }
     }
-
+    
     /*
     * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (une pour chaque colonne)
     * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
@@ -243,4 +264,3 @@ public class Grille implements Parametres, Cloneable {
         }
     }
 }
-

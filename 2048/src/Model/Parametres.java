@@ -21,6 +21,8 @@ public interface Parametres {
     static final int OBJECTIF = 2048;
     static final int FULLRIGHT = 5;
     static final int FULLLEFT = -5;
+    static final int tailleX = 397/3;
+    static final int tailleY = 397/3;    
 }
 
 

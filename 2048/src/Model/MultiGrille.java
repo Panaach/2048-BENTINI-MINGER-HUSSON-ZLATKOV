@@ -5,29 +5,65 @@
  */
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
  *
  * @author Panach
  */
-public class MultiGrille implements Parametres{
+public enum MultiGrille implements Parametres{
+    INSTANCE;
     
     private Grille[] multiGrille;
     
-    public MultiGrille(Grille[] multiGrille) {
+    // Pour le côté fx
+    /*private ArrayList<Case> fusionCaseEmpty = new ArrayList<>();
+    private ArrayList<Case> fusionCaseSame = new ArrayList<>();*/
+    
+    private MultiGrille() {
+        multiGrille = new Grille[3];
+    } // protection
+
+    public void init(Grille[] mGrille) {
+        System.out.println(mGrille[0]);
+        this.multiGrille[0] = mGrille[0];
+        this.multiGrille[1] = mGrille[1];
+        this.multiGrille[2] = mGrille[2];
+    }
+    
+    public static MultiGrille getInstance() {
+        return INSTANCE;
+    }
+    
+    
+    /**
+     * @return the multiGrille
+     */
+    public Grille[] getMultiGrille() {
+        return multiGrille;
+    }
+
+    /**
+     * @param multiGrille the multiGrille to set
+     */
+    public void setMultiGrille(Grille[] multiGrille) {
+        this.multiGrille = multiGrille;
+    }
+    
+    /*public MultiGrille(Grille[] multiGrille) {
         this.multiGrille = new Grille[3];
         this.multiGrille[0] = multiGrille[0];
         this.multiGrille[1] = multiGrille[1];
         this.multiGrille[2] = multiGrille[2];
-    }      
+    }  */    
     
     @Override
     public String toString() {
         int nb = 0;
         int[][] tableau = new int[TAILLE][TAILLE*3];
         for (int k = 0; k < 3; k++) {
-            for (Case c : this.multiGrille[k].getGrille()) {
+            for (Case c : this.getMultiGrille()[k].getGrille()) {
                 tableau[c.getY()][c.getX()+nb] = c.getValeur();
             }
             nb += TAILLE;
@@ -44,25 +80,6 @@ public class MultiGrille implements Parametres{
             result += "]\n";
         }
         return result;
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof MultiGrille) {
-            MultiGrille m = (MultiGrille) obj;
-            return (this.multiGrille[0].getGrille().equals(m.multiGrille[0].getGrille()) &&
-                    this.multiGrille[1].getGrille().equals(m.multiGrille[1].getGrille()) && 
-                    this.multiGrille[2].getGrille().equals(m.multiGrille[2].getGrille()));
-        } else {
-            return false;
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        return this.multiGrille[0].getGrille().size() * 7 + 
-                this.multiGrille[1].getGrille().size() * 13 +
-                this.multiGrille[2].getGrille().size() * 17;
     }
     
     // présice quelle méthode choisir
@@ -89,7 +106,7 @@ public class MultiGrille implements Parametres{
         return convert;
     }
     
-    public boolean teleportationEmptyCase(Grille left, Grille right, int compteur) {
+    public boolean teleportationEmptyCase(Grille left, Grille right, int compteur) { // de base se fait de la droite vers la gauche (<-)
         boolean b = false;
         Case[][] l = this.convertHash(left);
         Case[][] r = this.convertHash(right);
@@ -99,9 +116,17 @@ public class MultiGrille implements Parametres{
                 if (r[x][y] != null) { // si ma case dans la grille droite existe alors
                     if (l[x][y] == null) { 
                         Case fusion = new Case(r[x][y].getX(), r[x][y].getY(), r[x][y].getValeur(),  r[x][y].getNumGrille() + compteur, r[x][y].getNumGrille());
+                        //                          X               Y               VALEUR              NUMERO DE LA GRILLE ACTUELLE      NUM ANCIENNE GRILLE          
                         fusion.setGrille(left);
+                        
+                        // modification des anciennes coordonnées de la case avant la fusion
+                        fusion.setLastX(r[x][y].getX());
+                        fusion.setLastY(r[x][y].getY());
+                        left.getGrille().add(fusion); // ajout de la nouvelle case
+                        
+                        // ajout de la case détruite
+                        right.getCasesDestroy().add(fusion);                        
                         right.getGrille().remove(r[x][y]);
-                        left.getGrille().add(fusion);
                         b = true;
                     }
                 }
@@ -110,7 +135,7 @@ public class MultiGrille implements Parametres{
         return b;
     }
     
-    public boolean teleportationSameCase(Grille left, Grille right, int compteur) {
+    public boolean teleportationSameCase(Grille left, Grille right, int compteur) { // de base se fait de la droite vers la gauche (<-)
         boolean b = false;
         Case[][] l = this.convertHash(left);
         Case[][] r = this.convertHash(right);
@@ -124,6 +149,10 @@ public class MultiGrille implements Parametres{
                             Case fusion = new Case(l[x][y].getX(), l[x][y].getY(), l[x][y].getValeur()*2, l[x][y].getNumGrille(), r[x][y].getNumGrille());
                             fusion.setGrille(left);
                             
+                            // modification des anciennes coordonnées de la case avant la fusion
+                            fusion.setLastX(r[x][y].getX());
+                            fusion.setLastY(r[x][y].getY());
+
                             // supprime les anciennes cases qui vont être mis-à-jour
                             left.getGrille().remove(l[x][y]);
                             right.getGrille().remove(r[x][y]);
@@ -134,6 +163,9 @@ public class MultiGrille implements Parametres{
                     } else { // la position est disponible donc je tp la case
                         Case fusion = new Case(r[x][y].getX(), r[x][y].getY(), r[x][y].getValeur(),  r[x][y].getNumGrille() + compteur, r[x][y].getNumGrille());
                         fusion.setGrille(left);
+                        // modification des anciennes coordonnées de la case avant la fusion
+                        fusion.setLastX(r[x][y].getX());
+                        fusion.setLastY(r[x][y].getY());
                         right.getGrille().remove(r[x][y]);
                         left.getGrille().add(fusion);
                         b = true;
@@ -216,42 +248,42 @@ public class MultiGrille implements Parametres{
     }
     
     public boolean fusionGauche() {
-        boolean b1 = this.teleportationSameCase(this.multiGrille[0], this.multiGrille[1], -1);
-        boolean b2 = this.teleportationSameCase(this.multiGrille[1], this.multiGrille[2], -1);
+        boolean b1 = this.teleportationSameCase(this.getMultiGrille()[0], this.getMultiGrille()[1], -1);
+        boolean b2 = this.teleportationSameCase(this.getMultiGrille()[1], this.getMultiGrille()[2], -1);
         
-        boolean b3 = this.teleportationEmptyCase(this.multiGrille[0], this.multiGrille[1], -1);
-        boolean b4 = this.teleportationEmptyCase(this.multiGrille[1], this.multiGrille[2], -1);
+        boolean b3 = this.teleportationEmptyCase(this.getMultiGrille()[0], this.getMultiGrille()[1], -1);
+        boolean b4 = this.teleportationEmptyCase(this.getMultiGrille()[1], this.getMultiGrille()[2], -1);
         
         return b1 || b2 || b3 || b4;
     }
     
     public boolean fusionDroite() {
-        boolean b1 = this.teleportationSameCase(this.multiGrille[2], this.multiGrille[1], 1);
-        boolean b2 = this.teleportationSameCase(this.multiGrille[1], this.multiGrille[0], 1);
+        boolean b1 = this.teleportationSameCase(this.getMultiGrille()[2], this.getMultiGrille()[1], 1);
+        boolean b2 = this.teleportationSameCase(this.getMultiGrille()[1], this.getMultiGrille()[0], 1);
         
-        boolean b3 = this.teleportationEmptyCase(this.multiGrille[2], this.multiGrille[1], 1);
-        boolean b4 = this.teleportationEmptyCase(this.multiGrille[1], this.multiGrille[0], 1);
+        boolean b3 = this.teleportationEmptyCase(this.getMultiGrille()[2], this.getMultiGrille()[1], 1);
+        boolean b4 = this.teleportationEmptyCase(this.getMultiGrille()[1], this.getMultiGrille()[0], 1);
         
         return b1 || b2 || b3 || b4;
     }
     
     public boolean partieFinie() {
-        if (this.multiGrille[0].getGrille().size() < TAILLE * TAILLE || 
-                this.multiGrille[1].getGrille().size() < TAILLE * TAILLE || 
-                this.multiGrille[2].getGrille().size() < TAILLE * TAILLE) {
+        if (this.getMultiGrille()[0].getGrille().size() < TAILLE * TAILLE || 
+                this.getMultiGrille()[1].getGrille().size() < TAILLE * TAILLE || 
+                this.getMultiGrille()[2].getGrille().size() < TAILLE * TAILLE) {
             return false;
         } else {
-            System.out.println(this.testFusionSameCase(this.multiGrille[0], this.multiGrille[1]) &&
-                    this.testFusionSameCase(this.multiGrille[1], this.multiGrille[2]));
-            return !this.testFusionSameCase(this.multiGrille[0], this.multiGrille[1]) &&
-                    !this.testFusionSameCase(this.multiGrille[1], this.multiGrille[2]);  
+            System.out.println(this.testFusionSameCase(this.getMultiGrille()[0], this.getMultiGrille()[1]) &&
+                    this.testFusionSameCase(this.getMultiGrille()[1], this.getMultiGrille()[2]));
+            return !this.testFusionSameCase(this.getMultiGrille()[0], this.getMultiGrille()[1]) &&
+                    !this.testFusionSameCase(this.getMultiGrille()[1], this.getMultiGrille()[2]);  
             // si je peux le faire d'un côté alors je peux le faire de l'autre
         }
     }
     
     public int valeurMax() {
-        return Math.max(this.multiGrille[0].getValeurMax(), 
-                Math.max(this.multiGrille[1].getValeurMax(), this.multiGrille[2].getValeurMax()));
+        return Math.max(this.getMultiGrille()[0].getValeurMax(), 
+                Math.max(this.getMultiGrille()[1].getValeurMax(), this.getMultiGrille()[2].getValeurMax()));
     }
     
     public void gameOver() {
@@ -262,5 +294,14 @@ public class MultiGrille implements Parametres{
     public void victory() {
         System.out.println("Bravo ! Vous avez atteint " + this.valeurMax());
         System.exit(0);
+    }    
+    
+    public void destroyTuile() {
+        for (int k = 0; k < 3; k++) {
+            for (Case c : this.multiGrille[k].getGrille()) {
+                c.setLabel(null);
+                c.setPane(null);
+            }
+        }
     }
 }

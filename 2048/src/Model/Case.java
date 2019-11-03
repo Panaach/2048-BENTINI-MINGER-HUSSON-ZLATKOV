@@ -41,10 +41,8 @@ public class Case implements Parametres, Cloneable {
         this.valeur = v;
         this.numGrille = numGrille;
         this.lastGrille = lastGrille;
-        // coloriage ne doit pas traiter cette case
-        this.lastX = abs;
-        this.lastY = ord;
-        this.lastGrille = lastGrille;
+        this.pane = new Pane(); // nécessaire lors de la fusion pour le FX (cela ne change rien pour la console)
+        this.label = new Label();
     }
 
     public void setGrille(Grille g) {
@@ -115,6 +113,13 @@ public class Case implements Parametres, Cloneable {
      */
     public void setLastY(int lastY) {
         this.lastY = lastY;
+    }
+
+    /**
+     * @return the lastGrille
+     */
+    public int getLastGrille() {
+        return lastGrille;
     }
 
     /**
