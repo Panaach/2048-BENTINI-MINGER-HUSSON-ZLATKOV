@@ -116,6 +116,13 @@ public class Case implements Parametres, Cloneable {
     }
 
     /**
+     * @param lastGrille the lastGrille to set
+     */
+    public void setLastGrille(int lastGrille) {
+        this.lastGrille = lastGrille;
+    }
+
+    /**
      * @return the lastGrille
      */
     public int getLastGrille() {

@@ -179,7 +179,7 @@ public class Grille implements Parametres, Cloneable {
                 if (extremites[rangee].valeurEgale(voisin)) {
                     // ajoute dans le tableau la case a détruire
                     getCasesDestroy().add(0, (Case) voisin.clone());
-                    System.out.println(getCasesDestroy());
+                    //System.out.println(getCasesDestroy());
                     // modifie les coordonnées pour le traitement qui suit
                         // d'où il provient
                     getCasesDestroy().get(0).setLastX(getCasesDestroy().get(0).getX());

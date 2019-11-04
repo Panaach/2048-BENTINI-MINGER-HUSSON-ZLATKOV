@@ -190,7 +190,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovement();
-                t.threadMovementCaseDead(fond);
+                //t.threadMovementCaseDead(fond);
                 this.nouvelleCase();
             }
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
@@ -203,7 +203,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovement();
-                t.threadMovementCaseDead(fond);
+                //t.threadMovementCaseDead(fond);
                 this.nouvelleCase();
             }
             
@@ -217,7 +217,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovement();
-                t.threadMovementCaseDead(fond);
+                //t.threadMovementCaseDead(fond);
                 this.nouvelleCase();
             }        
         } else if (touche.compareTo("a") == 0) { // FUSION GAUCHE
@@ -228,7 +228,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovementFusion();
-                this.nouvelleCase();              
+                //this.nouvelleCase();              
             }
         } else if (touche.compareTo("e") == 0) { // FUSION DROITE
             boolean fusionSuccess = mGrille.fusionDroite();                     
@@ -237,7 +237,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovementFusion();
-                this.nouvelleCase();                 
+                //this.nouvelleCase();                 
             }
         }
         this.updateTemplate(); // Pour la valeur du label (pour l'instant)
