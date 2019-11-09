@@ -29,13 +29,6 @@ public class TuileComposite implements Tuile{
         }
     }
     
-    @Override
-    public void threadMovementFusion() {
-        for(Tuile t : tuileComposite) { 
-            t.threadMovementFusion(); 
-        }
-    }
-    
     public void add(Tuile t) { 
         tuileComposite.add(t); 
     } 

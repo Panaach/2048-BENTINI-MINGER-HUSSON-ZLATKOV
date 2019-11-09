@@ -108,7 +108,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
     private void positionTuile() {
         for (int i = 0; i < 3; i++) {
             for (Case c : this.multiGrille[i].getGrille()) {
-                if (c.getLastX() == -1) { // la case vient d'être créé
+                if (!fond.getChildren().contains(c.getPane())) { // la case vient d'être créé
                     // Position du pane sur le fond
                     c.getPane().setLayoutX(24 + 18 * i + i * 397 + (c.getX() * tailleX)); // 18*i == la bordure entre chaque grille ,   i*133 c'est pour se metre sur chaque grille
                     c.getPane().setLayoutY(191 + (c.getY() * tailleY));
@@ -158,6 +158,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
         this.afficherTuile();
         this.positionTuile();
+        //this.start.setVisible(true);
         System.out.println(mGrille);
     }
 
@@ -190,7 +191,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovement();
-                //t.threadMovementCaseDead(fond);
+                t.threadMovementCaseDead(fond);
                 this.nouvelleCase();
             }
         } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
@@ -203,7 +204,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovement();
-                //t.threadMovementCaseDead(fond);
+                t.threadMovementCaseDead(fond);
                 this.nouvelleCase();
             }
             
@@ -217,7 +218,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
                 t.threadMovement();
-                //t.threadMovementCaseDead(fond);
+                t.threadMovementCaseDead(fond);
                 this.nouvelleCase();
             }        
         } else if (touche.compareTo("a") == 0) { // FUSION GAUCHE
@@ -227,8 +228,9 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[0]));
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovementFusion();
-                //this.nouvelleCase();              
+                t.threadMovement();
+                t.threadMovementCaseDead(fond);
+                this.nouvelleCase();              
             }
         } else if (touche.compareTo("e") == 0) { // FUSION DROITE
             boolean fusionSuccess = mGrille.fusionDroite();                     
@@ -236,36 +238,43 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 t.add(new Tuile2048(this.multiGrille[0]));
                 t.add(new Tuile2048(this.multiGrille[1]));
                 t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovementFusion();
-                //this.nouvelleCase();                 
+                t.threadMovement();
+                t.threadMovementCaseDead(fond);
+                this.nouvelleCase();                 
             }
         }
-        this.updateTemplate(); // Pour la valeur du label (pour l'instant)
+        this.updateTemplate(); 
         System.out.println(mGrille);
     } 
     
-    public synchronized void updateTemplate() {
+    public void updateTemplate() {
         for (int k = 0; k < 3; k++) {
             for (Case c : this.multiGrille[k].getGrille()) {
                 c.getLabel().setText(Integer.toString(c.getValeur()));
                 switch(c.getValeur()) {
                     case 4:
+                        c.getPane().getStyleClass().clear();
                         c.getPane().getStyleClass().add("pane4");
                         break;
                     case 8:
+                        c.getPane().getStyleClass().clear();
                         c.getPane().getStyleClass().add("pane8");
                         break;
                     case 16:
+                        c.getPane().getStyleClass().clear();
                         c.getPane().getStyleClass().add("pane16");
                         c.getLabel().getStyleClass().add("tuile10");
                         break;
                     case 32:
+                        c.getPane().getStyleClass().clear();
                         c.getPane().getStyleClass().add("pane32");
                         break;
                     case 64:
+                        c.getPane().getStyleClass().clear();
                         c.getPane().getStyleClass().add("pane64");
                         break;
                     case 128:
+                        c.getPane().getStyleClass().clear();
                         c.getPane().getStyleClass().add("pane128");
                         c.getLabel().getStyleClass().add("tuile100");
                         break;
@@ -285,8 +294,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                 if (!newCase)
                     grillePossible.remove(random);
                 else
-                    break;
-            
+                    break;            
         }
         this.afficherTuile();
         this.positionTuile();

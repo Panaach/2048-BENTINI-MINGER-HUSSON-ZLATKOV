@@ -30,19 +30,9 @@ public class Case implements Parametres, Cloneable {
         this.y = ord;
         this.valeur = v;
         this.numGrille = numGrille;
-        this.lastX = -1;
-        this.lastY = -1;
-        this.lastGrille = -1;
-    }
-    
-    public Case(int abs, int ord, int v, int numGrille, int lastGrille) {
-        this.x = abs;
-        this.y = ord;
-        this.valeur = v;
-        this.numGrille = numGrille;
-        this.lastGrille = lastGrille;
-        this.pane = new Pane(); // nécessaire lors de la fusion pour le FX (cela ne change rien pour la console)
-        this.label = new Label();
+        this.lastX = abs;
+        this.lastY = ord;
+        this.lastGrille = numGrille;
     }
 
     public void setGrille(Grille g) {
@@ -225,8 +215,8 @@ public class Case implements Parametres, Cloneable {
 
     @Override
     public String toString() {
-        String s = "Case(X " + this.x + ",Y " + this.y + ",Val" + this.valeur + ", num Grille " + this.numGrille + ")";
-        s = s + "last x " + this.getLastX() + ", last y " + this.lastY + ".";
+        String s = "Case(X " + this.x + ",Y " + this.y + ",Val " + this.valeur + ", num Grille " + this.numGrille + ")";
+        s = s + "last x " + this.getLastX() + ", last y " + this.lastY + ", last grille " + this.lastGrille + ".";
         return s;
     }
 

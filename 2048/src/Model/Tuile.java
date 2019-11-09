@@ -15,6 +15,4 @@ public interface Tuile {
     public void threadMovement();
     
     public void threadMovementCaseDead(Pane fond);
-    
-    public void threadMovementFusion();
 }

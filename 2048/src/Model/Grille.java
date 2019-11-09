@@ -179,7 +179,6 @@ public class Grille implements Parametres, Cloneable {
                 if (extremites[rangee].valeurEgale(voisin)) {
                     // ajoute dans le tableau la case a détruire
                     getCasesDestroy().add(0, (Case) voisin.clone());
-                    //System.out.println(getCasesDestroy());
                     // modifie les coordonnées pour le traitement qui suit
                         // d'où il provient
                     getCasesDestroy().get(0).setLastX(getCasesDestroy().get(0).getX());
@@ -236,7 +235,7 @@ public class Grille implements Parametres, Cloneable {
         }
         return result;
     }
-    
+        
     public boolean nouvelleCase() {
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();

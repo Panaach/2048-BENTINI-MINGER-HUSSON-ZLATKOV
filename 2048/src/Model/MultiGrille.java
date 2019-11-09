@@ -106,6 +106,11 @@ public enum MultiGrille implements Parametres{
         return convert;
     }
     
+    public void pbFusionFX(Case c) {
+        c.setLastX(c.getX());
+        c.setLastY(c.getY());
+    }
+    
     public boolean teleportationEmptyCase(Grille left, Grille right, int compteur) throws CloneNotSupportedException { // de base se fait de la droite vers la gauche (<-)
         boolean b = false;
         Case[][] l = this.convertHash(left);
@@ -114,30 +119,18 @@ public enum MultiGrille implements Parametres{
         for (int x = 0; x < TAILLE; x++) {
             for (int y = 0; y < TAILLE; y++) {
                 if (r[x][y] != null) { // si ma case dans la grille droite existe alors
-                    if (l[x][y] == null) { 
-                        
+                    if (l[x][y] == null) {                         
                         Case fusion = (Case) r[x][y].clone();
-                            //Case fusion = new Case(l[x][y].getX(), l[x][y].getY(), l[x][y].getValeur()*2, l[x][y].getNumGrille(), r[x][y].getNumGrille());
-                        //if (fusion.getLastGrille()<0)
-                        //    fusion.setLastGrille(r[x][y].getNumGrille());
                         fusion.setNumGrille(fusion.getNumGrille() + compteur);
                         fusion.setGrille(left);
-                        //Case fusion = new Case(r[x][y].getX(), r[x][y].getY(), r[x][y].getValeur(),  r[x][y].getNumGrille() + compteur, r[x][y].getNumGrille());
-                        //                          X               Y               VALEUR              NUMERO DE LA GRILLE ACTUELLE      NUM ANCIENNE GRILLE          
-                        /*fusion.setGrille(left);
-                        
-                        // modification des anciennes coordonnées de la case avant la fusion
-                        fusion.setLastX(r[x][y].getX());
-                        fusion.setLastY(r[x][y].getY());
-                        fusion.setPane(r[x][y].getPane());
-                        fusion.setLabel(r[x][y].getLabel());*/
+                            System.out.println(fusion);
+                        fusion.setLastX(fusion.getX());
+                        fusion.setLastY(fusion.getY());
                         left.getGrille().add(fusion); // ajout de la nouvelle case
-                        
-                        // ajout de la case détruite
-                        right.getCasesDestroy().add(fusion);                        
+                                              
                         right.getGrille().remove(r[x][y]);
                         b = true;
-                    }
+                    } 
                 }
             }
         }
@@ -156,17 +149,13 @@ public enum MultiGrille implements Parametres{
                         if (l[x][y].valeurEgale(r[x][y])) { // si ces cases ont la mêmes valeurs alors je fusionne
                             // création d'une nouvelle case
                             Case fusion = (Case) l[x][y].clone();
-                            //Case fusion = new Case(l[x][y].getX(), l[x][y].getY(), l[x][y].getValeur()*2, l[x][y].getNumGrille(), r[x][y].getNumGrille());
-                            fusion.setLastGrille(r[x][y].getNumGrille());
                             fusion.setValeur(fusion.getValeur()*2);
                             fusion.setGrille(left);
-                            
-                            // modification des anciennes coordonnées de la case avant la fusion
-                            /*fusion.setLastX(r[x][y].getX());
-                            fusion.setLastY(r[x][y].getY());
-                            fusion.setPane(r[x][y].getPane());
-                            fusion.setLabel(r[x][y].getLabel());*/
+                            System.out.println(fusion);
+                            fusion.setLastX(fusion.getX());
+                            fusion.setLastY(fusion.getY());
 
+                            right.getCasesDestroy().add(r[x][y]);
                             // supprime les anciennes cases qui vont être mis-à-jour
                             left.getGrille().remove(l[x][y]);
                             right.getGrille().remove(r[x][y]);
@@ -175,15 +164,14 @@ public enum MultiGrille implements Parametres{
                             b = true;
                         } 
                     } else { // la position est disponible donc je tp la case
-                        //Case fusion = new Case(r[x][y].getX(), r[x][y].getY(), r[x][y].getValeur(),  r[x][y].getNumGrille() + compteur, r[x][y].getNumGrille());
-                        
-                            Case fusion = (Case) r[x][y].clone();
-                            fusion.setNumGrille(fusion.getNumGrille() + compteur);
-                            fusion.setLastGrille(r[x][y].getNumGrille());
+                        Case fusion = (Case) r[x][y].clone();
+                        fusion.setNumGrille(fusion.getNumGrille() + compteur);
+                        fusion.setLastGrille(r[x][y].getNumGrille());
                         fusion.setGrille(left);
-                        /*// modification des anciennes coordonnées de la case avant la fusion
-                        fusion.setLastX(r[x][y].getX());
-                        fusion.setLastY(r[x][y].getY());*/
+                            System.out.println(fusion);
+                        fusion.setLastX(fusion.getX());
+                        fusion.setLastY(fusion.getY());
+                        
                         right.getGrille().remove(r[x][y]);
                         left.getGrille().add(fusion);
                         b = true;
@@ -313,13 +301,4 @@ public enum MultiGrille implements Parametres{
         System.out.println("Bravo ! Vous avez atteint " + this.valeurMax());
         System.exit(0);
     }    
-    
-    public void destroyTuile() {
-        for (int k = 0; k < 3; k++) {
-            for (Case c : this.multiGrille[k].getGrille()) {
-                c.setLabel(null);
-                c.setPane(null);
-            }
-        }
-    }
 }
