@@ -30,6 +30,7 @@ public class Case implements Parametres, Cloneable {
         this.y = ord;
         this.valeur = v;
         this.numGrille = numGrille;
+        // Côté JFX : valeur par défaut à l'initialisation
         this.lastX = abs;
         this.lastY = ord;
         this.lastGrille = numGrille;

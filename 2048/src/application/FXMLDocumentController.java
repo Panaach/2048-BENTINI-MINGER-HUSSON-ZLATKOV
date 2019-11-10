@@ -54,8 +54,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
     // Tableau de grille
     private Grille[] multiGrille;
     // Création de mon instance MultiGrille
-    private MultiGrille mGrille;
-    
+    private MultiGrille mGrille;    
         
     // Pour le bouton revenir en arrière
     private Originator originator;
@@ -63,7 +62,6 @@ public class FXMLDocumentController implements Initializable, Parametres {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("\u001B[31mPRINCIPALE\u001B[0m");
         System.out.println("le contrôleur initialise la vue");
         fond.getStyleClass().add("fond");   
         // Initialisation de ma multi-grille
@@ -223,7 +221,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
             }        
         } else if (touche.compareTo("a") == 0) { // FUSION GAUCHE
             boolean fusionSuccess = mGrille.fusionGauche();  
-            System.out.println(fusionSuccess);
+            //System.out.println(fusionSuccess);
             if (fusionSuccess) {
                 t.add(new Tuile2048(this.multiGrille[0]));
                 t.add(new Tuile2048(this.multiGrille[1]));

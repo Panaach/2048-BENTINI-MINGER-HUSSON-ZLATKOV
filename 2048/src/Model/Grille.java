@@ -8,6 +8,7 @@ package Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -210,6 +211,7 @@ public class Grille implements Parametres, Cloneable {
     public Case[] getCasesExtremites(int direction) {
         Case[] result = new Case[TAILLE];
         for (Case c : this.grille) {
+            c.setLastGrille(c.getNumGrille()); // Mise a jour pour le côté JFX (obligatoire)
             switch (direction) {
                 case HAUT:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
@@ -235,12 +237,19 @@ public class Grille implements Parametres, Cloneable {
         }
         return result;
     }
+    
+    public int valeurRandom() {
+        Integer[] valeurs = new Integer[]{2, 2, 4};
+        int valeur = (int)(Math.random() * (2 + 1));
+        return valeurs[valeur];
+    }
         
     public boolean nouvelleCase() {
         if (this.grille.size() < TAILLE * TAILLE) {
             ArrayList<Case> casesLibres = new ArrayList<>();
             Random ra = new Random();
-            int valeur = (1 + ra.nextInt(2)) * 2;
+            //int valeur = (1 + ra.nextInt(2)) * 2;
+            int valeur = this.valeurRandom();
             // on crée toutes les cases encore libres
             for (int x = 0; x < TAILLE; x++) {
                 for (int y = 0; y < TAILLE; y++) {

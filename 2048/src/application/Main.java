@@ -23,7 +23,7 @@ public class Main extends Application  {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 
         Scene scene = new Scene(root);
-        boolean add = scene.getStylesheets().add("CSS/styles.css");
+        boolean add = scene.getStylesheets().add("css/styles.css");
 
         stage.setScene(scene);
         stage.show();

@@ -123,9 +123,9 @@ public enum MultiGrille implements Parametres{
                         Case fusion = (Case) r[x][y].clone();
                         fusion.setNumGrille(fusion.getNumGrille() + compteur);
                         fusion.setGrille(left);
-                            System.out.println(fusion);
                         fusion.setLastX(fusion.getX());
                         fusion.setLastY(fusion.getY());
+                        // ne peas mettre lastGrille : sinon le mouvement se fera avec une grille en moins !
                         left.getGrille().add(fusion); // ajout de la nouvelle case
                                               
                         right.getGrille().remove(r[x][y]);
@@ -147,11 +147,10 @@ public enum MultiGrille implements Parametres{
                 if (r[x][y] != null) { // si ma case dans la grille droite existe alors
                     if (l[x][y] != null) { // si ma case dans la grille droite existe alors
                         if (l[x][y].valeurEgale(r[x][y])) { // si ces cases ont la mêmes valeurs alors je fusionne
-                            // création d'une nouvelle case
                             Case fusion = (Case) l[x][y].clone();
-                            fusion.setValeur(fusion.getValeur()*2);
+                            fusion.setValeur(fusion.getValeur()*2); // Fusion
                             fusion.setGrille(left);
-                            System.out.println(fusion);
+                            fusion.setLastGrille(r[x][y].getNumGrille()); // NEW
                             fusion.setLastX(fusion.getX());
                             fusion.setLastY(fusion.getY());
 
@@ -162,13 +161,15 @@ public enum MultiGrille implements Parametres{
                             // ajoute la nouvelle case
                             left.getGrille().add(fusion);
                             b = true;
-                        } 
+                        } else { // MAJ JFX
+                            l[x][y].setLastX(l[x][y].getX());
+                            l[x][y].setLastY(l[x][y].getY());                            
+                        }
                     } else { // la position est disponible donc je tp la case
                         Case fusion = (Case) r[x][y].clone();
                         fusion.setNumGrille(fusion.getNumGrille() + compteur);
                         fusion.setLastGrille(r[x][y].getNumGrille());
                         fusion.setGrille(left);
-                            System.out.println(fusion);
                         fusion.setLastX(fusion.getX());
                         fusion.setLastY(fusion.getY());
                         
