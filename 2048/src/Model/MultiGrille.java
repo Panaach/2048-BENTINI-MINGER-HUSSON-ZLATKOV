@@ -302,4 +302,10 @@ public enum MultiGrille implements Parametres{
         System.out.println("Bravo ! Vous avez atteint " + this.valeurMax());
         System.exit(0);
     }    
+    
+    public boolean isEmpty() {
+        return multiGrille[0].getGrille().isEmpty() && 
+                multiGrille[1].getGrille().isEmpty() && 
+                multiGrille[2].getGrille().isEmpty();
+    }
 }

@@ -13,36 +13,30 @@ import Model.Originator;
 import Model.Parametres;
 import Model.Tuile2048;
 import Model.TuileComposite;
+import java.awt.event.ActionEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
+import javafx.application.Platform;
+import javafx.scene.Node;
+
 
 /**
  * FXML Controller class
  *
  * @author Panach
  */
-public class FXMLDocumentController implements Initializable, Parametres {
+public class FXMLControllerJeu implements Initializable, Parametres {
 
     @FXML
     private Pane fond;
-    @FXML
-    private GridPane grille1;
-    @FXML
-    private GridPane grille2;
-    @FXML
-    private GridPane grille3;
-    @FXML
-    private Button start;
     @FXML
     private Label score;
 
@@ -99,8 +93,7 @@ public class FXMLDocumentController implements Initializable, Parametres {
                     c.getLabel().setText(Integer.toString(c.getValeur()));
                 }
             }
-        }
-        
+        }        
     }  
 
     private void positionTuile() {
@@ -150,14 +143,81 @@ public class FXMLDocumentController implements Initializable, Parametres {
     @FXML
     private void handleButtonAction(MouseEvent event) {
         System.out.println("Clic de souris sur le bouton start");
+        if (this.mGrille.isEmpty()) {
+            for (int i = 0; i < 2; i++) {
+                int random = (int) (Math.random() * 3);
+                this.multiGrille[random].nouvelleCase();
+            }
+            this.afficherTuile();
+            this.positionTuile();
+            System.out.println(mGrille);
+        } else {
+            System.out.println("Jeu déjà en cours!");
+        }
+    }
+    
+    @FXML
+    private void buttonActionNewGame() {  
+        System.out.println("New Game");
+        this.destroyTemplate();
+        grilleModel1 = new Grille(0);
+        grilleModel2 = new Grille(1);
+        grilleModel3 = new Grille(2);   
+        multiGrille = new Grille[]{grilleModel1, grilleModel2, grilleModel3};   
+        mGrille.init(multiGrille);
         for (int i = 0; i < 2; i++) {
             int random = (int) (Math.random() * 3);
             this.multiGrille[random].nouvelleCase();
         }
         this.afficherTuile();
         this.positionTuile();
-        //this.start.setVisible(true);
         System.out.println(mGrille);
+    }
+    
+    @FXML
+    private void closeApp() {
+        Platform.exit();
+        System.exit(0);
+    }
+    
+    public void mouvementNormaux(int dir) throws CloneNotSupportedException { // Pour les mouvements normaux
+        TuileComposite t = new TuileComposite();
+        score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
+        boolean b1 = this.multiGrille[0].lanceurDeplacerCases(dir);
+        boolean b2 = this.multiGrille[1].lanceurDeplacerCases(dir);
+        boolean b3 = this.multiGrille[2].lanceurDeplacerCases(dir);
+        if (b1 || b2 || b3) {
+            // Méthode composite
+            t.add(new Tuile2048(this.multiGrille[0]));
+            t.add(new Tuile2048(this.multiGrille[1]));
+            t.add(new Tuile2048(this.multiGrille[2]));
+            t.threadMovement();
+            t.threadMovementCaseDead(fond);
+            this.nouvelleCase();
+        }
+        this.updateTemplate(); 
+        System.out.println(mGrille);
+    }
+    
+    @FXML
+    private void mouvementGauche(MouseEvent event) throws CloneNotSupportedException {
+        this.mouvementNormaux(GAUCHE);
+    }
+        
+    
+    @FXML
+    private void mouvementDroite(MouseEvent event) throws CloneNotSupportedException {
+        this.mouvementNormaux(DROITE);
+    }
+    
+    @FXML
+    private void mouvementBas(MouseEvent event) throws CloneNotSupportedException {
+        this.mouvementNormaux(BAS);
+    }
+    
+    @FXML
+    private void mouvementHaut(MouseEvent event) throws CloneNotSupportedException {
+        this.mouvementNormaux(HAUT);
     }
 
     @FXML
@@ -165,63 +225,16 @@ public class FXMLDocumentController implements Initializable, Parametres {
         TuileComposite t = new TuileComposite();
         //System.out.println("touche appuyée");
         String touche = ke.getText();
-        if (touche.compareTo("q") == 0) { // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
-            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
-            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(GAUCHE);
-            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(GAUCHE);
-            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(GAUCHE);
-            if (b1 || b2 || b3) {
-                // Méthode composite
-                t.add(new Tuile2048(this.multiGrille[0]));
-                t.add(new Tuile2048(this.multiGrille[1]));
-                t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovement();
-                t.threadMovementCaseDead(fond);
-                this.nouvelleCase();
-            }            
-        } else if (touche.compareTo("d") == 0) { // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
-            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(DROITE);
-            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(DROITE);
-            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(DROITE);
-            if (b1 || b2 || b3) {
-                t.add(new Tuile2048(this.multiGrille[0]));
-                t.add(new Tuile2048(this.multiGrille[1]));
-                t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovement();
-                t.threadMovementCaseDead(fond);
-                this.nouvelleCase();
-            }
-        } else if (touche.compareTo("z") == 0) { // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
-            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));
-            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(HAUT);
-            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(HAUT);
-            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(HAUT);
-            if (b1 || b2 || b3) {
-                t.add(new Tuile2048(this.multiGrille[0]));
-                t.add(new Tuile2048(this.multiGrille[1]));
-                t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovement();
-                t.threadMovementCaseDead(fond);
-                this.nouvelleCase();
-            }
-            
-        } else if (touche.compareTo("s") == 0) { // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
-            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1));  
-            boolean b1 = this.multiGrille[0].lanceurDeplacerCases(BAS);
-            boolean b2 = this.multiGrille[1].lanceurDeplacerCases(BAS);
-            boolean b3 = this.multiGrille[2].lanceurDeplacerCases(BAS);
-            if (b1 || b2 || b3) {
-                t.add(new Tuile2048(this.multiGrille[0]));
-                t.add(new Tuile2048(this.multiGrille[1]));
-                t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovement();
-                t.threadMovementCaseDead(fond);
-                this.nouvelleCase();
-            }        
-        } else if (touche.compareTo("a") == 0) { // FUSION GAUCHE
+        if (touche.compareTo("q") == 0)  // utilisateur appuie sur "q" pour envoyer la tuile vers la gauche
+            this.mouvementNormaux(GAUCHE);            
+        else if (touche.compareTo("d") == 0) // utilisateur appuie sur "d" pour envoyer la tuile vers la droite
+            this.mouvementNormaux(DROITE);
+        else if (touche.compareTo("z") == 0) // utilisateur appuie sur "z" pour envoyer la tuile vers le haut
+            this.mouvementNormaux(HAUT);
+        else if (touche.compareTo("s") == 0) // utilisateur appuie sur "s" pour envoyer la tuile vers le bas
+            this.mouvementNormaux(BAS);      
+        else if (touche.compareTo("a") == 0) { // FUSION GAUCHE
             boolean fusionSuccess = mGrille.fusionGauche();  
-            //System.out.println(fusionSuccess);
             if (fusionSuccess) {
                 t.add(new Tuile2048(this.multiGrille[0]));
                 t.add(new Tuile2048(this.multiGrille[1]));
@@ -296,5 +309,13 @@ public class FXMLDocumentController implements Initializable, Parametres {
         }
         this.afficherTuile();
         this.positionTuile();
+    }
+    
+    public void destroyTemplate() {
+        for (int i = 0; i < 3; i++) {
+            for (Case c : this.multiGrille[i].getGrille()) {
+                fond.getChildren().remove((Node) c.getPane());
+            }
+        }
     }
 }
