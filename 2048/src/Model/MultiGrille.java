@@ -106,11 +106,6 @@ public enum MultiGrille implements Parametres{
         return convert;
     }
     
-    public void pbFusionFX(Case c) {
-        c.setLastX(c.getX());
-        c.setLastY(c.getY());
-    }
-    
     public boolean teleportationEmptyCase(Grille left, Grille right, int compteur) throws CloneNotSupportedException { // de base se fait de la droite vers la gauche (<-)
         boolean b = false;
         Case[][] l = this.convertHash(left);
@@ -150,7 +145,7 @@ public enum MultiGrille implements Parametres{
                             Case fusion = (Case) l[x][y].clone();
                             fusion.setValeur(fusion.getValeur()*2); // Fusion
                             fusion.setGrille(left);
-                            fusion.setLastGrille(r[x][y].getNumGrille()); // NEW
+                            fusion.setLastGrille(r[x][y].getNumGrille()); 
                             fusion.setLastX(fusion.getX());
                             fusion.setLastY(fusion.getY());
 
@@ -184,8 +179,8 @@ public enum MultiGrille implements Parametres{
     }
     
     // Autre méthode pour la téléportation
-    /*
-    public boolean fusionSameCase(Grille right) {        
+    
+    /*public boolean fusionSameCase(Grille right) {        
         HashSet<Case> rightClone = new HashSet<>(); 
         
         // Parcours la grille de DROITE

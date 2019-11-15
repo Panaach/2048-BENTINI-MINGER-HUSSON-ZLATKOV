@@ -78,7 +78,21 @@
     -fx-font-size: 38;
     -fx-padding: 38 25 38 25;  /*top right bottom left*/
 }
+.menuBar {    
+    -fx-background-color: #FFBF7E;
+}
 
 .fond{
-    -fx-background-color: #E6E6E6;
+    -fx-background-color: #FFE6CB;
+}
+
+.victory {
+    background-color: rgba(0, 0, 10, .5);
+}
+
+.styleResultat {
+    -fx-text-alignment: center;
+    -fx-label-line-length: 150%;
+    -fx-text-fill: #505050;
+    -fx-font-size: 45;
 }
