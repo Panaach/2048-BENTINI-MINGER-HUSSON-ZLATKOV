@@ -177,6 +177,7 @@ public class Grille implements Parametres, Cloneable {
             Case voisin = extremites[rangee].getVoisinDirect(-direction);
             if (voisin != null) {
                 if (extremites[rangee].valeurEgale(voisin)) {
+                    // POUR LES CASES QUI VONT BOUGER DANS LE JFX
                     // ajoute dans le tableau la case a détruire
                     getCasesDestroy().add(0, (Case) voisin.clone());
                     // modifie les coordonnées pour le traitement qui suit
@@ -210,7 +211,14 @@ public class Grille implements Parametres, Cloneable {
     public Case[] getCasesExtremites(int direction) {
         Case[] result = new Case[TAILLE];
         for (Case c : this.grille) {
+<<<<<<< Updated upstream
             c.setLastGrille(c.getNumGrille()); // Mise a jour pour le côté JFX (obligatoire)
+=======
+            // Modification des coordonnées pour toutes les cases, nécessaire car certaine case ne vont pas bouger, donc je veux supprimé leurs vielles corrdonnées
+            /*c.setLastX(c.getX());
+            c.setLastY(c.getY());
+            c.setNumGrille(c.getNumGrille());*/
+>>>>>>> Stashed changes
             switch (direction) {
                 case HAUT:
                     if ((result[c.getX()] == null) || (result[c.getX()].getY() > c.getY())) { // si on n'avait pas encore de case pour cette rangée ou si on a trouvé un meilleur candidat
