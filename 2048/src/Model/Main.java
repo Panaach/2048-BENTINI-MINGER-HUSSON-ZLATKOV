@@ -18,6 +18,7 @@ public class Main implements Parametres {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         Grille left = new Grille(0);
         
         Grille middle = new Grille(1);
@@ -34,7 +35,8 @@ public class Main implements Parametres {
             multiGrille[random].nouvelleCase();
         }
         
-        MultiGrille mGrille = new MultiGrille(multiGrille);
+        //MultiGrille mGrille = new MultiGrille(multiGrille);
+        MultiGrille mGrille = MultiGrille.INSTANCE;
         System.out.println(mGrille);
                 
         Scanner sc = new Scanner(System.in);

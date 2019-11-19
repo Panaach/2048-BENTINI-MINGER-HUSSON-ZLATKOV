@@ -50,7 +50,8 @@ public class FXMLDocumentController implements Initializable {
     private Grille grilleModel2 = new Grille(1);
     private Grille grilleModel3 = new Grille(2);
     private Grille[] multiGrille = new Grille[]{grilleModel1, grilleModel2, grilleModel3};
-    private MultiGrille mGrille = new MultiGrille(multiGrille);
+    //private MultiGrille mGrille = new MultiGrille(multiGrille);
+    private MultiGrille mGrille = MultiGrille.INSTANCE;
     
     //private ArrayList<Pane[][]> listTableauPane = new ArrayList<>();
     //private ArrayList<Label[][]> listTableauLabel = new ArrayList<>();
