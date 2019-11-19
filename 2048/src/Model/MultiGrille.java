@@ -5,7 +5,6 @@
  */
 package Model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -26,7 +25,6 @@ public enum MultiGrille implements Parametres{
     } // protection
 
     public void init(Grille[] mGrille) {
-        System.out.println(mGrille[0]);
         this.multiGrille[0] = mGrille[0];
         this.multiGrille[1] = mGrille[1];
         this.multiGrille[2] = mGrille[2];
@@ -34,8 +32,7 @@ public enum MultiGrille implements Parametres{
     
     public static MultiGrille getInstance() {
         return INSTANCE;
-    }
-    
+    }    
     
     /**
      * @return the multiGrille
@@ -145,7 +142,7 @@ public enum MultiGrille implements Parametres{
                             Case fusion = (Case) l[x][y].clone();
                             fusion.setValeur(fusion.getValeur()*2); // Fusion
                             fusion.setGrille(left);
-                            fusion.setLastGrille(r[x][y].getNumGrille()); 
+                            fusion.setLastGrille(r[x][y].getNumGrille()); // NEW
                             fusion.setLastX(fusion.getX());
                             fusion.setLastY(fusion.getY());
 
@@ -179,8 +176,8 @@ public enum MultiGrille implements Parametres{
     }
     
     // Autre méthode pour la téléportation
-    
-    /*public boolean fusionSameCase(Grille right) {        
+    /*
+    public boolean fusionSameCase(Grille right) {        
         HashSet<Case> rightClone = new HashSet<>(); 
         
         // Parcours la grille de DROITE

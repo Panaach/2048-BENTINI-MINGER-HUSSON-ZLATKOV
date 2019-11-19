@@ -40,8 +40,6 @@ public class FXMLControllerJeu implements Initializable, Parametres {
     @FXML
     private Pane fond;
     @FXML
-    private MenuBar menuBar;
-    @FXML
     private Label score;
     @FXML
     private Label resultat;
@@ -235,19 +233,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
         else if (touche.compareTo("a") == 0) { // FUSION GAUCHE
             this.mouvementFusion(FULLLEFT);
         } else if (touche.compareTo("e") == 0) { // FUSION DROITE
-<<<<<<< Updated upstream:2048/src/application/FXMLControllerJeu.java
             this.mouvementFusion(FULLRIGHT);
-=======
-            boolean fusionSuccess = mGrille.fusionDroite();                     
-            if (fusionSuccess) {
-                t.add(new Tuile2048(this.multiGrille[0]));
-                t.add(new Tuile2048(this.multiGrille[1]));
-                t.add(new Tuile2048(this.multiGrille[2]));
-                t.threadMovement();
-                t.threadMovementCaseDead(fond);
-                this.nouvelleCase();      
-            }
->>>>>>> Stashed changes:2048/src/application/FXMLDocumentController.java
         }
         this.updateTemplate(); 
         System.out.println(mGrille);
@@ -365,7 +351,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
     }
     
     private void finDePartie() {
-        if (mGrille.valeurMax()>=OBJECTIF) {
+        /*if (mGrille.valeurMax()>=OBJECTIF) {
             fond.getStyleClass().add("victory");
             resultat.setText("Victoire !");
             resultat.getStyleClass().add("styleResultat");
@@ -375,7 +361,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
             resultat.setText("Perdu !");
             resultat.getStyleClass().add(0, "styleResultat");
             resultat.focusedProperty();
-        }
+        }*/
     }
     
     private void perdre() {
