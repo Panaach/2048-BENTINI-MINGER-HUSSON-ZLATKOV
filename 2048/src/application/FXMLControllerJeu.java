@@ -5,14 +5,14 @@
  */
 package application;
 
-import Model.CareTaker;
+import Pattern.Memento.CareTaker;
 import Model.Case;
 import Model.Grille;
 import Model.MultiGrille;
-import Model.Originator;
+import Pattern.Memento.Originator;
 import Model.Parametres;
-import Model.Tuile2048;
-import Model.TuileComposite;
+import Model.Pattern.Composite.Tuile2048;
+import Model.Pattern.Composite.TuileComposite;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,11 +23,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.Iterator;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.MenuBar;
 
 
 /**
@@ -53,6 +54,11 @@ public class FXMLControllerJeu implements Initializable, Parametres {
     private Button btnGauche;
     @FXML
     private Button btnDroite;
+    @FXML
+    private Button btnFusionDroite;
+    @FXML
+    private Button btnFusionGauche;
+    
 
     
     // Les 3 grilles
@@ -77,6 +83,8 @@ public class FXMLControllerJeu implements Initializable, Parametres {
         btnGauche.setVisible(false);
         btnDroite.setVisible(false);
         btnBas.setVisible(false);
+        btnFusionDroite.setVisible(false);
+        btnFusionGauche.setVisible(false);
         // Initialisation de ma multi-grille
         left = new Grille(0);
         middle = new Grille(1);
@@ -200,6 +208,16 @@ public class FXMLControllerJeu implements Initializable, Parametres {
     }
     
     @FXML
+    private void mouvementFusionGauche(MouseEvent event) throws CloneNotSupportedException {
+        this.mouvementFusion(FULLLEFT);
+    }
+        
+    @FXML
+    private void mouvementFusionDroite(MouseEvent event) throws CloneNotSupportedException {
+        this.mouvementFusion(FULLRIGHT);
+    }
+    
+    @FXML
     private void mouvementGauche(MouseEvent event) throws CloneNotSupportedException {
         this.mouvementNormaux(GAUCHE);
     }
@@ -239,13 +257,33 @@ public class FXMLControllerJeu implements Initializable, Parametres {
         System.out.println(mGrille);
     } 
     
+    @FXML
+    private void moveBack() {
+        System.out.println("BACK");
+        originator.getStateFromMemento(careTaker.get(0));
+        Iterator it = originator.getState().iterator();
+        mGrille = (MultiGrille) it.next();
+        
+        this.updateTemplate();
+        System.out.println(mGrille);
+    }
+    
     private void mouvementNormaux(int dir) throws CloneNotSupportedException { // Pour les mouvements normaux
+        //memento
+        EnumSet<MultiGrille> tempCloned = EnumSet.allOf(MultiGrille.class);
+        EnumSet<MultiGrille> cloned = tempCloned.clone();
+        this.originator.setState(cloned);
+        this.careTaker.add(originator.saveStateToMemento());
+        
+        originator.getStateFromMemento(careTaker.get(0));
+        Iterator it = originator.getState().iterator();
+        // Composite
         TuileComposite t = new TuileComposite();
-        score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
         boolean b1 = this.multiGrille[0].lanceurDeplacerCases(dir);
         boolean b2 = this.multiGrille[1].lanceurDeplacerCases(dir);
         boolean b3 = this.multiGrille[2].lanceurDeplacerCases(dir);
-        if (b1 || b2 || b3) {
+        if (b1 || b2 || b3) {            
+            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
             // Méthode composite
             t.add(new Tuile2048(this.multiGrille[0]));
             t.add(new Tuile2048(this.multiGrille[1]));
@@ -254,16 +292,26 @@ public class FXMLControllerJeu implements Initializable, Parametres {
             t.threadMovementCaseDead(fond);
             this.nouvelleCase();
         }
+        System.out.println(it.next().hashCode());
+        System.out.println(mGrille.hashCode());
+//        System.out.println("CLONED" + (MultiGrille) it.next());
+        
         this.finDePartie();
     }
     
     private void mouvementFusion(int dir) throws CloneNotSupportedException {
+        //memento
+        EnumSet<MultiGrille> cloned = EnumSet.allOf(MultiGrille.class).clone();
+        this.originator.setState(cloned);
+        this.careTaker.add(originator.saveStateToMemento());
+        
         TuileComposite t = new TuileComposite();
         boolean fusionSuccess;
         if (dir == FULLLEFT) fusionSuccess = mGrille.fusionGauche();  
             else fusionSuccess = mGrille.fusionDroite();  
         
-        if (fusionSuccess) {
+        if (fusionSuccess) {                        
+            score.setText(Integer.toString(Integer.parseInt(score.getText()) + 1)); // mise à jour du compteur de mouvement
             t.add(new Tuile2048(this.multiGrille[0]));
             t.add(new Tuile2048(this.multiGrille[1]));
             t.add(new Tuile2048(this.multiGrille[2]));
@@ -281,11 +329,15 @@ public class FXMLControllerJeu implements Initializable, Parametres {
             btnGauche.setVisible(true);
             btnDroite.setVisible(true);
             btnBas.setVisible(true);
+            btnFusionDroite.setVisible(true);
+            btnFusionGauche.setVisible(true);
         } else {            
             btnHaut.setVisible(false);
             btnGauche.setVisible(false);
             btnDroite.setVisible(false);
             btnBas.setVisible(false);
+            btnFusionDroite.setVisible(false);
+            btnFusionGauche.setVisible(false);
         }
     }
     

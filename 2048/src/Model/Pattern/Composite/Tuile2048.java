@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Model.Pattern.Composite;
 
+import Model.Case;
+import Model.Grille;
+import Model.Parametres;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Node;

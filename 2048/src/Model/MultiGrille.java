@@ -7,18 +7,11 @@ package Model;
 
 import java.util.HashSet;
 
-/**
- *
- * @author Panach
- */
-public enum MultiGrille implements Parametres{
+public enum MultiGrille implements Parametres, Cloneable{
+    
     INSTANCE;
     
     private Grille[] multiGrille;
-    
-    // Pour le côté fx
-    /*private ArrayList<Case> fusionCaseEmpty = new ArrayList<>();
-    private ArrayList<Case> fusionCaseSame = new ArrayList<>();*/
     
     private MultiGrille() {
         multiGrille = new Grille[3];
@@ -46,14 +39,7 @@ public enum MultiGrille implements Parametres{
      */
     public void setMultiGrille(Grille[] multiGrille) {
         this.multiGrille = multiGrille;
-    }
-    
-    /*public MultiGrille(Grille[] multiGrille) {
-        this.multiGrille = new Grille[3];
-        this.multiGrille[0] = multiGrille[0];
-        this.multiGrille[1] = multiGrille[1];
-        this.multiGrille[2] = multiGrille[2];
-    }  */    
+    }  
     
     @Override
     public String toString() {
@@ -77,8 +63,8 @@ public enum MultiGrille implements Parametres{
             result += "]\n";
         }
         return result;
-    }
-    
+    } 
+
     // présice quelle méthode choisir
     public boolean choixDirection(int direction) throws CloneNotSupportedException {
         boolean b;
@@ -153,13 +139,16 @@ public enum MultiGrille implements Parametres{
                             // ajoute la nouvelle case
                             left.getGrille().add(fusion);
                             b = true;
-                        } else { // MAJ JFX
+                        }  else { // Nécessaire pour éviter les mouvements de vielles coordonnées, il faut donc les mettre à jour
                             l[x][y].setLastX(l[x][y].getX());
-                            l[x][y].setLastY(l[x][y].getY());                            
+                            l[x][y].setLastY(l[x][y].getY());  
+                            
+                            r[x][y].setLastX(r[x][y].getX());
+                            r[x][y].setLastY(r[x][y].getY()); 
                         }
                     } else { // la position est disponible donc je tp la case
                         Case fusion = (Case) r[x][y].clone();
-                        fusion.setNumGrille(fusion.getNumGrille() + compteur);
+                        fusion.setNumGrille(fusion.getNumGrille() + compteur); // change le numéro de la grille en fonction du mouvement
                         fusion.setLastGrille(r[x][y].getNumGrille());
                         fusion.setGrille(left);
                         fusion.setLastX(fusion.getX());
@@ -169,6 +158,9 @@ public enum MultiGrille implements Parametres{
                         left.getGrille().add(fusion);
                         b = true;
                     }
+                } else if (l[x][y] != null) { // Nécessaire pour éviter les mouvements de vielles coordonnées, il faut donc les mettre à jour
+                    l[x][y].setLastX(l[x][y].getX());
+                    l[x][y].setLastY(l[x][y].getY());                            
                 }
             }
         }

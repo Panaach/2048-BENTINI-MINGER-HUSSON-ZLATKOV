@@ -67,6 +67,16 @@ public class Grille implements Parametres, Cloneable {
     public int getValeurMax() {
         return valeurMax;
     }
+    
+    public boolean equals(Grille g) {
+        for (Case c : g.getGrille()) {
+            if (!this.grille.contains(c)) {
+                System.out.println(c);
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public String toString() {

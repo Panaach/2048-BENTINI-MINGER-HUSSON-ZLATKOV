@@ -67,8 +67,9 @@
                   <Insets />
                </opaqueInsets>
             </GridPane>
+            <Button fx:id="btnFusionGauche" layoutX="161.0" layoutY="61.0" mnemonicParsing="false" onAction="#mouvementFusionGauche" onMouseClicked="#mouvementGauche" prefHeight="31.0" prefWidth="124.0" text="FUSION GAUCHE" />
             <Button fx:id="start" layoutX="587.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#handleButtonAction" prefHeight="31.0" prefWidth="100.0" text="Start" />
-            <Pane layoutX="586.0" layoutY="40.0" prefHeight="79.0" prefWidth="100.0" style="-fx-background-color: yellow;">
+            <Pane layoutX="722.0" layoutY="44.0" prefHeight="79.0" prefWidth="100.0" style="-fx-background-color: yellow;">
                <children>
                   <Label layoutX="32.0" layoutY="14.0" text="Moves" />
                   <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="32.0" layoutY="40.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
@@ -109,6 +110,8 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <Button fx:id="btnFusionDroite" layoutX="491.0" layoutY="61.0" mnemonicParsing="false" onAction="#mouvementFusionDroite" onMouseClicked="#mouvementGauche" prefHeight="31.0" prefWidth="124.0" text="FUSION DROITE" />
+            <Button layoutX="1052.0" layoutY="80.0" mnemonicParsing="false" onAction="#moveBack" text="Retour en arrière" />
          </children>
       </Pane>
     </children>

@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Model.Pattern.Composite;
+
+import javafx.scene.layout.Pane;
 
 /**
  *
  * @author Panach
  */
-public class Memento {
-   private MultiGrille state;
-
-   public Memento(MultiGrille state){
-      this.state = state;
-   }
-
-   public MultiGrille getState(){
-      return state;
-   }	
+public interface Tuile {
+    public void threadMovement();
+    
+    public void threadMovementCaseDead(Pane fond);
 }

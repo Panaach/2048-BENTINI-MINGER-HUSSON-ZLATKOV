@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Model.Pattern.Composite;
 
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
