@@ -7,7 +7,7 @@ package Model;
 
 import java.util.HashSet;
 
-public enum MultiGrille implements Parametres, Cloneable{
+public enum MultiGrille implements Parametres, Cloneable, java.io.Serializable{
     
     INSTANCE;
     

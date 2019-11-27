@@ -11,14 +11,6 @@ import Model.Grille;
 import Model.MultiGrille;
 import Pattern.Memento.Originator;
 import Model.Parametres;
-import static Model.Parametres.BAS;
-import static Model.Parametres.DROITE;
-import static Model.Parametres.FULLLEFT;
-import static Model.Parametres.FULLRIGHT;
-import static Model.Parametres.GAUCHE;
-import static Model.Parametres.HAUT;
-import static Model.Parametres.tailleX;
-import static Model.Parametres.tailleY;
 import Model.Pattern.Composite.Tuile2048;
 import Model.Pattern.Composite.TuileComposite;
 import java.io.File;
@@ -27,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URISyntaxException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,6 +32,8 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -165,7 +160,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
         ObjectOutputStream oos = null;
 
         try {
-            File f = new File("C:\\Users\\Husso\\Documents\\COURS\\Cours L3\\JAVAFX\\2048\\mg.ser");
+            File f = new File(new File(new File(FXMLControllerJeu.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent()).getParent() + "\\mg.ser");
             final FileOutputStream fichier = new FileOutputStream(f);
             oos = new ObjectOutputStream(fichier);
             //oos.writeObject(mGrille);
@@ -175,6 +170,8 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
             oos.flush();
         } catch (final java.io.IOException e) {
             e.printStackTrace();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(FXMLControllerJeu.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (oos != null) {
@@ -195,7 +192,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
         ObjectInputStream ois = null;
         Grille[] grilles = new Grille[3];
         try {
-            File f = new File("C:\\Users\\Husso\\Documents\\COURS\\Cours L3\\JAVAFX\\2048\\mg.ser");
+            File f = new File (new File(new File(FXMLControllerJeu.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent()).getParent() + "\\mg.ser");
 
             final FileInputStream fichierIn = new FileInputStream(f);
             ois = new ObjectInputStream(fichierIn);
@@ -208,6 +205,8 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
 
         } catch (final java.io.IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(FXMLControllerJeu.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (ois != null) {

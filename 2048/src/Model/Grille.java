@@ -14,7 +14,7 @@ import java.util.Random;
  *
  * @author Sylvain
  */
-public class Grille implements Parametres, Cloneable {
+public class Grille implements Parametres, Cloneable, java.io.Serializable {
 
     private HashSet<Case> grille;
     private int valeurMax = 0;
