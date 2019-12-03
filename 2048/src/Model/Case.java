@@ -13,14 +13,14 @@ import javafx.scene.layout.Pane;
  *
  * @author Sylvain
  */
-public class Case implements Parametres, Cloneable {
+public class Case implements Parametres, Cloneable, java.io.Serializable {
 
     /* Elements FXML utilisé seulement pour le FX (créé un lien entre la tuile
     et la case) */
     @FXML
-    private Pane pane;
+    private transient Pane pane;
     @FXML
-    private Label label;
+    private transient Label label;
     
     private int x, y, valeur, numGrille, lastX, lastY, lastGrille;
     private Grille grille;

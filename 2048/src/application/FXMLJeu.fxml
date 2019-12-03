@@ -81,8 +81,8 @@
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#buttonActionNewGame" text="Nouvelle partie" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Charger" />
-                        <MenuItem mnemonicParsing="false" text="Sauvegarder" />
+                        <MenuItem fx:id="charger" mnemonicParsing="false" onAction="#chargerPartie" text="Charger" />
+                        <MenuItem fx:id="save" mnemonicParsing="false" onAction="#savePartie" text="Sauvegarder" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Quitter" />
                   </items>

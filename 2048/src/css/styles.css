@@ -38,6 +38,19 @@
     -fx-background-color: #ecff08;
     -fx-border-color: black;
 }
+.pane512 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+.pane1024 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+.pane2048 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+
 
 .gridpane {
     -fx-border-color: black;
