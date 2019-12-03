@@ -89,7 +89,7 @@ public enum MultiGrille implements Parametres, Cloneable{
         return convert;
     }
     
-    public boolean teleportationEmptyCase(Grille left, Grille right, int compteur) throws CloneNotSupportedException { // de base se fait de la droite vers la gauche (<-)
+    public boolean teleportationEmptyCase(Grille left, Grille right, int compteur) { // de base se fait de la droite vers la gauche (<-)
         boolean b = false;
         Case[][] l = this.convertHash(left);
         Case[][] r = this.convertHash(right);
@@ -115,7 +115,7 @@ public enum MultiGrille implements Parametres, Cloneable{
         return b;
     }
     
-    public boolean teleportationSameCase(Grille left, Grille right, int compteur) throws CloneNotSupportedException { // de base se fait de la droite vers la gauche (<-)
+    public boolean teleportationSameCase(Grille left, Grille right, int compteur) { // de base se fait de la droite vers la gauche (<-)
         boolean b = false;
         Case[][] l = this.convertHash(left);
         Case[][] r = this.convertHash(right);
@@ -238,7 +238,7 @@ public enum MultiGrille implements Parametres, Cloneable{
         return false;
     }
     
-    public boolean fusionGauche() throws CloneNotSupportedException {
+    public boolean fusionGauche() {
         boolean b1 = this.teleportationSameCase(this.getMultiGrille()[0], this.getMultiGrille()[1], -1);
         boolean b2 = this.teleportationSameCase(this.getMultiGrille()[1], this.getMultiGrille()[2], -1);
         
@@ -248,7 +248,7 @@ public enum MultiGrille implements Parametres, Cloneable{
         return b1 || b2 || b3 || b4;
     }
     
-    public boolean fusionDroite() throws CloneNotSupportedException {
+    public boolean fusionDroite() {
         boolean b1 = this.teleportationSameCase(this.getMultiGrille()[2], this.getMultiGrille()[1], 1);
         boolean b2 = this.teleportationSameCase(this.getMultiGrille()[1], this.getMultiGrille()[0], 1);
         

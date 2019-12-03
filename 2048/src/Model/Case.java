@@ -164,9 +164,14 @@ public class Case implements Parametres, Cloneable {
     }
     
     @Override
-    public Object clone() throws CloneNotSupportedException { 
-        Case caseClone = (Case) super.clone(); 
-        return caseClone;
+    public Object clone() { 
+        try {
+            Case caseClone = (Case) super.clone(); 
+            return caseClone;
+        } catch (CloneNotSupportedException c) {
+            System.out.println("Error clone : " + c);
+        }
+        return null;
     }
     
     public boolean valeurEgale(Case c) {
@@ -177,7 +182,7 @@ public class Case implements Parametres, Cloneable {
         }
     }
 
-    public Case getVoisinDirect(int direction) {
+    public synchronized Case getVoisinDirect(int direction) {
         if (direction == HAUT) {
             for (int i = this.y - 1; i >= 0; i--) {
                 for (Case c : grille.getGrille()) {

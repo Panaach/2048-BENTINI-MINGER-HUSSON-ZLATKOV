@@ -5,14 +5,15 @@
  */
 package application;
 
+import IA.Utopie;
 import Pattern.Memento.CareTaker;
 import Model.Case;
 import Model.Grille;
 import Model.MultiGrille;
 import Pattern.Memento.Originator;
 import Model.Parametres;
-import Model.Pattern.Composite.Tuile2048;
-import Model.Pattern.Composite.TuileComposite;
+import Pattern.Composite.Tuile2048;
+import Pattern.Composite.TuileComposite;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,29 +38,16 @@ import javafx.scene.control.CheckMenuItem;
  * @author Panach
  */
 public class FXMLControllerJeu implements Initializable, Parametres {
-
-    @FXML
-    private Pane fond;
-    @FXML
-    private Label score;
-    @FXML
-    private Label resultat;
-    @FXML
-    private CheckMenuItem buttonActive;
-    @FXML
-    private Button btnHaut;
-    @FXML
-    private Button btnBas;
-    @FXML
-    private Button btnGauche;
-    @FXML
-    private Button btnDroite;
-    @FXML
-    private Button btnFusionDroite;
-    @FXML
-    private Button btnFusionGauche;
-    
-
+    @FXML protected Pane fond;
+    @FXML protected Label score;
+    @FXML protected Label resultat;
+    @FXML private CheckMenuItem buttonActive;
+    @FXML private Button btnHaut;
+    @FXML private Button btnBas;
+    @FXML private Button btnGauche;
+    @FXML private Button btnDroite;
+    @FXML private Button btnFusionDroite;
+    @FXML private Button btnFusionGauche;
     
     // Les 3 grilles
     private Grille left;
@@ -68,7 +56,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
     // Tableau de grille
     private Grille[] multiGrille;
     // Création de mon instance MultiGrille
-    private MultiGrille mGrille;    
+    protected MultiGrille mGrille;    
         
     // Pour le bouton revenir en arrière
     private Originator originator;
@@ -76,8 +64,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fond.getStyleClass().add("fond"); 
-        //menuBar.getStyleClass().add("menuBar"); 
+        fond.getStyleClass().add("fond");  
         // Bouton non visible au départ
         btnHaut.setVisible(false);
         btnGauche.setVisible(false);
@@ -268,6 +255,13 @@ public class FXMLControllerJeu implements Initializable, Parametres {
         System.out.println(mGrille);
     }
     
+    @FXML
+    private void playUtopie() {
+        System.out.println("UTOPIE");
+        Utopie utopie = new Utopie(mGrille, fond);
+        utopie.launchUtopie();
+    }
+    
     private void mouvementNormaux(int dir) throws CloneNotSupportedException { // Pour les mouvements normaux
         //memento
         EnumSet<MultiGrille> tempCloned = EnumSet.allOf(MultiGrille.class);
@@ -278,7 +272,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
         originator.getStateFromMemento(careTaker.get(0));
         Iterator it = originator.getState().iterator();
         // Composite
-        TuileComposite t = new TuileComposite();
+            TuileComposite t = new TuileComposite();
         boolean b1 = this.multiGrille[0].lanceurDeplacerCases(dir);
         boolean b2 = this.multiGrille[1].lanceurDeplacerCases(dir);
         boolean b3 = this.multiGrille[2].lanceurDeplacerCases(dir);
@@ -377,7 +371,7 @@ public class FXMLControllerJeu implements Initializable, Parametres {
         }
     }
     
-    private void nouvelleCase() {
+    protected void nouvelleCase() {
         ArrayList<Integer> grillePossible = new ArrayList<>();
         grillePossible.add(0); grillePossible.add(1); grillePossible.add(2);
         // si le tableau est vide cela signifie qu'on ne peut ajouter aucune case dans les grilles

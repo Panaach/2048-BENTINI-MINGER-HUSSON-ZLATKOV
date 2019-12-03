@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Pattern.Composite;
+package Pattern.Composite;
 
 import java.util.ArrayList;
 import javafx.scene.layout.Pane;
@@ -14,7 +14,7 @@ import javafx.scene.layout.Pane;
  */
 public class TuileComposite implements Tuile{
     private ArrayList<Tuile> tuileComposite = new ArrayList<>();
-
+    
     @Override
     public void threadMovement() {
         for(Tuile t : tuileComposite) { 

@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model.Pattern.Composite;
+package Pattern.Composite;
 
 import Model.Case;
 import Model.Grille;
 import Model.Parametres;
+import application.FXMLControllerJeu;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
@@ -20,13 +21,14 @@ import javafx.scene.layout.Pane;
 public class Tuile2048 implements Tuile, Parametres{
     private Grille grille;
     
-    public Tuile2048 (Grille grille) throws CloneNotSupportedException {
+    public Tuile2048 (Grille grille) {
         this.grille = (Grille) grille.clone();
     }
 
     // mouvement pour une tuile
     @Override
     public void threadMovement() { 
+        //System.out.println("MOUVEMENT GRAPHIQUE");
         for (Case c  : grille.getGrille()) {
             final int numGrille = grille.getNumGrille();
             Task task = new Task<Void>() { // on définit une tâche parallèle pour mettre à jour la vue
@@ -66,8 +68,15 @@ public class Tuile2048 implements Tuile, Parametres{
                 } // end call
 
             };
+            
+            /*task.setOnSucceeded(e -> {
+                Boolean result = (Boolean) task.getValue();
+            });*/
+            
+            
             Thread th = new Thread(task); // on crée un contrôleur de Thread
             th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
+            th.setPriority(Thread.MAX_PRIORITY);
             th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
         }
     }    
@@ -117,7 +126,6 @@ public class Tuile2048 implements Tuile, Parametres{
             Thread th = new Thread(task); // on crée un contrôleur de Thread
             th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
             th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
-            
             fond.getChildren().remove((Node) c.getPane()); // ICI POUR L4INSTANT COTE VISUEL
         }
         this.grille.getCasesDestroy().clear();

@@ -105,7 +105,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="A propos" />
+                    <MenuItem mnemonicParsing="false" onAction="#playUtopie" text="Utopie" />
                   </items>
                 </Menu>
               </menus>

@@ -92,9 +92,14 @@ public class Grille implements Parametres, Cloneable {
     }
     
     @Override
-    public Object clone() throws CloneNotSupportedException { 
-        Grille cloned = (Grille) super.clone();
-        return cloned;
+    public Object clone() { 
+        try {
+            Grille cloned = (Grille) super.clone();
+            return cloned;
+        } catch (CloneNotSupportedException c) {
+            System.out.println("Error clone : " + c);
+        }
+        return null;
     }
     
     public String toHTML() {
@@ -127,7 +132,7 @@ public class Grille implements Parametres, Cloneable {
         return true;
     } 
 
-    public boolean lanceurDeplacerCases(int direction) throws CloneNotSupportedException {
+    public boolean lanceurDeplacerCases(int direction) {
         Case[] extremites = this.getCasesExtremites(direction);
         deplacement = false; // pour vérifier si on a bougé au moins une case après le déplacement, avant d'en rajouter une nouvelle
         for (int i = 0; i < TAILLE; i++) {
@@ -157,7 +162,7 @@ public class Grille implements Parametres, Cloneable {
         deplacement = true;
     }
 
-    private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) throws CloneNotSupportedException {
+    private void deplacerCasesRecursif(Case[] extremites, int rangee, int direction, int compteur) {
         if (extremites[rangee] != null) {
             // position avant changement
             extremites[rangee].setLastX(extremites[rangee].getX());
