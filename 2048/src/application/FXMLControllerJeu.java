@@ -5,19 +5,12 @@
  */
 package application;
 
-import IA.Utopie;
 import Pattern.Memento.CareTaker;
 import Model.Case;
 import Model.Grille;
 import Model.MultiGrille;
 import Pattern.Memento.Originator;
 import Model.Parametres;
-import static Model.Parametres.BAS;
-import static Model.Parametres.DROITE;
-import static Model.Parametres.FULLLEFT;
-import static Model.Parametres.FULLRIGHT;
-import static Model.Parametres.GAUCHE;
-import static Model.Parametres.HAUT;
 import static Model.Parametres.tailleX;
 import static Model.Parametres.tailleY;
 import Pattern.Composite.Tuile2048;
@@ -47,24 +40,58 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
  *
  * @author Panach
  */
-public class FXMLControllerJeu implements Initializable, Parametres, java.io.Serializable {
-    @FXML protected Pane fond;
-    @FXML protected Label score;
-    @FXML protected Label resultat;
-    @FXML private CheckMenuItem buttonActive;
-    @FXML private Button btnHaut;
-    @FXML private Button btnBas;
-    @FXML private Button btnGauche;
-    @FXML private Button btnDroite;
-    @FXML private Button btnFusionDroite;
-    @FXML private Button btnFusionGauche;
+public class FXMLControllerJeu implements Initializable, Parametres {
+
+    @FXML
+    private Pane fond;
+    @FXML
+    private AnchorPane base;
+    @FXML
+    private Label score;
+    @FXML
+    private Label resultat;
+    @FXML
+    private CheckMenuItem buttonActive;
+    @FXML
+    private Button btnHaut;
+    @FXML
+    private Button btnBas;
+    @FXML
+    private Button btnGauche;
+    @FXML
+    private Button btnDroite;
+    @FXML
+    private Button btnFusionDroite;
+    @FXML
+    private Button btnFusionGauche;
+    @FXML
+    private Button start;
+    @FXML
+    private Label titre;
+    @FXML
+    private Button retour;
+    @FXML
+    private MenuBar menu;
+    @FXML
+    private GridPane grille1;
+    @FXML
+    private GridPane grille2;
+    @FXML
+    private GridPane grille3;
+    @FXML
+    private MenuItem jour;
+    @FXML
+    private MenuItem nuit;
 
     @FXML
     private MenuItem charger;
@@ -79,8 +106,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     // Tableau de grille
     private Grille[] multiGrille;
     // Création de mon instance MultiGrille
-    protected MultiGrille mGrille;    
-        
+    private MultiGrille mGrille;
 
     // Pour le bouton revenir en arrière
     private Originator originator;
@@ -88,8 +114,25 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        fond.getStyleClass().add("fond");  
+
         fond.getStyleClass().add("fond");
+        titre.getStyleClass().add("titre");
+        start.getStyleClass().add("boutton");
+        btnDroite.getStyleClass().add("boutton");
+        btnGauche.getStyleClass().add("boutton");
+        btnHaut.getStyleClass().add("boutton");
+        btnBas.getStyleClass().add("boutton");
+        btnFusionDroite.getStyleClass().add("boutton");
+        btnFusionGauche.getStyleClass().add("boutton");
+        retour.getStyleClass().add("boutton");
+        menu.getStyleClass().add("menuBar");
+        base.getStyleClass().add("fond");
+        grille1.getStyleClass().add("grille");
+        grille2.getStyleClass().add("grille");
+        grille3.getStyleClass().add("grille");
+        resultat.getStyleClass().add("mouvement");
+        score.getStyleClass().add("mouvement");
+
         //menuBar.getStyleClass().add("menuBar"); 
         // Bouton non visible au départ
         btnHaut.setVisible(false);
@@ -156,6 +199,31 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     }
 
     @FXML
+    private void handleDragAction(MouseEvent event) {
+        /*System.out.println("Glisser/déposer sur la grille avec la souris");
+        double x = event.getX();//translation en abscisse
+        double y = event.getY();//translation en ordonnée
+        if (x > y) {
+            for (int i = 0; i < grille1.getChildren().size(); i++) { //pour chaque colonne
+                //for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
+                System.out.println("ok1");
+                grille1.getChildren().remove(i);
+            }
+        } else if (x < y) {
+            System.out.println("ok2");
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 4; j++) {
+                    Pane p = new Pane();
+                    p.getStyleClass().add("pane");
+                    grille1.add(p, i, j);
+                    p.setVisible(true);
+                    grille1.getStyleClass().add("gridpane");
+                }
+            }
+        }*/
+    }
+
+    @FXML
     private void savePartie() {
         ObjectOutputStream oos = null;
 
@@ -192,7 +260,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
         ObjectInputStream ois = null;
         Grille[] grilles = new Grille[3];
         try {
-            File f = new File (new File(new File(FXMLControllerJeu.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent()).getParent() + "\\mg.ser");
+            File f = new File(new File(new File(FXMLControllerJeu.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParent()).getParent() + "\\mg.ser");
 
             final FileInputStream fichierIn = new FileInputStream(f);
             ois = new ObjectInputStream(fichierIn);
@@ -313,28 +381,17 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     }
 
     @FXML
-    private void handleDragAction(MouseEvent event) {
-        /*System.out.println("Glisser/déposer sur la grille avec la souris");
-        double x = event.getX();//translation en abscisse
-        double y = event.getY();//translation en ordonnée
-        if (x > y) {
-            for (int i = 0; i < grille1.getChildren().size(); i++) { //pour chaque colonne
-                //for (int j = 0; j < grille.getRowConstraints().size(); j++) { //pour chaque ligne
-                System.out.println("ok1");
-                grille1.getChildren().remove(i);
-            }
-        } else if (x < y) {
-            System.out.println("ok2");
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    Pane p = new Pane();
-                    p.getStyleClass().add("pane");
-                    grille1.add(p, i, j);
-                    p.setVisible(true);
-                    grille1.getStyleClass().add("gridpane");
-                }
-            }
-        }*/
+    private void cssJour() {
+        fond.getStylesheets().clear();
+        fond.getStylesheets().add("css/jeu.css");
+        System.out.println("clear");
+    }
+
+    @FXML
+    private void cssNuit() {
+        fond.getStylesheets().clear();
+        fond.getStylesheets().add("css/jeuNuit.css");
+        System.out.println("clear");
     }
 
     @FXML
@@ -441,14 +498,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
         this.updateTemplate();
         System.out.println(mGrille);
     }
-    
-    @FXML
-    private void playUtopie() {
-        System.out.println("UTOPIE");
-        Utopie utopie = new Utopie(mGrille, fond);
-        utopie.launchUtopie();
-    }
-    
+
     private void mouvementNormaux(int dir) throws CloneNotSupportedException { // Pour les mouvements normaux
         //memento
         EnumSet<MultiGrille> tempCloned = EnumSet.allOf(MultiGrille.class);
@@ -459,7 +509,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
         originator.getStateFromMemento(careTaker.get(0));
         Iterator it = originator.getState().iterator();
         // Composite
-            TuileComposite t = new TuileComposite();
+        TuileComposite t = new TuileComposite();
         boolean b1 = this.multiGrille[0].lanceurDeplacerCases(dir);
         boolean b2 = this.multiGrille[1].lanceurDeplacerCases(dir);
         boolean b3 = this.multiGrille[2].lanceurDeplacerCases(dir);
@@ -571,7 +621,11 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
                         c.getPane().getStyleClass().add("pane1024");
                         c.getLabel().getStyleClass().add("tuile1000");
                         break;
-
+                    case 2048:
+                        c.getPane().getStyleClass().clear();
+                        c.getPane().getStyleClass().add("pane2048");
+                        c.getLabel().getStyleClass().add("tuile1000");
+                        break;
                 }
             }
         }

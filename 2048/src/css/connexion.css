@@ -1,0 +1,137 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.fondconnexion{
+    -fx-background-color:black;
+    
+
+}
+
+
+
+.boutton{
+    -fx-background-color: 
+        #ff8800,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , orange , 14, 0.1 , 0 , 0 );
+    -fx-font-family: "Arial Nova";
+   
+    -fx-border-width:5px;
+    -fx-text-fill: linear-gradient(whitesmoke, #d0d0d0);
+    -fx-font-weight: bold;
+
+    -fx-padding: 10 20 10 20;
+     
+}
+
+.boutton:hover{
+    -fx-background-color:   whitesmoke;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , white , 14, 0.5 , 0 , 0 );
+
+}
+
+
+.connexion{
+    
+   
+   
+    
+}
+
+.inscription{
+    
+}
+
+.annuler{
+   -fx-alignement:left; 
+}
+
+.champPseudo{
+  -fx-font-family: "Arial Nova";
+  -fx-effect: dropshadow(three-pass-box, white, 14, 0.1, 0, 0);
+  -fx-font-size: 18px;
+  -fx-border-color:     darkgoldenrod;
+  -fx-border-width: 0 0 2 0;
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+
+}
+
+.champPseudo:focused{
+     -fx-font-family: "Arial Nova";
+  -fx-effect: dropshadow(three-pass-box, orange, 14, 0.4, 0, 0);
+  -fx-font-size: 18px;
+  -fx-border-color:     white;
+  -fx-border-width: 0 0 2 0;
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+
+.pseudo{
+    
+    -fx-effect: dropshadow(three-pass-box, orange, 14, 0.2, 0, 0);
+    -fx-text-fill: orange;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+}
+
+.champMdp{
+  -fx-font-family: "Arial Nova";
+  -fx-effect: dropshadow(gaussian, white, 14, 0.1, 0, 0);
+  -fx-font-size: 18px;
+  -fx-border-color: darkgoldenrod;
+  -fx-border-width: 0 0 2 0;
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+    
+}
+
+.champMdp:focused{
+     -fx-font-family: "Arial Nova";
+  -fx-effect: dropshadow(gaussian, orange, 14, 0.4, 0, 0);
+  -fx-font-size: 18px;
+  -fx-border-color:     white;
+  -fx-border-width: 0 0 2 0;
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+
+.mdp{
+
+    -fx-text-align: center;
+    -fx-font-weight: 800;
+    -fx-effect: dropshadow(gaussian, orange, 14, 0.2, 0, 0);
+    -fx-text-fill: orange;
+    -fx-font-size: 20px;
+}
+
+.titre{
+    -fx-padding: 10 20 10 20;
+    -fx-text-align: center;
+    -fx-font-size: 100px;
+    -fx-effect: dropshadow( gaussian, orange, 14, 0.2, 0, 0);
+    -fx-text-fill: orange;
+    -fx-font-weight: 600;
+}
+
+.titre:hover{
+    -fx-padding: 10 20 10 20;
+    -fx-text-align: center;
+    -fx-font-size: 100px;
+    -fx-effect: dropshadow( gaussian, orange, 14, 0.2, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="623.0" prefWidth="1272.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="application.FXMLClassementController">
+    <stylesheets>
+        <URL value="@fxmlclassement.css" />
+    </stylesheets>
+   <children>
+      <Pane prefHeight="623.0" prefWidth="1272.0">
+         <children>
+            <Label layoutX="489.0" layoutY="123.0" text="2048" />
+            <Label layoutX="472.0" layoutY="225.0" text="Classement" />
+            <TreeTableView layoutX="289.0" layoutY="291.0" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TreeTableColumn prefWidth="75.0" text="Pseudos" />
+                <TreeTableColumn prefWidth="75.0" text="Nb de coup" />
+              </columns>
+            </TreeTableView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
