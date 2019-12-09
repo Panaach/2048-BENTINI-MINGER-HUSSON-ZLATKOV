@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pattern.Composite;
+package Surplus;
 
 import Model.Case;
 import Model.Grille;
 import Model.Parametres;
-import application.FXMLControllerJeu;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
@@ -76,7 +75,7 @@ public class Tuile2048 implements Tuile, Parametres{
             
             Thread th = new Thread(task); // on crée un contrôleur de Thread
             th.setDaemon(true); // le Thread s'exécutera en arrière-plan (démon informatique)
-            th.setPriority(Thread.MAX_PRIORITY);
+            //th.setPriority(Thread.MAX_PRIORITY);
             th.start(); // et on exécute le Thread pour mettre à jour la vue (déplacement continu de la tuile horizontalement)*/
         }
     }    

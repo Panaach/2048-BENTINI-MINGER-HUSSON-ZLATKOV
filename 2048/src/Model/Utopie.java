@@ -1,10 +1,10 @@
-package IA;
+package Model;
 
-import Model.MultiGrille;
+import Model.Cube;
 import Model.Parametres;
 import application.FXMLControllerJeu;
-import Pattern.Composite.Tuile2048;
-import Pattern.Composite.TuileComposite;
+import Surplus.Tuile2048;
+import Surplus.TuileComposite;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -25,17 +25,16 @@ import javafx.scene.layout.Pane;
  */
 public class Utopie extends FXMLControllerJeu implements Parametres{ 
     
-    private MultiGrille mGrille;
-    private Pane fond;
-    ArrayList<Integer> tbRandom = new ArrayList<>();
+    private Cube cube;
+    private ArrayList<Integer> tbRandom = new ArrayList<>();
         
-    public Utopie (MultiGrille mGrille, Pane fond) {
-        this.mGrille = mGrille;
-        this.fond = fond;
+    public Utopie (Pane fond) {
+        super();
+        this.cube = Cube.getInstance();
     }
     
     public void launchUtopie() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             System.out.println(i);
             this.deplacementRandom();
             System.out.println("dans le boucle for : " + i);
@@ -54,92 +53,68 @@ public class Utopie extends FXMLControllerJeu implements Parametres{
         this.tbRandom.add(HAUT);
         this.tbRandom.add(DROITE);
         this.tbRandom.add(GAUCHE);
-        this.tbRandom.add(FULLRIGHT);
-        this.tbRandom.add(FULLLEFT);
+        this.tbRandom.add(SUPERIEUR);
+        this.tbRandom.add(INFERIEUR);
     }
     
     private synchronized int randomDeplacement() {
-        //System.out.println(tbRandom);
-        ArrayList<Integer> cloned = (ArrayList<Integer>) tbRandom.clone();
-        System.out.println(cloned.hashCode());
         int nb = (int)(Math.random() * tbRandom.size());
-        //System.out.println(nb);
         return tbRandom.get(nb);
     }
     
     private synchronized void deplacementRandom() {
+        /*System.out.println(cube);
         Thread thread = new Thread(){
             @Override
             public void run(){
                 initTb();
-                ArrayList<Integer> cloned = (ArrayList<Integer>) tbRandom.clone();
+                //ArrayList<Integer> cloned = (ArrayList<Integer>) tbRandom.clone();
                 boolean movementSuccess = false;
-                while (!movementSuccess && !cloned.isEmpty()) {
-                    //System.out.println(mGrille); 
-                    
-                    /*try {
-                        Thread.sleep(2500);
-                        Thread.yield();
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Utopie.class.getName()).log(Level.SEVERE, null, ex);
-                    }*/
+                while (!movementSuccess && !tbRandom.isEmpty()) {
+                    //System.out.println(cube); 
 
                     int random = randomDeplacement(); // Déplacement random
                     if (random < 4) { // mouvement normaux
-                        TuileComposite t = new TuileComposite();
-                        boolean b1 = mGrille.getMultiGrille()[0].lanceurDeplacerCases(random);
-                        boolean b2 = mGrille.getMultiGrille()[1].lanceurDeplacerCases(random);
-                        boolean b3 = mGrille.getMultiGrille()[2].lanceurDeplacerCases(random);
+                        boolean b = cube.deplacement(random);
 
                         //System.out.println(tbRandom);
-                        if (b1 || b2 || b3) {  
-                            System.out.println("Move normal réussi" + random);
-                            t.add(new Tuile2048(mGrille.getMultiGrille()[0]));
-                            t.add(new Tuile2048(mGrille.getMultiGrille()[1]));
-                            t.add(new Tuile2048(mGrille.getMultiGrille()[2]));
-                            t.threadMovement();
+                        if (b) {  
+                            //System.out.println("Move normal réussi" + random);
+                            threadMouvement(cube);
                             movementSuccess = true;
                             //t.threadMovementCaseDead(fond);
                             //this.nouvelleCase(); // JFX
                             //return true; // déplacement réussi 
                         } else {
                             System.out.println("Move normal pas réussi suppression" + random);
-                            cloned.remove(Integer.valueOf(random));
+                            tbRandom.remove(Integer.valueOf(random));
                         }
                     } else { // téléportation
-                        TuileComposite t = new TuileComposite();
+                        //TuileComposite t = new TuileComposite();
                         boolean fusionSuccess;
-                        if (random == FULLLEFT) fusionSuccess = mGrille.fusionGauche();  
-                            else fusionSuccess = mGrille.fusionDroite();  
+                        if (random == INFERIEUR) fusionSuccess = cube.fusionEtageInf();  
+                            else fusionSuccess = cube.fusionEtageSup();  
 
                         //System.out.println(tbRandom);
                         if (fusionSuccess) {      
                             System.out.println("Move fusion réussi"+random);                  
-                            t.add(new Tuile2048(mGrille.getMultiGrille()[0]));
-                            t.add(new Tuile2048(mGrille.getMultiGrille()[1]));
-                            t.add(new Tuile2048(mGrille.getMultiGrille()[2]));
-                            t.threadMovement();
+                            threadMouvement(cube);
                             movementSuccess = true;
                             //t.threadMovementCaseDead(fond);
                             //this.nouvelleCase(); // JFX   
                             //return true; // déplacement réussi  
                         } else {
                             System.out.println("Move fusion pas réussi suppression" + random);
-                            cloned.remove(Integer.valueOf(random));
+                            tbRandom.remove(Integer.valueOf(random));
                         }
                     }
                 } // end while
                 //return false;
                 //System.out.println(movementSuccess);
-                System.out.println(mGrille);
+                System.out.println(cube);
             }
         };
-        thread.setPriority(Thread.MIN_PRIORITY);
-        thread.start();
-        /*try {
-            thread.join(32);
-        } catch (InterruptedException i) {
-            System.out.println("Error tread : " + i);
-        }*/
+        thread.setPriority(Thread.MAX_PRIORITY);
+        thread.start();*/
     }
 }

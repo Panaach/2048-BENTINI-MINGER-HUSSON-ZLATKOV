@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pattern.Memento;
+package Model;
 
 import Model.Grille;
-import Model.MultiGrille;
+import Model.Cube;
 import java.util.EnumSet;
 
 /**
@@ -14,13 +14,13 @@ import java.util.EnumSet;
  * @author Panach
  */
 public class Memento {
-    private EnumSet<MultiGrille> state;
+    private EnumSet<Cube> state;
 
-    public Memento(EnumSet<MultiGrille> state){
+    public Memento(EnumSet<Cube> state){
         this.state = state;
     }
 
-    public EnumSet<MultiGrille> getState(){
+    public EnumSet<Cube> getState(){
         return state;
     }	
 }

@@ -9,7 +9,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -24,15 +23,11 @@ public class Main extends Application  {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLJeu.fxml"));
 
         Scene scene = new Scene(root);
-        boolean add = scene.getStylesheets().add("css/jeuNuit.css");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("2048_logo.png")));
-       Label titre = new Label();
-
+        boolean add = scene.getStylesheets().add("css/default.css");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Image/2048_logo.png")));
         stage.setTitle("2048 3D");
         stage.setScene(scene);
         stage.show();
-        
-        
     }
 
     /**

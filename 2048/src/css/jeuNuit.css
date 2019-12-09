@@ -1,44 +1,9 @@
-
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 20 nov. 2019, 16:41:04
-    Author     : Sofia
-*/
-
-
-
-/*
-.pane {
-    -fx-background-color: pink;
-    -fx-border-color: black;
-}
-
-
-.pane4 {
-    -fx-background-color: #F4AE9F;
-    -fx-border-color: black;
-}
-.gridpane {
-    -fx-border-color: black;
-    -fx-grid-lines-visible: true;
-    -fx-border: 2px solid;
-    -fx-halignment: center;
-    -fx-alignment: CENTER;  
-}
-
-*/
-
-
 .tuile { /* concerne les tuiles qui contiennent un seul chiffre */
     -fx-font-family: "Arial Nova";
     -fx-text-alignment: center;
     -fx-halignment: center; 
     -fx-padding: 38 55 38 55;  /*top right bottom left*/
-     
+
 }
 
 .tuile10 {  /* concerne les tuiles qui contiennent deux chiffres */
@@ -52,8 +17,7 @@ and open the template in the editor.
 .tuile100 {  /* concerne les tuiles qui contiennent trois chiffres */
     -fx-font-family: "Arial Nova";
     -fx-text-alignment: center;
-    -fx-halignment: center; 
-    
+    -fx-halignment: center;     
     -fx-font-size: 50;
     -fx-padding: 38 25 38 25;  /*top right bottom left*/
 }
@@ -61,138 +25,125 @@ and open the template in the editor.
 .tuile1000 {  /* concerne les tuiles qui contiennent quatre chiffre */
     -fx-font-family: "Arial Nova";
     -fx-text-alignment: center;
-    -fx-halignment: center;  
-    
+    -fx-halignment: center;      
     -fx-padding: 38 10 38 10;  /*top right bottom left*/
 }
 
 .pane2 .label{
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: red;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , red , 12, 0.3 , 0 , 0);
+    -fx-font-size: 50px;
+    -fx-text-fill: red;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , red , 12, 0.3 , 0 , 0);
 }
 
 .pane4 .label {
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: blue;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , blue , 12, 0.3 , 0 , 0);
+    -fx-font-size: 50px;
+    -fx-text-fill: blue;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , blue , 12, 0.3 , 0 , 0);
 }
 
 .pane8 .label {
-   -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: green;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , green , 12, 0.3 , 0 , 0);
+    -fx-text-alignment: center;
+    -fx-font-size: 50px;
+    -fx-text-fill: green;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , green , 12, 0.3 , 0 , 0);
 }
 
 .pane16 .label{
-   -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: yellow;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , yellow , 12, 0.3 , 0 , 0);
-
+    -fx-text-alignment: center;
+    -fx-font-size: 50px;
+    -fx-text-fill: yellow;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , yellow , 12, 0.3 , 0 , 0);
 }
 
 .pane32 .label {
-   -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: pink;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , pink , 12, 0.3 , 0 , 0);
+    -fx-text-alignment: center;
+    -fx-font-size: 50px;
+    -fx-text-fill: pink;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , pink , 12, 0.3 , 0 , 0);
 }
 
 .pane64 .label {
-   -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: brown;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , brown , 12, 0.3 , 0 , 0);
+    -fx-text-alignment: center;
+    -fx-font-size: 50px;
+    -fx-text-fill: brown;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , brown , 12, 0.3 , 0 , 0);
 }
 
 .pane128 .label {
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: cyan;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , cyan , 12, 0.3 , 0 , 0);
+    -fx-font-size: 50px;
+    -fx-text-fill: cyan;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , cyan , 12, 0.3 , 0 , 0);
 }
 
 .pane256 .label {
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: orange;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , orange , 12, 0.3 , 0 , 0);
+    -fx-font-size: 50px;
+    -fx-text-fill: orange;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , orange , 12, 0.3 , 0 , 0);
 }
 
 .pane512 .label{
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: purple;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , purple , 12, 0.3 , 0 , 0);
-     
+    -fx-font-size: 50px;
+    -fx-text-fill: purple;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , purple , 12, 0.3 , 0 , 0);
 }
 
 .pane1024 .label{
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: gold;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , gold , 12, 0.3 , 0 , 0);
-       
+    -fx-font-size: 50px;
+    -fx-text-fill: gold;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , gold , 12, 0.3 , 0 , 0);
 }
 
 .pane2048 .label{
     -fx-text-alignment: center;
-     -fx-font-size: 50px;
-     -fx-text-fill: silver;
-     -fx-font-weight:600px;
-     -fx-effect: dropshadow( gaussian , silver , 12, 0.3 , 0 , 0);
+    -fx-font-size: 50px;
+    -fx-text-fill: silver;
+    -fx-font-weight:600px;
+    -fx-effect: dropshadow( gaussian , silver , 12, 0.3 , 0 , 0);
 }
-
-
 
 .fond{ /* couleur du fond */
     -fx-background-color: black;
 }
-
-
-
 
 .grille{ /* style des grilles */
     -fx-border-color: orange;
     -fx-border-width: 5px;
     -fx-effect: dropshadow( three-pass-box , orange , 105, 0.2 , 0 , 0);
     -fx-border-style: solid inside;
-     -fx-border-radius: 2;
-     -fx-hgap: 2;
-     -fx-vgap: 2;
- 
+    -fx-border-radius: 2;
+    -fx-hgap: 2;
+    -fx-vgap: 2;
+
 }
 
 grid-cell{
     -fx-effect: dropshadow( gaussian , white , 0, 0 , 0 , 0);
 }
 
-
-
 .titre{ /* style du titre "2048" */
-   -fx-padding: 10 20 10 20;
+    -fx-padding: 10 20 10 20;
     -fx-text-align: center;
     -fx-font-size: 70px;
     -fx-effect: dropshadow( gaussian, orange, 14, 0.2, 0, 0);
     -fx-text-fill: orange;
     -fx-font-weight: 600;
 }
-
-
 
 .mouvement{ /* style du compteur de mouvement */
     -fx-effect: dropshadow(gaussian, orange, 20, 0.2, 0, 0);
@@ -201,167 +152,70 @@ grid-cell{
     -fx-font-weight: 800;
 }
 
-
-/* .start{ 
-    -fx-background-color: 
-        #ff8800,
-        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
-        linear-gradient(#20262b, #191d22),
-        radial-gradient(center 50% 0%, radius 100%, rgba(114,131,148,0.9), rgba(255,255,255,0));
-    -fx-background-radius: 5,4,3,5;
-    -fx-background-insets: 0,1,2,0;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , orange , 14, 0.1 , 0 , 0 );
-    -fx-font-family: "Arial Nova";
-   
-    -fx-border-width:5px;
-    -fx-text-fill: linear-gradient(whitesmoke, #d0d0d0);
-    -fx-font-weight: bold;
-
-    -fx-padding: 10 20 10 20;
-    
-}
-
-.start Text {
-    -fx-effect: dropshadow( one-pass-box , orange , 1, 0.0 , 0 , 1 );
-}
-
-
-.start:hover{-fx-background-color:   whitesmoke;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( three-pass-box , white , 14, 0.5 , 0 , 0 );
-    
-    
-}
-*/
-
 .menu-bar{ /* style du menu déroulant */
-  -fx-background-color: black;
-  -fx-border-color:  white;
-    
- -fx-effect: dropshadow( gaussian , white , 25, 0.5 , 0 , 0 );
-     
-
+    -fx-background-color: black;
+    -fx-border-color:  white;
+    -fx-effect: dropshadow( gaussian , white , 25, 0.5 , 0 , 0 );
 }
 
 .menu-item{  /* style des items dans le menu déroulant*/
-     -fx-background-color: black;
+    -fx-background-color: black;
     -fx-border-color:  black;
-     -fx-border-width: 3;
-     
-
- 
- 
+    -fx-border-width: 3;
 }
 
 .menu-item .label{ /* style du texte des items */
     -fx-effect: dropshadow( gaussian , white , 13, 0.6 , 0 , 0 );
-    
 }
-
 
 .menu-item:hover{ /* style des item qd on passe le curseur dessus */
     -fx-background-color: grey;
     -fx-border-color:  grey;
-    
 }
 
 .menu-bar .label{ /* label dans la bar de menu*/
     -fx-text-fill: white;
     -fx-effect: dropshadow( gaussian , white , 13, 0.6 , 0 , 0 );
-     
 }
 
 .menu:hover{
     -fx-background-color: grey;
-     
 }
 
 .menu.showing{
     -fx-background-color: grey;
 }
 
-
-
-
-
-
-/* .bouttonDirection{
-    -fx-background-color: 
-        black;
-    -fx-border-color: orange;
-        
-    -fx-border-radius: 1.5;
-    -fx-background-insets: 0,1,2,0;
-
-    -fx-effect: dropshadow( gaussian , orange , 14, 0.2, 0 , 0);
-    
-   
-   -fx-border-style: solid inside;
-      -fx-border-width: 2.4;
-    
-    -fx-text-fill: orange;
-    -fx-font-size: 15px;
-    -fx-text-weight: 100px;
-    
-} */
-
 .boutton{ /* concerne tous les bouttons */
     -fx-background-color: black;
     -fx-border-color: orange;
-        
-    
     -fx-effect: dropshadow( gaussian , orange , 14, 0.2, 0 , 0);
-    
-   
-   -fx-border-style: solid inside;
-      -fx-border-width: 2.4;
-    
+    -fx-border-style: solid inside;
+    -fx-border-width: 2.4;
     -fx-font-family: "Arial Nova";
-  -fx-effect: dropshadow(three-pass-box, orange, 12, 0.4, 0, 0);
-  -fx-font-size: 14px;
-  -fx-border-color:     orange;
-  -fx-border-width:  2 ;
-  -fx-background-color: transparent;
-  -fx-text-fill: orange;
-  -fx-font-weight: bold;
-    
+    -fx-effect: dropshadow(three-pass-box, orange, 12, 0.4, 0, 0);
+    -fx-font-size: 14px;
+    -fx-border-color:     orange;
+    -fx-border-width:  2 ;
+    -fx-background-color: transparent;
+    -fx-text-fill: orange;
+    -fx-font-weight: bold;
 }
 
 .boutton:hover{ /* bouttons qd on passe la souris dessus*/
-    -fx-background-color: 
-        black;
+    -fx-background-color: black;
     -fx-border-color: white;
-        
     -fx-border-radius: 1.5;
     -fx-background-insets: 0,1,2,0;
-
     -fx-effect: dropshadow( gaussian , white , 14, 0.2, 0 , 0);
-    
-   
-   -fx-border-style: solid inside;
-      -fx-border-width: 2.4;
-    
+    -fx-border-style: solid inside;
+    -fx-border-width: 2.4;
     -fx-font-family: "Arial Nova";
-  -fx-effect: dropshadow(three-pass-box, orange, 14, 0.2, 0, 0);
-  -fx-font-size: 14px;
-  -fx-border-color:     white;
-  -fx-border-width:  2 ;
-  -fx-background-color: transparent;
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-    
+    -fx-effect: dropshadow(three-pass-box, orange, 14, 0.2, 0, 0);
+    -fx-font-size: 14px;
+    -fx-border-color:     white;
+    -fx-border-width:  2 ;
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
-
-.victory {
-    background-color: rgba(0, 0, 10, .5);
-}
-
-
-    
-    
-   
-
-
-
-

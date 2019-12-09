@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Pattern.Memento;
+package Model;
 
-import Pattern.Memento.Memento;
+import Model.Memento;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,0 +1,111 @@
+
+.pane2 {
+    -fx-background-color: #ff532d;
+    -fx-border-color: black;
+}
+
+.pane4 {
+    -fx-background-color: #ad2a0e;
+    -fx-border-color: black;
+}
+
+.pane8 {
+    -fx-background-color: #c52400;
+    -fx-border-color: black;
+}
+
+.pane16 {
+    -fx-background-color: #8e1b01;
+    -fx-border-color: black;
+}
+
+.pane32 {
+    -fx-background-color: #5a1100;
+    -fx-border-color: black;
+}
+
+.pane64 {
+    -fx-background-color: #2e0900;
+    -fx-border-color: black;
+}
+
+.pane128 {
+    -fx-background-color: #000000;
+    -fx-border-color: black;
+}
+
+.pane256 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+.pane512 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+.pane1024 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+.pane2048 {
+    -fx-background-color: #ecff08;
+    -fx-border-color: black;
+}
+
+
+.gridpane {
+    -fx-border-color: black;
+    -fx-grid-lines-visible: true;
+    -fx-halignment: center;
+    -fx-alignment: CENTER;  
+}
+
+.tuile {
+    -fx-text-alignment: center;
+    -fx-halignment: center; 
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 38;
+    -fx-padding: 38 55 38 55;  /*top right bottom left*/
+}
+
+.tuile10 {
+    -fx-text-alignment: center;
+    -fx-halignment: center; 
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 38;
+    -fx-padding: 38 45 38 45;  /*top right bottom left*/
+}
+
+
+.tuile100 {
+    -fx-text-alignment: center;
+    -fx-halignment: center; 
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 38;
+    -fx-padding: 38 35 38 35;  /*top right bottom left*/
+}
+
+.tuile1000 {
+    -fx-text-alignment: center;
+    -fx-halignment: center; 
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 38;
+    -fx-padding: 38 25 38 25;  /*top right bottom left*/
+}
+.menuBar {    
+    -fx-background-color: #FFBF7E;
+}
+
+.fond{
+    -fx-background-color: #FFE6CB;
+}
+
+.victory {
+    background-color: rgba(0, 0, 10, .5);
+}
+
+.styleResultat {
+    -fx-text-alignment: center;
+    -fx-label-line-length: 150%;
+    -fx-text-fill: #505050;
+    -fx-font-size: 45;
+}

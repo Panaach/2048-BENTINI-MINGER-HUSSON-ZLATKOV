@@ -101,19 +101,6 @@ public class Grille implements Parametres, Cloneable, java.io.Serializable {
         }
         return null;
     }
-    
-    public String toHTML() {
-        int[][] tableau = new int[TAILLE][TAILLE];
-        for (Case c : this.grille) {
-            tableau[c.getY()][c.getX()] = c.getValeur();
-        }
-        String result = "<html>";
-        for (int i = 0; i < tableau.length; i++) {
-            result += Arrays.toString(tableau[i]) + "<br/>";
-        }
-        result += "</html>";
-        return result;
-    }
 
     public boolean partieFinie() {
         if (this.grille.size() < TAILLE * TAILLE) {
@@ -215,7 +202,7 @@ public class Grille implements Parametres, Cloneable, java.io.Serializable {
         }
     }
     
-    /*
+    /**
     * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (une pour chaque colonne)
     * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
     * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
