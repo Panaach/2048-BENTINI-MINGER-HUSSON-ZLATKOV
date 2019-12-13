@@ -18,13 +18,13 @@
     <children>
       <Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="623.0" prefWidth="1272.0" styleClass="fond">
          <children>
-            <Label fx:id="titre" layoutX="559.0" layoutY="14.0" prefHeight="109.0" prefWidth="163.0" styleClass="titre" text="2048" />
-            <Label fx:id="resultat" layoutX="1052.0" layoutY="36.0" prefHeight="46.0" prefWidth="62.0" styleClass="mouvement" text="Moves" />
-            <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="1052.0" layoutY="113.0" prefHeight="21.0" prefWidth="37.0" text="0" textAlignment="CENTER" />
-            <Button fx:id="btnDroite" layoutX="223.0" layoutY="94.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" text="DROITE" />
-            <Button fx:id="btnGauche" layoutX="85.0" layoutY="94.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" styleClass="boutton" text="GAUCHE" />
-            <Button fx:id="btnBas" layoutX="154.0" layoutY="128.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" styleClass="boutton" text="BAS" />
-            <Button fx:id="btnHaut" layoutX="154.0" layoutY="61.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" styleClass="boutton" text="HAUT" />
+            <Label fx:id="titre" layoutX="539.0" layoutY="7.0" prefHeight="156.0" prefWidth="209.0" styleClass="titre" text="2048" />
+            <Label fx:id="resultat" layoutX="835.0" layoutY="77.0" prefHeight="67.0" prefWidth="114.0" styleClass="mouvement" text="Moves :" />
+            <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="934.0" layoutY="87.0" prefHeight="48.0" prefWidth="101.0" styleClass="nbmouvement" text="0" textAlignment="CENTER" />
+            <Button fx:id="btnDroite" layoutX="293.0" layoutY="110.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="101.0" styleClass="boutton" text="DROITE" />
+            <Button fx:id="btnGauche" layoutX="105.0" layoutY="110.0" onAction="#mouvement" prefHeight="31.0" prefWidth="101.0" styleClass="boutton" text="GAUCHE" />
+            <Button fx:id="btnBas" layoutX="215.0" layoutY="110.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" styleClass="boutton" text="BAS" />
+            <Button fx:id="btnHaut" layoutX="215.0" layoutY="75.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" styleClass="boutton" text="HAUT" />
             <GridPane fx:id="grille1" gridLinesVisible="true" layoutX="24.0" layoutY="191.0" prefHeight="397.0" prefWidth="397.0" styleClass="grille">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,8 +70,8 @@
                   <Insets />
                </opaqueInsets>
             </GridPane>
-            <Button fx:id="btnFusionInferieur" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="124.0" styleClass="boutton" text="FUSION INFERIEUR" />
-            <Button fx:id="start" layoutX="595.0" layoutY="134.0" mnemonicParsing="false" onMouseClicked="#buttonStartGame" prefHeight="40.0" prefWidth="112.0" styleClass="boutton" text="Start" />
+            <Button fx:id="btnFusionInferieur" layoutX="14.0" layoutY="75.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="192.0" styleClass="boutton" text="FUSION INFERIEUR" />
+            <Button fx:id="start" layoutX="581.0" layoutY="134.0" mnemonicParsing="false" onMouseClicked="#buttonStartGame" prefHeight="40.0" prefWidth="112.0" styleClass="boutton" text="Start" />
             <MenuBar fx:id="menu" prefHeight="25.0" prefWidth="1272.0" styleClass="menubar">
               <menus>
                 <Menu fx:id="fichier" mnemonicParsing="false" text="Fichier">
@@ -82,6 +82,8 @@
                         <MenuItem fx:id="save" mnemonicParsing="false" onAction="#savePartie" text="Sauvegarder" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Quitter" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Classement" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Mode">
@@ -97,7 +99,7 @@
                   </Menu>
                 <Menu mnemonicParsing="false" text="Compte">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Paramètre de compte" onAction="#updateAccount" />
+                    <MenuItem mnemonicParsing="false" text="Paramètre de compte" onAction="#updateAccount"/>
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
@@ -107,8 +109,8 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Button fx:id="retour" layoutX="1144.0" layoutY="46.0" mnemonicParsing="false" onAction="#moveBack" styleClass="boutton" text="Retour en arrière" />
-            <Button fx:id="btnFusionSuperieur" layoutX="258.0" layoutY="61.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="124.0" styleClass="boutton" text="FUSION SUPERIEUR" />
+            <Button fx:id="retour" layoutX="1082.0" layoutY="94.0" mnemonicParsing="false" onAction="#moveBack" prefHeight="32.0" prefWidth="158.0" styleClass="boutton" text="Retour en arrière" />
+            <Button fx:id="btnFusionSuperieur" layoutX="293.0" layoutY="74.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="32.0" prefWidth="197.0" styleClass="boutton" text="FUSION SUPERIEUR" />
          </children>
       </Pane>
     </children>

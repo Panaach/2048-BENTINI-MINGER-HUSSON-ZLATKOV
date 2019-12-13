@@ -15,9 +15,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -28,47 +31,92 @@ import javafx.stage.Stage;
 public class FXMLInscriptionController implements Initializable {
     BDD bdd = BDD.getInstance();
     
-    @FXML private TextField pseudo;
-    @FXML private TextField mail;
-    @FXML private PasswordField mdp1;
-    @FXML private PasswordField mdp2;
-    @FXML private AnchorPane AnchorPane;
+  
+   
+    
+    
+    
+    @FXML
+    private AnchorPane base;
+    @FXML 
+    private Pane fond;
+    @FXML
+    private TextField champPseudo;
+    @FXML
+    private PasswordField champMdp;
+    @FXML
+    private PasswordField champConfirmation;
+    @FXML
+    private TextField champMail;
+    @FXML
+    private Button valider;
+    @FXML
+    private Button annuler;
+    @FXML
+    private Label titre;
+    @FXML
+    private Label pseudo;
+    @FXML
+    private Label mdp;
+    @FXML
+    private Label confirmation;
+    @FXML
+    private Label mail;
+    @FXML
+    private Label texte;
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        fond.getStyleClass().add("fond");
+        base.getStyleClass().add("fond");
+        titre.getStyleClass().add("titre");
+        valider.getStyleClass().add("boutton");
+        annuler.getStyleClass().add("boutton");
+        pseudo.getStyleClass().add("pseudo");
+        confirmation.getStyleClass().add("mdp");
+        mdp.getStyleClass().add("mdp");
+        pseudo.getStyleClass().add("pseudo");
+        mail.getStyleClass().add("pseudo");
+        champConfirmation.getStyleClass().add("champMdp");
+        champMail.getStyleClass().add("champPseudo");
+        champPseudo.getStyleClass().add("champPseudo");
+        champMdp.getStyleClass().add("champMdp");
+        texte.getStyleClass().add("texte");
         // TODO
     }    
 
     public void validation(){
         boolean empty = false;
         if(pseudo.getText().equals("")){
-            pseudo.setPromptText("Pseudo vide!");
+            champPseudo.setPromptText("Pseudo vide!");
             empty = true;
         }
         
-        if(mdp1.getText().equals("")){
-            mdp1.setPromptText("Mdp vide!");
+        if(champMdp.getText().equals("")){
+            champMdp.setPromptText("Mdp vide!");
             empty = true;
         }
-        if(mdp2.getText().equals("")){
-            mdp2.setPromptText("Mdp vide!");
+        if(champConfirmation.getText().equals("")){
+            champConfirmation.setPromptText("Mdp vide!");
             empty = true;
         }
-        if(mail.getText().equals("")){
-            mail.setPromptText("Mail vide!");
+        if(champMail.getText().equals("")){
+            champMail.setPromptText("Mail vide!");
             empty = true;
         }
         if(empty) return;
         
         
-        if((mdp1.getText().equals(mdp2.getText()))){
-            bdd.signUp(pseudo.getText(), mdp1.getText(), mail.getText());
+        if((champMdp.getText().equals(champConfirmation.getText()))){
+            bdd.signUp(pseudo.getText(), champMdp.getText(), champMail.getText());
             
-            ((Stage)AnchorPane.getScene().getWindow()).close();
+            ((Stage)base.getScene().getWindow()).close();
         } else {
-            mdp2.setPromptText("Mdp différents");
+            champConfirmation.setPromptText("Mdp différents");
         }
         
         try {
@@ -87,6 +135,6 @@ public class FXMLInscriptionController implements Initializable {
     }
     
     public void annuler(){
-        ((Stage)AnchorPane.getScene().getWindow()).close();
+        ((Stage)base.getScene().getWindow()).close();
     }
 }

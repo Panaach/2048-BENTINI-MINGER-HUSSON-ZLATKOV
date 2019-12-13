@@ -294,7 +294,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
             Parent loader = FXMLLoader.load(getClass().getResource("FXMLModifier.fxml"));
 
             Scene scene = new Scene(loader);
-            boolean add = scene.getStylesheets().add("css/jeuNuit.css");
+            boolean add = scene.getStylesheets().add("css/autreClasses.css");
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();

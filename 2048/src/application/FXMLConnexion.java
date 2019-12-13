@@ -37,9 +37,10 @@ public class FXMLConnexion implements Initializable {
     /**
      * Initializes the controller class.
      */
-
+    @FXML
+    private AnchorPane base;
     @FXML 
-    private Pane fondconnexion;
+    private Pane fond;
     @FXML
     private TextField champPseudo;
     @FXML
@@ -56,12 +57,25 @@ public class FXMLConnexion implements Initializable {
     private Label pseudo;
     @FXML
     private Label mdp;
+    @FXML
+    private Label texte;
     @FXML 
     private AnchorPane AnchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        fond.getStyleClass().add("fond");
+        base.getStyleClass().add("fond");
+        titre.getStyleClass().add("titre");
+        connexion.getStyleClass().add("boutton");
+        inscription.getStyleClass().add("boutton");
+        annuler.getStyleClass().add("boutton");
+        pseudo.getStyleClass().add("pseudo");
+        mdp.getStyleClass().add("mdp");
+        champPseudo.getStyleClass().add("champPseudo");
+        champMdp.getStyleClass().add("champMdp");
+        texte.getStyleClass().add("texte");
 
     }    
 
@@ -108,7 +122,7 @@ public class FXMLConnexion implements Initializable {
             Parent loader = FXMLLoader.load(getClass().getResource("FXMLInscription.fxml"));
 
             Scene scene = new Scene(loader);
-            boolean add = scene.getStylesheets().add("css/inscriptionNuit.css");
+            boolean add = scene.getStylesheets().add("css/autreClasses.css");
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();

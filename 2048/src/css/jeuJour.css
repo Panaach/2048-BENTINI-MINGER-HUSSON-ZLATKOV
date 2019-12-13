@@ -1,8 +1,10 @@
+/* css du jeu en mode jour */
+
 .tuile {
     -fx-font-family: "Arial Nova";
     -fx-text-alignment: center;
     -fx-alignment: center; 
-    -fx-padding: 38 53 38 53;  /*top right bottom left*/     
+    -fx-padding: 38 53 38 53;  /*top right bottom left*/
 }
 
 .tuile10 {
@@ -16,7 +18,7 @@
 .tuile100 {
     -fx-font-family: "Arial Nova";
     -fx-text-alignment: center;
-    -fx-alignment: center;     
+    -fx-alignment: center; 
     -fx-font-size: 50;
     -fx-padding: 38 25 38 25;  /*top right bottom left*/
 }
@@ -24,7 +26,7 @@
 .tuile1000 {
     -fx-font-family: "Arial Nova";
     -fx-text-alignment: center;
-    -fx-alignment: center;      
+    -fx-alignment: center;  
     -fx-padding: 38 5 38 5;  /*top right bottom left*/
 }
 
@@ -32,7 +34,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #8CF6D9;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -40,7 +42,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #8CCCF6;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -48,7 +50,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #8F8CF6;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -56,7 +58,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #D18CF6;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -64,7 +66,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #F68CD4;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -72,7 +74,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #FC848F;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -80,7 +82,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: #FF906C;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -88,7 +90,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: FEB160;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , white , 12, 0.3 , 0 , 0);
 }
 
@@ -96,7 +98,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: purple;
-    -fx-font-weight:600px;
+    -fx-font-weight:600;
     -fx-effect: dropshadow( gaussian , purple , 12, 0.3 , 0 , 0);
 }
 
@@ -104,7 +106,7 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: gold;
-    -fx-font-weight:600px;
+    -fx-font-weight: 600;
     -fx-effect: dropshadow( gaussian , gold , 12, 0.3 , 0 , 0);
 }
 
@@ -112,25 +114,33 @@
     -fx-text-alignment: center;
     -fx-font-size: 50px;
     -fx-text-fill: silver;
-    -fx-font-weight:600px;
+    -fx-font-weight: 600;
     -fx-effect: dropshadow( gaussian , silver , 12, 0.3 , 0 , 0);
 }
 
 .fond{
-    -fx-background-color: #f3f380;
+    -fx-background-color:#eded61;
 }
 
 .grille{
     -fx-border-color: white;
-    -fx-border-width: 10px;
+    -fx-border-width: 6px;
     -fx-effect: dropshadow( three-pass-box , white , 105, 0.5 , 0 , 0);
-    -fx-border-style: solid inside;
+    -fx-border-style: solid inside; 
     -fx-border-radius: 2;
 }
 
+.grille Line {
+    -fx-stroke: white;
+    -fx-effect: dropshadow( gaussian , white , 0, 0 , 0 , 0);
+}
 grid-cell{
     -fx-effect: dropshadow( gaussian , white , 45, 0 , 0 , 0);
+
+
 }
+
+
 
 .titre{
     -fx-padding: 10 20 10 20;
@@ -141,6 +151,8 @@ grid-cell{
     -fx-font-weight: 600;
 }
 
+
+
 .mouvement{
     -fx-effect: dropshadow(gaussian, white, 20, 0.2, 0, 0);
     -fx-text-fill: white;
@@ -149,12 +161,13 @@ grid-cell{
 }
 
 .menu-bar{
-    -fx-background-color: #005B84;
+    -fx-background-color:  #005B84;
+    -fx-border-color:  #005B84;
     -fx-effect: dropshadow( gaussian , #005B84 , 25, 0.5 , 0 , 0 );
 }
 
 .menu{
-    -fx-background-color: #005B84;
+    -fx-background-color:  #005B84;
 }
 
 .menu-item{
@@ -217,6 +230,10 @@ grid-cell{
     -fx-background-color: transparent;
     -fx-text-fill: #005B84;
     -fx-font-weight: bold;
+}
+
+.victory {
+    background-color: rgba(0, 0, 10, .5);
 }
 
 .styleResultat {

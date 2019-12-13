@@ -1,33 +1,15 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 20 nov. 2019, 16:44:11
-    Author     : Sofia
-*/
+/* Style pour page de connexion & page de modification */
 
-
-
-/*
- * Empty Stylesheet file.
- */
-
-.fondconnexion{
+.fond{
     -fx-background-color:black;
 }
 
-
-
 .boutton{
     -fx-background-color: black;
-    -fx-border-color: orange;
-    
+    -fx-border-color: orange;   
     -fx-effect: dropshadow( gaussian , orange , 14, 0.2, 0 , 0);
     -fx-border-style: solid inside;
     -fx-border-width: 2.4;
-    
     -fx-font-family: "Arial Nova";
     -fx-effect: dropshadow(three-pass-box, orange, 12, 0.4, 0, 0);
     -fx-font-size: 14px;
@@ -36,36 +18,69 @@ and open the template in the editor.
     -fx-background-color: transparent;
     -fx-text-fill: orange;
     -fx-font-weight: bold;
-
-
 }
 
 .boutton:hover{
     -fx-background-color: black;
     -fx-border-color: white;
-
     -fx-border-radius: 1.5;
     -fx-background-insets: 0,1,2,0;
-
     -fx-effect: dropshadow( gaussian , white , 14, 0.2, 0 , 0);
-
-
     -fx-border-style: solid inside;
     -fx-border-width: 2.4;
-
     -fx-font-family: "Arial Nova";
-    -fx-effect: dropshadow(three-pass-box, orange, 14, 0.2, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, white, 14, 0.2, 0, 0);
     -fx-font-size: 14px;
     -fx-border-color:     white;
     -fx-border-width:  2 ;
     -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-
 }
 
 .annuler{
     -fx-alignement:left; 
+}
+
+.valider{
+    -fx-border-color: #66FF66;   
+    -fx-effect: dropshadow( gaussian , #66FF66, 14, 0.2, 0 , 0);
+    -fx-border-style: solid inside;
+    -fx-border-width: 2.4;
+    -fx-font-family: "Arial Nova";
+    -fx-effect: dropshadow(three-pass-box, #66FF66, 12, 0.4, 0, 0);
+    -fx-font-size: 14px;
+    -fx-border-color:     #66FF66;
+    -fx-border-width:  2 ;
+    -fx-background-color: transparent;
+    -fx-text-fill: #66FF66;
+    -fx-font-weight: bold;
+}
+.valider:hover{
+    -fx-border-color: white;   
+    -fx-effect: dropshadow( gaussian , white , 14, 0.2, 0 , 0);
+    -fx-text-fill: white;
+}
+
+.supprimer{
+    -fx-border-color: red;   
+    -fx-effect: dropshadow( gaussian , red , 14, 0.2, 0 , 0);
+    -fx-border-style: solid inside;
+    -fx-border-width: 2.4;
+    -fx-font-family: "Arial Nova";
+    -fx-effect: dropshadow(three-pass-box, red, 12, 0.4, 0, 0);
+    -fx-font-size: 14px;
+    -fx-border-color:     red;
+    -fx-border-width:  2 ;
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
+.supprimer:hover{
+    -fx-border-color: white;   
+    -fx-effect: dropshadow( gaussian , white , 14, 0.2, 0 , 0);
+    -fx-text-fill: white;
 }
 
 .champPseudo{
@@ -136,6 +151,15 @@ and open the template in the editor.
     -fx-font-weight: 600;
 }
 
+.texte{
+    -fx-padding: 10 20 10 20;
+    -fx-text-align: center;
+    -fx-font-size: 25px;
+    -fx-effect: dropshadow( gaussian, white, 14, 0.3, 0, 0);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+}
+
 .titre:hover{
     -fx-padding: 10 20 10 20;
     -fx-text-align: center;
@@ -143,4 +167,18 @@ and open the template in the editor.
     -fx-effect: dropshadow( gaussian, orange, 14, 0.2, 0, 0);
     -fx-text-fill: white;
     -fx-font-weight: 600;
+}
+
+.mooveEx{
+    -fx-effect: dropshadow(three-pass-box, #ccFF00, 14, 0.2, 0, 0);
+    -fx-text-fill:  #ccFF00;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
+}
+
+.pseudoEx{
+    -fx-effect: dropshadow(three-pass-box, #FF355E, 14, 0.2, 0, 0);
+    -fx-text-fill:   #FF355E;
+    -fx-font-size: 18px;
+    -fx-font-weight: 800;
 }

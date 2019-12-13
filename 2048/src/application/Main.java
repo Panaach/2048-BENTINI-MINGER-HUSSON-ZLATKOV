@@ -23,7 +23,7 @@ public class Main extends Application  {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLConnexion.fxml"));
 
         Scene scene = new Scene(root);
-        boolean add = scene.getStylesheets().add("css/default.css");
+        boolean add = scene.getStylesheets().add("css/autreClasses.css");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("Image/2048_logo.png")));
         stage.setTitle("2048 3D");
         stage.setScene(scene);

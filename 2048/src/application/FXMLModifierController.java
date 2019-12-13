@@ -9,9 +9,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -22,38 +25,86 @@ import javafx.stage.Stage;
 public class FXMLModifierController implements Initializable {
     BDD bdd = BDD.getInstance();
     
-    @FXML private TextField pseudo;
-    @FXML private TextField mail;
-    @FXML private PasswordField mdp1;
+  
+    
+   /* @FXML private PasswordField mdp1;
     @FXML private PasswordField mdp2;
-    @FXML private AnchorPane AnchorPane;
+    @FXML private AnchorPane AnchorPane;*/
+    
+      @FXML
+    private AnchorPane base;
+    @FXML 
+    private Pane fond;
+    @FXML
+    private TextField champPseudo;
+    @FXML
+    private PasswordField champMdp;
+    @FXML
+    private PasswordField champConfirmation;
+    @FXML
+    private TextField champMail;
+    @FXML
+    private Button modifier;
+    @FXML
+    private Button annuler;
+    @FXML
+    private Label titre;
+    @FXML
+    private Label pseudo;
+    @FXML
+    private Label mdp;
+    @FXML
+    private Label confirmation;
+    @FXML
+    private Label mail;
+    @FXML
+    private Label texte;
+    @FXML
+    private Button supprimer;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+          fond.getStyleClass().add("fond");
+        base.getStyleClass().add("fond");
+        titre.getStyleClass().add("titre");
+        modifier.getStyleClass().add("valider");
+        annuler.getStyleClass().add("boutton");
+        pseudo.getStyleClass().add("pseudo");
+        confirmation.getStyleClass().add("mdp");
+        mdp.getStyleClass().add("mdp");
+        pseudo.getStyleClass().add("pseudo");
+        mail.getStyleClass().add("pseudo");
+        champConfirmation.getStyleClass().add("champMdp");
+        champMail.getStyleClass().add("champPseudo");
+        champPseudo.getStyleClass().add("champPseudo");
+        champMdp.getStyleClass().add("champMdp");
+        texte.getStyleClass().add("texte");
+        supprimer.getStyleClass().add("supprimer");
         // TODO
     }    
 
     public void validation(){
-        if(pseudo.getText().equals("") && mdp1.getText().equals("") && mdp2.getText().equals("") && mail.getText().equals("")){
-            pseudo.setPromptText("Pseudo vide!");
-            mdp1.setPromptText("Mdp vide!");
-            mdp2.setPromptText("Mdp vide!");
-            mail.setPromptText("Mail vide!");
+        if(pseudo.getText().equals("") && champMdp.getText().equals("") && champConfirmation.getText().equals("") && mail.getText().equals("")){
+            champPseudo.setPromptText("Pseudo vide!");
+            champMdp.setPromptText("Mdp vide!");
+            champConfirmation.setPromptText("Mdp vide!");
+            champMail.setPromptText("Mail vide!");
             return;
         }
         
-        if((mdp1.getText().equals(mdp2.getText()))){
-            bdd.updateUser(pseudo.getText(),mdp1.getText(),mail.getText());
+        if((champMdp.getText().equals(champConfirmation.getText()))){
+            bdd.updateUser(pseudo.getText(),champMdp.getText(),mail.getText());
             
-            ((Stage)AnchorPane.getScene().getWindow()).close();
+            ((Stage)base.getScene().getWindow()).close();
         } else {
-            mdp2.setPromptText("Mdp différents");
+            champConfirmation.setPromptText("Mdp différents");
         }
     }
     
     public void annuler(){
-        ((Stage)AnchorPane.getScene().getWindow()).close();
+        ((Stage)base.getScene().getWindow()).close();
     }
 }
