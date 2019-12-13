@@ -33,12 +33,11 @@ import javafx.stage.Stage;
 public class FXMLConnexion implements Initializable {
 
     BDD bdd = BDD.getInstance();
-    
+
     /**
      * Initializes the controller class.
      */
-
-    @FXML 
+    @FXML
     private Pane fondconnexion;
     @FXML
     private TextField champPseudo;
@@ -56,51 +55,61 @@ public class FXMLConnexion implements Initializable {
     private Label pseudo;
     @FXML
     private Label mdp;
-    @FXML 
+    @FXML
     private AnchorPane AnchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-    }    
+    }
 
     @FXML
-    private void handleDragAction(MouseEvent event2) { 
+    private void handleDragAction(MouseEvent event2) {
 
     }
 
     public void connexion(MouseEvent event) {
         boolean empty = false;
-        if(champPseudo.getText().equals("")){
+        if (champPseudo.getText().equals("")) {
             champPseudo.setPromptText("Pseudo vide!");
             empty = true;
         }
-        
-        if(champMdp.getText().equals("")){
+
+        if (champMdp.getText().equals("")) {
             champMdp.setPromptText("Mdp vide!");
             empty = true;
         }
-        if(empty) return;
-        
-        bdd.signIn(champPseudo.getText(), champMdp.getText());
-        try {
-            System.out.println("Clic de souris sur le bouton connexion");
-            Parent loader = FXMLLoader.load(getClass().getResource("FXMLJeu.fxml"));
-
-            Scene scene = new Scene(loader);
-            boolean add = scene.getStylesheets().add("css/jeuNuit.css");
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLConnexion.class.getName()).log(Level.SEVERE, null, ex);
+        if (empty) {
+            return;
         }
-        
-        ((Stage)AnchorPane.getScene().getWindow()).close();
+
+        //Si la combinaison pseudo/mdp est bonne, on connecte l'utilisateur et on lance le jeu
+        //Sinon, les champs de texte indiquent que la combinaison est fausse
+        if (bdd.signIn(champPseudo.getText(), champMdp.getText())) {
+            try {
+                System.out.println("Clic de souris sur le bouton connexion");
+                Parent loader = FXMLLoader.load(getClass().getResource("FXMLJeu.fxml"));
+
+                Scene scene = new Scene(loader);
+                boolean add = scene.getStylesheets().add("css/jeuNuit.css");
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLConnexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ((Stage) AnchorPane.getScene().getWindow()).close();
+        } else {
+            champMdp.setText("");
+            champPseudo.setText("");
+            champMdp.setPromptText("Données incorrects");
+            champPseudo.setPromptText("Données incorrects");
+        }
     }
-    
+
     @FXML
     public void inscription(MouseEvent event) {
         try {
@@ -117,8 +126,8 @@ public class FXMLConnexion implements Initializable {
             Logger.getLogger(FXMLConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void annuler(){
-        ((Stage)AnchorPane.getScene().getWindow()).close();
+
+    public void annuler() {
+        ((Stage) AnchorPane.getScene().getWindow()).close();
     }
 }

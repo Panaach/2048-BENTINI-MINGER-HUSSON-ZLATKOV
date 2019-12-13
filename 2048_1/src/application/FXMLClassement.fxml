@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="623.0" prefWidth="1272.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="application.FXMLClassementController">
-    <stylesheets>
-        <URL value="@fxmlclassement.css" />
-    </stylesheets>
+<AnchorPane fx:id="base" prefHeight="623.0" prefWidth="1272.0" styleClass="fond" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLClassementController">
    <children>
-      <Pane prefHeight="623.0" prefWidth="1272.0">
+      <Pane fx:id="fond" prefHeight="623.0" prefWidth="1272.0" styleClass="fond">
          <children>
-            <Label layoutX="489.0" layoutY="123.0" text="2048" />
-            <Label layoutX="472.0" layoutY="225.0" text="Classement" />
-            <TreeTableView fx:id="tab" layoutX="289.0" layoutY="291.0" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TreeTableColumn prefWidth="75.0" text="Pseudos" />
-                <TreeTableColumn prefWidth="75.0" text="Nb de coup" />
-              </columns>
-            </TreeTableView>
+            <Label fx:id="titre" layoutX="513.0" layoutY="-11.0" styleClass="titre" text="2048" />
+            <Label fx:id="texte" layoutX="556.0" layoutY="124.0" styleClass="texte" text="Classement" />
+            <Label fx:id="pseudo" layoutX="460.0" layoutY="229.0" styleClass="pseudo" text="Pseudo" />
+            <Label fx:id="nbMoove" layoutX="643.0" layoutY="229.0" prefHeight="18.0" prefWidth="191.0" styleClass="pseudo" text="Nombre de Moves" />
+            <Label fx:id="pseudo1" layoutX="460.0" layoutY="291.0" styleClass="pseudoEx" text="Label" />
+            <Label fx:id="nbMoove1" layoutX="643.0" layoutY="291.0" styleClass="mooveEx" text="Label" />
+            <Label fx:id="pseudo2" layoutX="460.0" layoutY="351.0" styleClass="pseudoEx" text="Label" />
+            <Label fx:id="nbMoove2" layoutX="643.0" layoutY="351.0" styleClass="mooveEx" text="Label" />
+            <Label fx:id="pseudo3" layoutX="460.0" layoutY="409.0" styleClass="pseudoEx" text="Label" />
+            <Label fx:id="nbMoove3" layoutX="643.0" layoutY="409.0" styleClass="mooveEx" text="Label" />
+            <Label fx:id="un" layoutX="392.0" layoutY="291.0" styleClass="pseudo" text="1." />
+            <Label fx:id="deux" layoutX="392.0" layoutY="351.0" styleClass="pseudo" text="2." />
+            <Label fx:id="trois" layoutX="392.0" layoutY="409.0" styleClass="pseudo" text="3." />
          </children>
       </Pane>
    </children>

@@ -65,10 +65,12 @@ public class FXMLInscriptionController implements Initializable {
         
         if((mdp1.getText().equals(mdp2.getText()))){
             bdd.signUp(pseudo.getText(), mdp1.getText(), mail.getText());
-            
+            bdd.signIn(pseudo.getText(), mdp1.getText());
             ((Stage)AnchorPane.getScene().getWindow()).close();
         } else {
+            mdp2.setText("");
             mdp2.setPromptText("Mdp différents");
+            return;
         }
         
         try {

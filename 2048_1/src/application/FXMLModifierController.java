@@ -49,7 +49,8 @@ public class FXMLModifierController implements Initializable {
             
             ((Stage)AnchorPane.getScene().getWindow()).close();
         } else {
-            mdp2.setPromptText("Mdp différents");
+            mdp1.setText("");
+            mdp1.setPromptText("Mdp différents");
         }
     }
     
