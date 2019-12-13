@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="AnchorPane" id="mainFxmlClass" prefHeight="623.0" prefWidth="1272.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FXMLConnexion">
+    <stylesheets>
+        <URL value="@fxmldoc2.css" />
+    </stylesheets>
+   <children>
+      <Pane fx:id="fondconnexion" prefHeight="623.0" prefWidth="1272.0" styleClass="fondconnexion">
+         <children>
+            <Label fx:id="titre" layoutX="499.0" layoutY="40.0" prefHeight="166.0" prefWidth="276.0" styleClass="titre" stylesheets="@../css/connexionNuit.css" text="2048" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Nova" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="mdp" layoutX="388.0" layoutY="340.0" styleClass="mdp" text="Mot de passe" />
+            <Label fx:id="pseudo" layoutX="442.0" layoutY="264.0" styleClass="pseudo" text="Pseudo" />
+            <TextField fx:id="champPseudo" layoutX="536.0" layoutY="260.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Entrez votre pseudo" styleClass="champPseudo">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="champMdp" layoutX="536.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="200.0" promptText="Entrez votre mdp" styleClass="champMdp">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </PasswordField>
+            <Button fx:id="Connexion" layoutX="525.0" layoutY="414.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#connexion" onMouseDragged="#handleDragAction" prefHeight="35.0" prefWidth="111.0" styleClass="boutton" text="Connexion">
+               </Button>
+            <Button fx:id="inscription" cache="true" layoutX="525.0" layoutY="465.0" mnemonicParsing="false" onMouseClicked="#inscription" prefHeight="50.0" prefWidth="215.0" styleClass="boutton" text="S'inscrire">
+               </Button>
+            <Button fx:id="annuler" layoutX="648.0" layoutY="414.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#annuler" prefHeight="35.0" prefWidth="91.0" text="Annuler">
+               <styleClass>
+                  <String fx:value="annuler" />
+                  <String fx:value="boutton" />
+               </styleClass>
+            </Button>
+         </children></Pane>
+   </children>
+</AnchorPane>

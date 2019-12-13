@@ -5,6 +5,7 @@
  */
 package application;
 
+import Model.BDD;
 import Model.Utopie;
 import Model.CareTaker;
 import Model.Case;
@@ -34,10 +35,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -69,6 +74,9 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     // Pour le bouton revenir en arrière
     private Originator originator;
     private CareTaker careTaker;
+    
+    
+    BDD bdd = BDD.getInstance();
 
     /**
      * Initialisation de l'interface graphique, à l'ouverture du FXML
@@ -271,12 +279,29 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     @FXML
     private void cssJour() {
         fond.getStylesheets().clear();
-        fond.getStylesheets().add("css/jeu.css");
+        fond.getStylesheets().add("css/jeuJour.css");
     }
     @FXML
     private void cssNuit() {
         fond.getStylesheets().clear();
         fond.getStylesheets().add("css/jeuNuit.css");
+    }
+    
+    @FXML
+    private void updateAccount(){
+        try {
+            System.out.println("Clic de souris sur le bouton modif " + bdd.getID());
+            Parent loader = FXMLLoader.load(getClass().getResource("FXMLModifier.fxml"));
+
+            Scene scene = new Scene(loader);
+            boolean add = scene.getStylesheets().add("css/jeuNuit.css");
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLConnexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -501,7 +526,8 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
             lblResultat.setLayoutY(250);
             lblResultat.setOpacity(0.9);
             lblResultat.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("Image/victoire.gif"))));
-            this.fond.getChildren().add(lblResultat); 
+            this.fond.getChildren().add(lblResultat);
+            bdd.updateScore(OBJECTIF, true);
             return true;           
         } else if (inferieur.partieFinie() && milieu.partieFinie() && superieur.partieFinie() && cube.partieFinie()) {
             lblResultat = new Label();
@@ -510,6 +536,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
             lblResultat.setOpacity(0.9);
             lblResultat.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("Image/defaite.gif"))));
             this.fond.getChildren().add(lblResultat);
+            bdd.updateScore(1, true);
             return true;
         }
         return false;

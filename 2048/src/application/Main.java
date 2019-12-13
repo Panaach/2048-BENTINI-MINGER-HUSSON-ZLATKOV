@@ -20,7 +20,7 @@ public class Main extends Application  {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLJeu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLConnexion.fxml"));
 
         Scene scene = new Scene(root);
         boolean add = scene.getStylesheets().add("css/default.css");
