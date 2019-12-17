@@ -13,7 +13,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 
 /**
- *
+ * Cette classe gère les interactions avec la BDD
  * @author Nathan Minger
  */
 public class BDD {
@@ -41,10 +41,10 @@ public class BDD {
     
     /**
      * Inscription d'un nouvel utilisateur
-     * @param pseudo
-     * @param mdp
-     * @param mail
-     * @return 
+     * @param pseudo le nom que l'utilisateur voudra utiliser pour jouer 
+     * @param mdp le mot de passe pour pouvoir se connecter
+     * @param mail mail de l'utilisateur
+     * @return retourne un booléen pour savoir si l'inscription est valide ou pas 
      */
     public boolean signUp(String pseudo, String mdp, String mail){
         try{
@@ -66,9 +66,9 @@ public class BDD {
     
     /**
      * Connexion d'un utilisateur
-     * @param pseudo
-     * @param mdp
-     * @return 
+     * @param pseudo le pseudo permet de s'identifier lors de la connection
+     * @param mdp le mdp permet de s'identifier lors de la connection
+     * @return retourne un booléen qui nous dit si la connection est réussie ou non
      */
     public boolean signIn(String pseudo, String mdp){
         try{
@@ -117,7 +117,6 @@ public class BDD {
     
     /**
      * Supprime un joueur en fonction du pseudo (penser à faire vérifier le mdp)
-     * @param pseudo pseudo du joueur
      * @return TRUE si la manip SQL n'a pas généré d'erreur
      */
     public boolean deleteUser(){
@@ -139,7 +138,6 @@ public class BDD {
     
     /**
      * Met à jour le score du joueur après une partie
-     * @param pseudo pseudo du joueur
      * @param score score realisé pendant la partie
      * @param type type de score utilisé (TRUE: temps/ FALSE:nombre de coups)
      * @return TRUE si la manip SQL n'a pas généré d'erreur

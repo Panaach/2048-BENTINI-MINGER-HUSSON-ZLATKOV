@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package application;
+
 import Model.BDD;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,22 +19,21 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * Cette classe fait le lien entre la fenêtre de modification de compte et la base de données
  *
  * @author Sofia
  */
 public class FXMLModifierController implements Initializable {
+
     BDD bdd = BDD.getInstance();
-    
-  
-    
-   /* @FXML private PasswordField mdp1;
+
+    /* @FXML private PasswordField mdp1;
     @FXML private PasswordField mdp2;
     @FXML private AnchorPane AnchorPane;*/
     
-      @FXML
+    @FXML
     private AnchorPane base;
-    @FXML 
+    @FXML
     private Pane fond;
     @FXML
     private TextField champPseudo;
@@ -61,13 +61,14 @@ public class FXMLModifierController implements Initializable {
     private Label texte;
     @FXML
     private Button supprimer;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-          fond.getStyleClass().add("fond");
+
+        fond.getStyleClass().add("fond");
         base.getStyleClass().add("fond");
         titre.getStyleClass().add("titre");
         modifier.getStyleClass().add("valider");
@@ -84,34 +85,34 @@ public class FXMLModifierController implements Initializable {
         texte.getStyleClass().add("texte");
         supprimer.getStyleClass().add("supprimer");
         // TODO
-    }    
+    }
 
-    public void validation(){
-        if(champPseudo.getText().equals("") && champMdp.getText().equals("") && champConfirmation.getText().equals("") && champMail.getText().equals("")){
+    public void validation() {
+        if (champPseudo.getText().equals("") && champMdp.getText().equals("") && champConfirmation.getText().equals("") && champMail.getText().equals("")) {
             champPseudo.setPromptText("Pseudo vide!");
             champMdp.setPromptText("Mdp vide!");
             champConfirmation.setPromptText("Mdp vide!");
             champMail.setPromptText("Mail vide!");
             return;
         }
-        
-        if((champMdp.getText().equals(champConfirmation.getText()))){
-            bdd.updateUser(champPseudo.getText(),champMdp.getText(),champMail.getText());
-            
-            ((Stage)base.getScene().getWindow()).close();
+
+        if ((champMdp.getText().equals(champConfirmation.getText()))) {
+            bdd.updateUser(champPseudo.getText(), champMdp.getText(), champMail.getText());
+
+            ((Stage) base.getScene().getWindow()).close();
         } else {
             champConfirmation.setText("");
             champConfirmation.setPromptText("Mdp différents");
         }
     }
-    
-    public void annuler(){
-        ((Stage)base.getScene().getWindow()).close();
+
+    public void annuler() {
+        ((Stage) base.getScene().getWindow()).close();
     }
-    
-    public void suppr(){
+
+    public void suppr() {
         bdd.deleteUser();
-        ((Stage)base.getScene().getWindow()).close();
-        
+        ((Stage) base.getScene().getWindow()).close();
+
     }
 }

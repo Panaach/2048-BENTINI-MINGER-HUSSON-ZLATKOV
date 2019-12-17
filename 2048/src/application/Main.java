@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- *
+ * classe principale qui lance notre application via l'interface graphique
  * @author Panach
  */
 public class Main extends Application  {

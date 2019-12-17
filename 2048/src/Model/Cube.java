@@ -7,7 +7,10 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-
+/**
+ * Le cube est composé de 3 grilles
+ * @author Husso
+ */
 public enum Cube implements Parametres, Cloneable, java.io.Serializable{
     
     INSTANCE;
@@ -189,9 +192,9 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
      * <h3>Test de déplacement entre étages</h3>
      * Renvoie true s'il est possible de se déplacer entre les étages
      * 
-     * @param etageInf
-     * @param etageSup
-     * @return 
+     * @param etageInf prend en paramètre une grille d'un étage inferieur dans notre cube
+     * @param etageSup prend en paramètre une grille d'un étage supérieur dans notre cube
+     * @return retourne un booléen qui nous dit si le déplacement à pu être effectué ou non
      */
     public boolean testDeplacementEtage(Grille etageInf, Grille etageSup) {
         Case[][] l = this.convertHash(etageInf);
@@ -244,8 +247,8 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
      * Déplace les cases de chacunes des grilles en fonction de la direction
      * (fusion des étages ou mouvement HBDG)
      * 
-     * @param direction
-     * @return 
+     * @param direction prend en paramètre une direction
+     * @return retourne un booléen qui nous dit si le déplacement a pu être effectué ou non
      */
     public boolean deplacement(int direction) { 
         if (direction == SUPERIEUR || direction == INFERIEUR) {
@@ -278,9 +281,7 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
     }
     
     /**
-     * Renvoie un booléen vrai s'il n'est plus possible de faire un seul mouvement
-     * 
-     * @return 
+     * @return  Renvoie un booléen vrai s'il n'est plus possible de faire un seul mouvement 
      */
     public boolean partieFinie() {
         if (this.getMultiGrille()[0].getGrille().size() < TAILLE * TAILLE || 
@@ -297,9 +298,7 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
     }
     
     /**
-     * Renvoie la valeur maximale de toute les grilles
-     * 
-     * @return 
+     * @return Renvoie la valeur maximale de toute les grilles
      */
     public int valeurMax() {
         return Math.max(this.getMultiGrille()[0].getValeurMax(), 
@@ -325,8 +324,7 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
     }    
     
     /**
-     * Renvoie true si le cube est vide
-     * @return 
+     * @return Renvoie true si le cube est vide
      */
     public boolean isEmpty() {
         return multiGrille[0].getGrille().isEmpty() && 

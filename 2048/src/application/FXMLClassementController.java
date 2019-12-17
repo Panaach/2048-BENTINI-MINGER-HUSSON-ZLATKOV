@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 /**
- * FXML Controller class
+ * Cette classe fait le lien entre la fenêtre de classement et la base de donnée
  *
  * @author Sofia
  */

@@ -6,7 +6,7 @@
 package Model;
 
 /**
- *
+ * notre interface qui nous sert de sommaire, qui contient les constantes
  * @author Sylvain
  */
 public interface Parametres {

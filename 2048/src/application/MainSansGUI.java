@@ -3,20 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package application;
 
+import Model.Grille;
+import Model.Cube;
+import static Model.Parametres.BAS;
+import static Model.Parametres.DROITE;
+import static Model.Parametres.GAUCHE;
+import static Model.Parametres.HAUT;
+import static Model.Parametres.INFERIEUR;
+import static Model.Parametres.OBJECTIF;
+import static Model.Parametres.SUPERIEUR;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * notre classe principale lanceur du jeu
- * @author Sylvain
+ * classe principale qui permet de lancer le jeu sans l'interface graphique mais en interaction avec la console
+ * @author Husso
  */
-public class Main implements Parametres {
+public class MainSansGUI {
 
     /**
      * @param args the command line arguments
+     *
      */
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         
         Grille inferieur = new Grille(0);        
         Grille milieu = new Grille(1);        
@@ -75,5 +86,4 @@ public class Main implements Parametres {
         }
         cube.gameOver();
     }
-
 }

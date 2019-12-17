@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 /**
- *
+ * la grille est composé de case 
  * @author Sylvain
  */
 public class Grille implements Parametres, Cloneable, java.io.Serializable {
@@ -203,11 +203,13 @@ public class Grille implements Parametres, Cloneable, java.io.Serializable {
     }
     
     /**
+    * @param direction prend en paramètre la direction
     * Si direction = HAUT : retourne les 4 cases qui sont le plus en haut (une pour chaque colonne)
     * Si direction = DROITE : retourne les 4 cases qui sont le plus à droite (une pour chaque ligne)
     * Si direction = BAS : retourne les 4 cases qui sont le plus en bas (une pour chaque colonne)
     * Si direction = GAUCHE : retourne les 4 cases qui sont le plus à gauche (une pour chaque ligne)
     * Attention : le tableau retourné peut contenir des null si les lignes/colonnes sont vides
+    * @return Renvoi un tableau de case 
      */
     public Case[] getCasesExtremites(int direction) {
         Case[] result = new Case[TAILLE];

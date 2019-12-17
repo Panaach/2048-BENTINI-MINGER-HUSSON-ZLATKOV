@@ -26,8 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
+ * Cette classe fait le lien entre la fenêtre de connection et la base de donnée
  * @author Sofia
  */
 public class FXMLConnexion implements Initializable {

@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 /**
- *
+ * La classe qui définie ce qu'est une casse, l'entité la plus petite de notre jeu
  * @author Sylvain
  */
 public class Case implements Parametres, Cloneable, java.io.Serializable {
@@ -148,8 +148,15 @@ public class Case implements Parametres, Cloneable, java.io.Serializable {
         this.label = l;
     }
 
+    /**
+     * la méthode equals est utilisée lors de l'ajout d'une case à un ensemble 
+     * pour vérifier qu'il n'y a pas de doublons 
+     * (teste parmi tous les candidats qui ont le même hashcode)
+     * @param obj prend un objet en paramètre et regarde si c'est une casee
+     * @return retourne un booléen si l'objet prix en paramètre est égale à une case ou non
+     */
     @Override
-    public boolean equals(Object obj) { // la méthode equals est utilisée lors de l'ajout d'une case à un ensemble pour vérifier qu'il n'y a pas de doublons (teste parmi tous les candidats qui ont le même hashcode)
+    public boolean equals(Object obj) { // )
         if (obj instanceof Case) {
             Case c = (Case) obj;
             return (this.x == c.x && this.y == c.y);

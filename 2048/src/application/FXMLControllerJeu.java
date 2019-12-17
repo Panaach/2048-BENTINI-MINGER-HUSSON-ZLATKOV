@@ -44,8 +44,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 /**
- * FXML Controller class
- *
+ * Cette classe fait le lien entre notre package model et la vue
  * @author Panach
  */
 public class FXMLControllerJeu implements Initializable, Parametres, java.io.Serializable {
@@ -80,8 +79,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
 
     /**
      * Initialisation de l'interface graphique, à l'ouverture du FXML
-     * @param url
-     * @param rb 
+     
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -561,6 +559,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     
     /**
      * Méthode pour bouger visuellement les tuiles encore présentes sur le cube
+     * @param cube instance de la classe Cube pris en paramètre
      */
     protected void threadMouvement(Cube cube) {
         for (Grille grille : cube.getMultiGrille()) {
@@ -614,7 +613,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     
     /**
      * Supprime les tuiles qui ont fusionné
-     * @param fond 
+     * @param fond template de l'interface graphique
      */
     protected void threadMouvementCaseDead(Pane fond) {  
         for (Grille grille : this.cube.getMultiGrille()) {
