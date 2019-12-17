@@ -19,8 +19,8 @@
       <Pane fx:id="fond" onKeyPressed="#keyPressed" prefHeight="623.0" prefWidth="1272.0" styleClass="fond">
          <children>
             <Label fx:id="titre" layoutX="539.0" layoutY="7.0" prefHeight="156.0" prefWidth="209.0" styleClass="titre" text="2048" />
-            <Label fx:id="resultat" layoutX="835.0" layoutY="77.0" prefHeight="67.0" prefWidth="114.0" styleClass="mouvement" text="Moves :" />
-            <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="934.0" layoutY="87.0" prefHeight="48.0" prefWidth="101.0" styleClass="nbmouvement" text="0" textAlignment="CENTER" />
+            <Label fx:id="resultat" layoutX="835.0" layoutY="25.0" prefHeight="67.0" prefWidth="114.0" styleClass="mouvement" text="Moves :" />
+            <Label fx:id="score" alignment="CENTER" contentDisplay="CENTER" layoutX="937.0" layoutY="35.0" prefHeight="48.0" prefWidth="101.0" styleClass="nbmouvement" text="0" textAlignment="CENTER" />
             <Button fx:id="btnDroite" layoutX="293.0" layoutY="110.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="101.0" styleClass="boutton" text="DROITE" />
             <Button fx:id="btnGauche" layoutX="105.0" layoutY="110.0" onAction="#mouvement" prefHeight="31.0" prefWidth="101.0" styleClass="boutton" text="GAUCHE" />
             <Button fx:id="btnBas" layoutX="215.0" layoutY="110.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="31.0" prefWidth="69.0" styleClass="boutton" text="BAS" />
@@ -81,9 +81,9 @@
                         <MenuItem fx:id="charger" mnemonicParsing="false" onAction="#chargerPartie" text="Charger" />
                         <MenuItem fx:id="save" mnemonicParsing="false" onAction="#savePartie" text="Sauvegarder" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Quitter" />
+                        <MenuItem mnemonicParsing="false" onAction="#chargerClassement" text="Classement" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Classement" onAction="#chargerClassement"/>
+                        <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Quitter" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Mode">
@@ -99,18 +99,20 @@
                   </Menu>
                 <Menu mnemonicParsing="false" text="Compte">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Paramètre de compte" onAction="#updateAccount"/>
+                    <MenuItem mnemonicParsing="false" onAction="#updateAccount" text="Paramètre de compte" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Utopie" />
+                    <MenuItem mnemonicParsing="false" onAction="#playUtopie" text="Utopie" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
             <Button fx:id="retour" layoutX="1082.0" layoutY="94.0" mnemonicParsing="false" onAction="#moveBack" prefHeight="32.0" prefWidth="158.0" styleClass="boutton" text="Retour en arrière" />
             <Button fx:id="btnFusionSuperieur" layoutX="293.0" layoutY="74.0" mnemonicParsing="false" onAction="#mouvement" prefHeight="32.0" prefWidth="197.0" styleClass="boutton" text="FUSION SUPERIEUR" />
+            <Label fx:id="pointRes" layoutX="835.0" layoutY="111.0" prefHeight="67.0" prefWidth="114.0" styleClass="mouvement" text="Score :" />
+            <Label fx:id="point" alignment="CENTER" contentDisplay="CENTER" layoutX="937.0" layoutY="121.0" prefHeight="48.0" prefWidth="101.0" styleClass="nbmouvement" text="0" textAlignment="CENTER" />
          </children>
       </Pane>
     </children>

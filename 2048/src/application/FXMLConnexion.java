@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -108,6 +109,8 @@ public class FXMLConnexion implements Initializable {
                 Scene scene = new Scene(loader);
                 boolean add = scene.getStylesheets().add("css/jeuNuit.css");
                 Stage stage = new Stage();
+                stage.getIcons().add(new Image(getClass().getResourceAsStream("Image/2048_logo.png")));
+                stage.setTitle("2048 3D");
                 stage.setScene(scene);
                 stage.show();
 
@@ -133,6 +136,8 @@ public class FXMLConnexion implements Initializable {
             Scene scene = new Scene(loader);
             boolean add = scene.getStylesheets().add("css/autreClasses.css");
             Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("Image/2048_logo.png")));
+            stage.setTitle("2048 3D");
             stage.setScene(scene);
             stage.show();
 

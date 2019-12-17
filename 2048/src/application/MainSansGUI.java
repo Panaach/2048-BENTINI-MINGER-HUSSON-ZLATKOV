@@ -7,21 +7,14 @@ package application;
 
 import Model.Grille;
 import Model.Cube;
-import static Model.Parametres.BAS;
-import static Model.Parametres.DROITE;
-import static Model.Parametres.GAUCHE;
-import static Model.Parametres.HAUT;
-import static Model.Parametres.INFERIEUR;
-import static Model.Parametres.OBJECTIF;
-import static Model.Parametres.SUPERIEUR;
-import java.util.ArrayList;
+import Model.Parametres;
 import java.util.Scanner;
 
 /**
  * classe principale qui permet de lancer le jeu sans l'interface graphique mais en interaction avec la console
  * @author Husso
  */
-public class MainSansGUI {
+public class MainSansGUI implements Parametres {
 
     /**
      * @param args the command line arguments

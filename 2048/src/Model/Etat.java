@@ -12,7 +12,15 @@ package Model;
 public class Etat implements Parametres{
     private int mouvement;
     private Cube cube;
-
+    
+    public Etat(int mouvement, Cube cube) {
+        this.mouvement = mouvement;
+        this.cube = cube;
+    }
+    
+    public Etat(Cube cube) {
+        this.cube = cube;
+    }
     /**
      * @return the mouvement
      */
@@ -40,12 +48,6 @@ public class Etat implements Parametres{
     public void setCube(Cube cube) {
         this.cube = cube;
     }
-    
-    public Etat(int mouvement, Cube cube) {
-        this.mouvement = mouvement;
-        this.cube = cube;
-    }
-    
     public String mouvementEcrit(int val) {
         switch (val) {
             case HAUT:

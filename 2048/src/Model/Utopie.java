@@ -2,8 +2,6 @@ package Model;
 
 import application.FXMLControllerJeu;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.layout.Pane;
 
 /*
@@ -18,25 +16,45 @@ import javafx.scene.layout.Pane;
  */
 public class Utopie extends FXMLControllerJeu implements Parametres{ 
     
-    private Cube cube;
-    private ArrayList<Integer> tbRandom = new ArrayList<>();
+    private ArrayList<Integer> listeMouvement = new ArrayList<>();
+    private ArrayList<Etat> listeEtat = new ArrayList<>();
         
     public Utopie (Pane fond) {
         super();
-        this.cube = Cube.getInstance();
+        // initialise le tb de mouvement
+        this.listeMouvement.add(BAS);
+        this.listeMouvement.add(HAUT);
+        this.listeMouvement.add(DROITE);
+        this.listeMouvement.add(GAUCHE);
+        this.listeMouvement.add(SUPERIEUR);
+        this.listeMouvement.add(INFERIEUR);
+        // prend en premier l'instance du cube
+        this.listeEtat.add(new Etat(this.cube));
     }
     
     public void launchUtopie() {
         System.out.println("UTOPIE");
+        this.init(this.listeEtat, 0);
     }
     
-    public void initTb() {        
-        this.tbRandom.clear();
-        this.tbRandom.add(BAS);
-        this.tbRandom.add(HAUT);
-        this.tbRandom.add(DROITE);
-        this.tbRandom.add(GAUCHE);
-        this.tbRandom.add(SUPERIEUR);
-        this.tbRandom.add(INFERIEUR);
+    public void init(ArrayList<Etat> listeEtat, int compteur) {
+        Cube cube = listeEtat.get(0).getCube();
+        // clone
+        cube.init(new Grille[]{(Grille) cube.getMultiGrille()[0].clone(), (Grille) cube.getMultiGrille()[1].clone(), (Grille) cube.getMultiGrille()[2].clone()});
+        
+        for (int i = compteur; i < 5; i++) {
+            for (int j = 0; j < 6; j++) { // les 6 mouvements
+                boolean b = cube.deplacement(listeMouvement.get(j));
+                if (b) {
+                    Etat e = new Etat(listeMouvement.get(j), cube);
+                    listeEtat.add(e);
+                }
+                System.out.println(cube);
+            }
+            listeEtat.remove(0);
+            init(listeEtat, compteur +1);
+        }
+        
+        // comme le clonage ne fonctionne pas nous n'avons pas eu le temps d'écrire la suite
     }
 }

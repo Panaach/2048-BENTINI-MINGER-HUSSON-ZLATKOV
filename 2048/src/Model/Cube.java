@@ -16,6 +16,7 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
     INSTANCE;
     
     private Grille[] multiGrille;
+    private int score;
     
     /**
      * <h3>Singleton</h3>
@@ -51,6 +52,22 @@ public enum Cube implements Parametres, Cloneable, java.io.Serializable{
     public void setMultiGrille(Grille[] multiGrille) {
         this.multiGrille = multiGrille;
     }  
+
+    /**
+     * @return the score
+     */
+    public int getScore() {
+        return this.multiGrille[0].getScore() +
+                this.multiGrille[1].getScore() +
+                this.multiGrille[2].getScore();
+    }
+
+    /**
+     * @param score the score to set
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
     
     @Override
     public String toString() {

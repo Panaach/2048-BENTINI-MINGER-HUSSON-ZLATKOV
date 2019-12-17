@@ -57,6 +57,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
     @FXML private Button btnDroite;
     @FXML private Button btnFusionSuperieur;
     @FXML private Button btnFusionInferieur;
+    @FXML private Label point;
     
     private Label lblResultat;
     private boolean partieFini = false;
@@ -294,6 +295,8 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
             Scene scene = new Scene(loader);
             boolean add = scene.getStylesheets().add("css/autreClasses.css");
             Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("Image/2048_logo.png")));
+            stage.setTitle("2048 3D");
             stage.setScene(scene);
             stage.show();
 
@@ -311,6 +314,8 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
             Scene scene = new Scene(loader);
             boolean add = scene.getStylesheets().add("css/autreClasses.css");
             Stage stage = new Stage();
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("Image/2048_logo.png")));
+            stage.setTitle("2048 3D");
             stage.setScene(scene);
             stage.show();
 
@@ -456,6 +461,7 @@ public class FXMLControllerJeu implements Initializable, Parametres, java.io.Ser
                     this.positionTuile(c);
                 }
                 c.getLabel().setText(Integer.toString(c.getValeur()));
+                this.point.setText(Integer.toString(this.cube.getScore()));
                 switch (c.getValeur()) {
                     case 2:
                         c.getPane().getStyleClass().add("pane2");

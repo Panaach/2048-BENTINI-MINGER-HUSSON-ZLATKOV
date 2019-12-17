@@ -22,6 +22,7 @@ public class Grille implements Parametres, Cloneable, java.io.Serializable {
     private int numGrille;
     // Tableau nécessaire pour destruire et fusionner les tuiles
     private ArrayList<Case> casesDestroy = new ArrayList<>();
+    private int score = 0;
 
     public Grille() {
         this.grille = new HashSet<>();
@@ -62,6 +63,13 @@ public class Grille implements Parametres, Cloneable, java.io.Serializable {
      */
     public ArrayList<Case> getCasesDestroy() {
         return casesDestroy;
+    }
+
+    /**
+     * @return the score
+     */
+    public int getScore() {
+        return score;
     }
 
     public int getValeurMax() {
@@ -143,6 +151,7 @@ public class Grille implements Parametres, Cloneable, java.io.Serializable {
 
     private void fusion(Case c) {
         c.setValeur(c.getValeur() * 2);
+        this.score = this.score + c.getValeur();
         if (this.valeurMax < c.getValeur()) {
             this.valeurMax = c.getValeur();
         }
